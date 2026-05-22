@@ -1,0 +1,14 @@
+{
+  "name": "markstream-vue-slidev",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "slidev",
+    "build": "slidev build"
+  },
+  "devDependencies": {
+    "@slidev/cli": "52.15.2",
+    "@slidev/theme-default": "0.25.0",
+    "vue": "3.5.34"
+  }
+}
