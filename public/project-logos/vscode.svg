@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="VS Code extension">
+  <defs>
+    <linearGradient id="vscodeExt" x1="20" y1="18" x2="108" y2="110" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#22D3EE"/>
+      <stop offset="1" stop-color="#2563EB"/>
+    </linearGradient>
+  </defs>
+  <rect x="12" y="12" width="104" height="104" rx="24" fill="#07111f"/>
+  <path d="M82 25 39 60 20 46 12 54l18 18-18 18 8 8 19-14 43 35 22-10V35L82 25Z" fill="url(#vscodeExt)"/>
+  <path d="M82 45v38L55 64l27-19Z" fill="#E5E7EB" opacity=".86"/>
+</svg>

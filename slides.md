@@ -67,20 +67,77 @@ colorSchema: dark
 
 <div class="deck about-slide">
   <div class="section-head">
-    <p class="eyebrow">开源 / 前端 / AI UI</p>
+    <p class="eyebrow">About Simon</p>
     <h1>关于 <span class="gradient-text">Simon</span></h1>
   </div>
 
   <div class="about-grid">
-    <div class="avatar-orbit" v-motion :initial="{ opacity: 0, scale: 0.92 }" :enter="{ opacity: 1, scale: 1 }">
-      <div class="avatar-core">SH</div>
+    <div class="about-profile" v-motion :initial="{ opacity: 0, scale: 0.92 }" :enter="{ opacity: 1, scale: 1 }">
+      <div class="avatar-orbit">
+        <img class="github-avatar" src="./public/simon-avatar.png" alt="Simon He GitHub avatar">
+      </div>
+      <div class="profile-meta">
+        <strong>Simon He</strong>
+        <span>Simon-He95 · Shanghai</span>
+      </div>
     </div>
     <div class="about-copy">
-      <p v-click><strong>Simon He / Simon-He95</strong></p>
-      <p v-click>前端开源作者</p>
-      <p v-click>关注 Vue、AI UI、Streaming Rendering、组件化基础设施</p>
-      <p v-click>markstream-vue / markstream-core / streaming renderer ecosystem</p>
+      <p v-click><strong>前端爱好者 / OSS contributor</strong></p>
+      <p v-click>关注 Vue、DX、AI UI、Streaming Rendering、VS Code 插件</p>
+      <div class="project-line" v-click>
+        <span class="role-label">Maintainer</span>
+        <span class="project-chip"><img src="./public/project-logos/unocss.png" alt="">UnoCSS</span>
+        <span class="project-chip"><img src="./public/project-logos/deepchat.png" alt="">DeepChat</span>
+        <span class="project-chip"><img src="./public/project-logos/vue-vine.png" alt="">Vue Vine</span>
+      </div>
+      <div class="project-line" v-click>
+        <span class="role-label">Author</span>
+        <span class="project-chip"><img src="./public/markstream-logo.svg" alt="">markstream-vue</span>
+        <span class="project-chip"><img src="./public/project-logos/vscode-use.png" alt="">vscode-use</span>
+        <span class="project-chip"><img src="./public/project-logos/awesome-compressor.png" alt="">awesome-compressor</span>
+      </div>
+      <div class="project-line vscode-plugins" v-click>
+        <span class="role-label">VS Code</span>
+        <span class="project-chip"><img src="./public/project-logos/vscode.svg" alt="">Common Intellisense</span>
+        <span class="project-chip"><img src="./public/project-logos/vscode.svg" alt="">UnoT</span>
+        <span class="project-chip"><img src="./public/project-logos/vscode.svg" alt="">Tailwind Magic</span>
+        <span class="project-chip"><img src="./public/project-logos/vscode.svg" alt="">To Tailwind</span>
+        <span class="project-chip"><img src="./public/project-logos/vscode.svg" alt="">Alias Jump</span>
+      </div>
+      <div class="project-line compact" v-click>
+        <span class="role-label">PRs</span>
+        <span class="project-chip ghost"><img src="./public/project-logos/vite.png" alt="">Vite</span>
+        <span class="project-chip ghost"><img src="./public/project-logos/element-plus.png" alt="">Element Plus</span>
+        <span class="project-chip ghost"><img src="./public/project-logos/tdesign.png" alt="">TDesign Vue Next</span>
+      </div>
     </div>
+  </div>
+
+  <div class="social-strip">
+    <a href="https://github.com/Simon-He95" class="social-pill">
+      <img src="./public/social-icons/github.svg" alt="">
+      <span>Simon-He95</span>
+    </a>
+    <a href="https://simonhe.me" class="social-pill">
+      <span class="social-symbol">↗</span>
+      <span>simonhe.me</span>
+    </a>
+    <a href="https://twitter.com/simon_he1995" class="social-pill">
+      <img src="./public/social-icons/x.svg" alt="">
+      <span>@simon_he1995</span>
+    </a>
+    <a href="https://space.bilibili.com/413596956" class="social-pill">
+      <img src="./public/social-icons/bilibili.svg" alt="">
+      <span>413596956</span>
+    </a>
+    <a href="https://discord.gg/ZnjxzMKWNW" class="social-pill">
+      <img src="./public/social-icons/discord.svg" alt="">
+      <span>Discord</span>
+    </a>
+  </div>
+
+  <div class="repo-line">
+    GitHub 上有 623 个 public repositories · VS Code Marketplace 63 个 extensions
   </div>
 
   <div class="memory-line" v-click>

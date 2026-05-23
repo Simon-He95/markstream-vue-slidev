@@ -333,47 +333,184 @@ h2 {
 
 .about-grid {
   display: grid;
-  grid-template-columns: 310px 1fr;
+  grid-template-columns: 220px 1fr;
   align-items: center;
-  gap: 58px;
+  gap: 34px;
+}
+
+.about-slide .section-head {
+  margin-bottom: 24px;
+}
+
+.about-profile {
+  display: grid;
+  gap: 10px;
+  justify-items: center;
 }
 
 .avatar-orbit {
   display: grid;
   place-items: center;
-  width: 240px;
-  height: 240px;
+  width: 164px;
+  height: 164px;
   border: 1px solid rgba(34, 211, 238, 0.28);
   border-radius: 50%;
   box-shadow: 0 0 80px rgba(34, 211, 238, 0.12);
 }
 
-.avatar-core {
-  display: grid;
-  place-items: center;
-  width: 142px;
-  height: 142px;
+.github-avatar {
+  width: 118px;
+  height: 118px;
   border-radius: 50%;
-  background: linear-gradient(135deg, rgba(34, 211, 238, 0.24), rgba(124, 58, 237, 0.32));
-  color: #fff;
-  font-size: 48px;
-  font-weight: 850;
+  object-fit: cover;
+  border: 1px solid rgba(229, 231, 235, 0.2);
+  box-shadow: 0 16px 44px rgba(34, 211, 238, 0.18);
+}
+
+.profile-meta {
+  display: grid;
+  gap: 4px;
+  text-align: center;
+}
+
+.profile-meta strong {
+  color: var(--text);
+  font-size: 22px;
+  line-height: 1.15;
+}
+
+.profile-meta span {
+  color: var(--muted);
+  font-size: 13px;
 }
 
 .about-copy p {
-  margin: 0 0 18px;
+  margin: 0 0 8px;
   color: var(--muted);
-  font-size: 27px;
+  font-size: 20px;
   line-height: 1.34;
 }
 
 .about-copy strong {
   color: var(--text);
+  font-size: 24px;
+}
+
+.project-line {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 7px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+.role-label {
+  width: 78px;
+  color: rgba(148, 163, 184, 0.82);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.project-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 28px;
+  padding: 4px 10px 4px 7px;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.62);
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.project-chip.ghost {
+  color: rgba(229, 231, 235, 0.84);
+  background: rgba(15, 23, 42, 0.42);
+}
+
+.project-chip img {
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  object-fit: cover;
+}
+
+.vscode-plugins .project-chip {
+  min-height: 26px;
+  padding: 3px 8px 3px 6px;
+  font-size: 12px;
+}
+
+.vscode-plugins .project-chip img {
+  width: 16px;
+  height: 16px;
+}
+
+.social-strip {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.social-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-width: 0;
+  padding: 8px 10px;
+  border: 1px solid rgba(148, 163, 184, 0.18) !important;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.56);
+  color: var(--text);
+  font-size: 12px;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none !important;
+  outline: none;
+}
+
+.social-pill img,
+.social-symbol {
+  flex: 0 0 auto;
+  width: 15px;
+  height: 15px;
+}
+
+.social-symbol {
+  display: inline-grid;
+  place-items: center;
+  border: 1px solid rgba(34, 211, 238, 0.32);
+  border-radius: 50%;
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.social-pill span:last-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.repo-line {
+  margin-top: 7px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.35;
+  text-align: center;
 }
 
 .about-slide .memory-line {
-  bottom: -4px;
-  font-size: 20px;
+  bottom: -8px;
+  font-size: 18px;
   line-height: 1.32;
 }
 
