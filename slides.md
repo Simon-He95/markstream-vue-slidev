@@ -362,7 +362,7 @@ colorSchema: dark
   </div>
 
   <div class="perf-method" v-click>
-    Playwright + Chrome CDP · streamdown@2.5.0 / markstream-vue@1.0.1-beta.1 · 119 chunks · final 后等待 1200ms
+    Playwright + Chrome CDP · streamdown@2.5.0 core API（未启用 optional plugins）/ markstream-vue@1.0.1-beta.1 · 119 chunks
   </div>
 
   <div class="trace-metrics" v-click>
