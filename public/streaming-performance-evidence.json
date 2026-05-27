@@ -1,0 +1,42 @@
+{
+  "generatedAt": "2026-05-27T08:56:10.018Z",
+  "source": "/tmp/markstream-streaming-evidence",
+  "results": [
+    {
+      "renderer": "streamdown",
+      "chunks": 119,
+      "totalMs": 2192.5,
+      "p95UpdateMs": 9.299999952316284,
+      "maxUpdateMs": 22.799999952316284,
+      "avgUpdateMs": 8.103361340130077,
+      "longTaskCount": 0,
+      "longTaskTotalMs": 0,
+      "mutationCount": 242,
+      "domNodes": 263,
+      "heightJumps": 2,
+      "taskDurationMs": 607.351,
+      "scriptDurationMs": 481.337,
+      "layoutDurationMs": 49.834,
+      "recalcStyleDurationMs": 5.401999999999999,
+      "jsHeapUsedMB": 17.464801788330078
+    },
+    {
+      "renderer": "markstream",
+      "chunks": 119,
+      "totalMs": 2178.2999999523163,
+      "p95UpdateMs": 9.5,
+      "maxUpdateMs": 21.90000009536743,
+      "avgUpdateMs": 8.09999999879789,
+      "longTaskCount": 0,
+      "longTaskTotalMs": 0,
+      "mutationCount": 19,
+      "domNodes": 113,
+      "heightJumps": 1,
+      "taskDurationMs": 160.25,
+      "scriptDurationMs": 12.467000000000006,
+      "layoutDurationMs": 12.131999999999996,
+      "recalcStyleDurationMs": 1.308,
+      "jsHeapUsedMB": 18.657459259033203
+    }
+  ]
+}
