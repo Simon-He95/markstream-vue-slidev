@@ -805,7 +805,19 @@ colorSchema: dark
 <div class="deck adoption-slide">
   <div class="section-head">
     <p class="eyebrow">Public Adoption Signals</p>
-    <h1>公开代码搜索里，已经能看到真实项目在接入。</h1>
+    <h1>不是 demo：真实开源项目正在接入。</h1>
+  </div>
+
+  <div class="adoption-stats" v-click>
+    <div>
+      <b>91+</b>
+      <span>外部 public repos</span>
+    </div>
+    <div>
+      <b>117</b>
+      <span>package.json hits</span>
+    </div>
+    <p>保守口径：只统计 package.json 中声明了 <code>markstream-vue</code> 的公开仓库，排除 Simon-He95/*。</p>
   </div>
 
   <div class="adoption-grid">
@@ -815,8 +827,13 @@ colorSchema: dark
       <small>AI agent assistant / IM platforms</small>
     </div>
     <div class="adoption-card" v-click>
+      <b>mcp-chrome</b>
+      <span>11.7k stars</span>
+      <small>Chrome extension based MCP server</small>
+    </div>
+    <div class="adoption-card" v-click>
       <b>HuLa</b>
-      <span>7.3k stars</span>
+      <span>7.4k stars</span>
       <small>Rust + Vue3 cross-platform IM</small>
     </div>
     <div class="adoption-card" v-click>
@@ -834,15 +851,10 @@ colorSchema: dark
       <span>1.8k stars</span>
       <small>self-hosted AI agent platform</small>
     </div>
-    <div class="adoption-card" v-click>
-      <b>RuoYi-Vue3-FastAPI</b>
-      <span>1.4k stars</span>
-      <small>Vue3 + FastAPI admin framework</small>
-    </div>
   </div>
 
   <div class="source-note" v-click>
-    GitHub repo/package 文件与 Marketplace API，2026-05-27；这里只作为 adoption signal，星标与依赖版本会变化。
+    GitHub code search: "markstream-vue" filename:package.json，2026-05-27；这是 adoption signal，不等于生产流量，星标与依赖版本会变化。
   </div>
 </div>
 
