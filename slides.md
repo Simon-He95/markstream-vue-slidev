@@ -137,7 +137,7 @@ colorSchema: dark
   </div>
 
   <div class="repo-line">
-    GitHub 上有 623 个 public repositories · VS Code Marketplace 63 个 extensions
+    GitHub 上有 628 个 public repositories · VS Code Marketplace 多个 extensions
   </div>
 
   <div class="memory-line" v-click>
@@ -362,7 +362,7 @@ colorSchema: dark
   </div>
 
   <div class="perf-method" v-click>
-    Playwright + Chrome CDP · streamdown@2.5.0 core API（未启用 optional plugins）/ markstream-vue@1.0.1-beta.1 · 119 chunks
+    Playwright + Chrome CDP · 2026-05-27 run · streamdown@2.5.0 core API（未启用 optional plugins）/ markstream-vue@1.0.1-beta.1 · 119 chunks
   </div>
 
   <div class="trace-metrics" v-click>
@@ -378,7 +378,7 @@ colorSchema: dark
 <div class="deck parser-foundation-slide">
   <div class="section-head">
     <p class="eyebrow">Parser Foundation</p>
-    <h1>很多 Markdown renderer 的成本，先输在 parser 管线。</h1>
+    <h1>很多 AST-first Markdown renderer 的成本，先输在 parser 管线。</h1>
   </div>
 
   <div class="parser-route">
@@ -390,7 +390,7 @@ colorSchema: dark
     <div class="parser-card token" v-click>
       <span class="mini-label">markstream-vue</span>
       <b>Markdown → markdown-it-ts Token → streaming nodes</b>
-      <p>基于规则/正则驱动的 token parser，直接进入适合 Vue 渲染的节点结构，减少中间步骤。</p>
+      <p>基于 markdown-it 兼容的 ruler / token parser，直接进入适合 Vue 渲染的节点结构，减少中间步骤。</p>
     </div>
   </div>
 
@@ -413,7 +413,7 @@ colorSchema: dark
   </div>
 
   <div class="source-note" v-click>
-    数据来自 markdown-it-ts README synthetic harness；重点不是所有场景都 50×，而是流式 append 这类场景有数量级优势。
+    数据来自 markdown-it-ts@1.0.0 README synthetic paragraph-heavy / append-heavy harness；不是所有 workload 都 50×。
   </div>
 </div>
 
@@ -757,7 +757,7 @@ colorSchema: dark
     <thead>
       <tr>
         <th>维度</th>
-        <th v-click>streamdown / common AI renderer</th>
+        <th v-click>streamdown core config / common AI renderer</th>
         <th v-click>markstream-vue</th>
       </tr>
     </thead>
@@ -769,17 +769,17 @@ colorSchema: dark
       </tr>
       <tr v-click>
         <td>Code 更新</td>
-        <td>代码块随 chunk 频繁整体更新时，selection / 局部滚动容易被打断</td>
+        <td>整块 code 随 chunk 重算/替换时，selection / 局部滚动容易被打断</td>
         <td>面向 live block 控制更新节奏，final 后稳定落地</td>
       </tr>
       <tr v-click>
         <td>中间态</td>
-        <td>未闭合 Markdown 每次重算，代码块、表格、图表容易闪烁和跳高</td>
+        <td>未闭合 Markdown 如果反复替换临时结构，代码块、表格、图表容易闪烁和跳高</td>
         <td>final=false 处理临时结构，减少中间态 DOM 抖动</td>
       </tr>
       <tr v-click>
         <td>重型节点</td>
-        <td>Mermaid / KaTeX / 高亮随流式内容反复进入渲染链路</td>
+        <td>如果 Mermaid / KaTeX / 高亮随每个 chunk 进入主线程，token 节奏会被抢占</td>
         <td>heavy block 渐进渲染，避免打断 token 输出</td>
       </tr>
       <tr v-click>
@@ -789,14 +789,14 @@ colorSchema: dark
       </tr>
       <tr v-click>
         <td>CPU</td>
-        <td>实测样例里 parse / render / highlight 主线程开销更高，CPU spike 更明显</td>
+        <td>当前 core-config E2E 样例里，parse / render / highlight 主线程开销更高</td>
         <td>更少 DOM 更新 + 渐进 heavy block，CPU footprint 更低</td>
       </tr>
     </tbody>
   </table>
 
   <div class="memory-line" v-click>
-    streamdown 是需求信号；markstream-vue 补上 Vue 侧稳定交互、低 CPU 和组件化。
+    streamdown 证明需求成立；markstream-vue 选择在 Vue 侧把稳定交互、低 CPU 和组件化做成默认路径。
   </div>
 </div>
 
@@ -810,11 +810,11 @@ colorSchema: dark
 
   <div class="adoption-stats" v-click>
     <div>
-      <b>91+</b>
+      <b>92+</b>
       <span>外部 public repos</span>
     </div>
     <div>
-      <b>117</b>
+      <b>109</b>
       <span>package.json hits</span>
     </div>
     <p>保守口径：只统计 package.json 中声明了 <code>markstream-vue</code> 的公开仓库，排除 Simon-He95/*。</p>
@@ -823,12 +823,12 @@ colorSchema: dark
   <div class="adoption-grid">
     <div class="adoption-card" v-click>
       <b>AstrBot</b>
-      <span>33.2k stars</span>
+      <span>33.5k stars</span>
       <small>AI agent assistant / IM platforms</small>
     </div>
     <div class="adoption-card" v-click>
       <b>mcp-chrome</b>
-      <span>11.7k stars</span>
+      <span>11.8k stars</span>
       <small>Chrome extension based MCP server</small>
     </div>
     <div class="adoption-card" v-click>
@@ -838,7 +838,7 @@ colorSchema: dark
     </div>
     <div class="adoption-card" v-click>
       <b>DeepChat</b>
-      <span>5.8k stars</span>
+      <span>5.9k stars</span>
       <small>AI assistant desktop app</small>
     </div>
     <div class="adoption-card" v-click>
@@ -854,7 +854,7 @@ colorSchema: dark
   </div>
 
   <div class="source-note" v-click>
-    GitHub code search: "markstream-vue" filename:package.json，2026-05-27；这是 adoption signal，不等于生产流量，星标与依赖版本会变化。
+    GitHub code search: "markstream-vue" filename:package.json，2026-05-31；这是 adoption signal，不等于生产流量，星标与依赖版本会变化。
   </div>
 </div>
 
@@ -868,8 +868,8 @@ colorSchema: dark
 
   <div class="prod-checklist">
     <div class="prod-row" v-click>
-      <b>默认安全 HTML</b>
-      <code>html-policy="safe"</code>
+      <b>HTML policy 可控</b>
+      <code>html-policy="safe" / "escape"</code>
     </div>
     <div class="prod-row" v-click>
       <b>SSR ready</b>
@@ -886,7 +886,7 @@ colorSchema: dark
   </div>
 
   <div class="memory-line" v-click>
-    基础 renderer 保持轻；业务组件和重型依赖都按需求接入。
+    基础 renderer 保持轻；不可信 HTML 用 escape，业务组件和重型依赖都按需求接入。
   </div>
 </div>
 
