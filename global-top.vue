@@ -4,6 +4,8 @@ import { computed, nextTick, onBeforeUnmount, onMounted, reactive, ref, watch } 
 
 const nav = useNav()
 const visible = ref(false)
+const storedAboutFrame = JSON.parse(sessionStorage.getItem('markstreamLogoAboutFrame') || 'null')
+const aboutFrame = ref(storedAboutFrame)
 const frame = reactive({
   left: 0,
   top: 0,
@@ -16,17 +18,30 @@ const frame = reactive({
 
 let settleTimer
 
-const logoStyle = computed(() => ({
-  left: `${frame.left}px`,
-  top: `${frame.top}px`,
-  width: `${frame.width}px`,
-  height: `${frame.height}px`,
-  opacity: frame.opacity,
-  boxShadow: frame.shadow ? '0 18px 34px rgba(0, 0, 0, 0.24)' : 'none',
-  transition: frame.transition
-    ? 'left 900ms ease, top 900ms ease, width 900ms ease, height 900ms ease, opacity 900ms ease, box-shadow 900ms ease'
-    : 'none',
-}))
+const logoStyle = computed(() => {
+  const returnFrame = aboutFrame.value || frame
+  return {
+    '--return-dx': `${returnFrame.left - frame.left}px`,
+    '--return-dy': `${returnFrame.top - frame.top}px`,
+    '--return-scale-x': `${returnFrame.width / frame.width}`,
+    '--return-scale-y': `${returnFrame.height / frame.height}`,
+    left: `${frame.left}px`,
+    top: `${frame.top}px`,
+    width: `${frame.width}px`,
+    height: `${frame.height}px`,
+    opacity: frame.opacity,
+    boxShadow: frame.shadow ? '0 18px 34px rgba(0, 0, 0, 0.24)' : 'none',
+    transition: frame.transition
+      ? 'left 900ms ease, top 900ms ease, width 900ms ease, height 900ms ease, opacity 900ms ease, box-shadow 900ms ease'
+      : 'none',
+  }
+})
+
+const isReturningLogo = computed(() => {
+  return nav.currentSlideNo.value === 1
+    && nav.clicksDirection.value < 0
+    && !!aboutFrame.value
+})
 
 function readRect(selector) {
   const element = document.querySelector(selector)
@@ -45,6 +60,11 @@ function readRect(selector) {
   }
 }
 
+function rememberAboutFrame(rect) {
+  aboutFrame.value = rect
+  sessionStorage.setItem('markstreamLogoAboutFrame', JSON.stringify(rect))
+}
+
 function setFrame(rect, options, transition) {
   frame.transition = transition
   frame.left = rect.left
@@ -55,13 +75,13 @@ function setFrame(rect, options, transition) {
   frame.shadow = options.shadow
 }
 
-function syncCover() {
+function syncCover(transition = false) {
   const rect = readRect('.cover-logo')
   if (!rect)
     return false
 
   visible.value = true
-  setFrame(rect, { opacity: 1, shadow: true }, false)
+  setFrame(rect, { opacity: 1, shadow: true }, transition)
   return true
 }
 
@@ -71,6 +91,7 @@ function syncAbout(transition) {
     return false
 
   visible.value = true
+  rememberAboutFrame(rect)
   setFrame(rect, { opacity: 0.46, shadow: false }, transition)
   return true
 }
@@ -101,7 +122,7 @@ watch(
     await new Promise(resolve => requestAnimationFrame(resolve))
 
     if (page === 1) {
-      syncCover()
+      syncCover(previousPage === 2 || nav.clicksDirection.value < 0)
       syncCoverAfterMotion()
       return
     }
@@ -146,6 +167,7 @@ onBeforeUnmount(() => {
     <img
       v-show="visible"
       class="shared-logo-flight"
+      :class="{ 'is-returning-logo': isReturningLogo }"
       src="/markstream-logo.svg"
       alt=""
       aria-hidden="true"
@@ -161,5 +183,23 @@ onBeforeUnmount(() => {
   border-radius: 8px;
   object-fit: contain;
   pointer-events: none;
+  transform-origin: top left;
+}
+
+.shared-logo-flight.is-returning-logo {
+  animation: shared-logo-return 900ms ease both;
+  will-change: transform, opacity, box-shadow;
+}
+
+@keyframes shared-logo-return {
+  from {
+    transform: translate(var(--return-dx), var(--return-dy)) scale(var(--return-scale-x), var(--return-scale-y));
+    opacity: 0.46;
+    box-shadow: none;
+  }
+
+  to {
+    transform: translate(0, 0) scale(1);
+  }
 }
 </style>
