@@ -31,7 +31,7 @@ colorSchema: dark
     <img class="cover-logo" src="./public/markstream-logo.svg" alt="markstream-vue logo">
     <p class="eyebrow">Vue 3 AI Output UI Layer</p>
     <h1 class="hero-title">
-      markstream-<span class="gradient-text" v-mark.underline="{ at: 1, color: '#22D3EE' }">vue</span>
+      markstream-<span class="gradient-text" v-mark.underline="{ at: 1, color: '#569CD6' }">vue</span>
     </h1>
     <p
       class="hero-subtitle"
@@ -635,7 +635,7 @@ colorSchema: dark
 <div class="deck components-slide">
   <div class="section-head">
     <p class="eyebrow">记忆点 01</p>
-    <h1>让 AI 输出渲染成 <span v-mark.box="{ at: 4, color: '#22D3EE' }">真实 Vue 组件</span>。</h1>
+    <h1>让 AI 输出渲染成 <span v-mark.box="{ at: 4, color: '#569CD6' }">真实 Vue 组件</span>。</h1>
   </div>
 
   <div class="component-map">

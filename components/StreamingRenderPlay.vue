@@ -1,7 +1,71 @@
 <script setup>
-import { computed, nextTick, onUnmounted, ref, watch } from "vue";
-import MarkdownRender from "markstream-vue";
+import { computed, defineComponent, h, nextTick, onUnmounted, ref, watch } from "vue";
+import MarkdownRender, { removeCustomComponents, setCustomComponents } from "markstream-vue";
 import "markstream-vue/index.css";
+
+const streamPlayId = "stream-play";
+
+const tokenPattern = /\/\/.*|["'`][^"'`]*["'`]?|\b(?:const|let|var|import|from|await|return|if|else|function|new|class|extends|type|interface|as)\b|\b(?:true|false|null|undefined)\b|\b\d+(?:\.\d+)?\b|[{}()[\].,;:=+\-*/<>]+/g;
+const keywordPattern = /^(const|let|var|import|from|await|return|if|else|function|new|class|extends|type|interface|as)$/;
+const constantPattern = /^(true|false|null|undefined|\d+(?:\.\d+)?)$/;
+
+function tokenClass(token) {
+  if (token.startsWith("//"))
+    return "comment";
+  if (/^["'`]/.test(token))
+    return "string";
+  if (keywordPattern.test(token))
+    return "keyword";
+  if (constantPattern.test(token))
+    return "constant";
+  if (/^[{}()[\].,;:=+\-*/<>]+$/.test(token))
+    return "operator";
+  return "";
+}
+
+function renderCodeLine(line, lang, lineIndex) {
+  if (lang === "diff" && /^[+-]/.test(line)) {
+    return h("span", {
+      class: ["monaco-line", line.startsWith("+") ? "insert" : "delete"],
+      key: lineIndex,
+    }, line);
+  }
+
+  const children = [];
+  let cursor = 0;
+  line.replace(tokenPattern, (token, offset) => {
+    if (offset > cursor)
+      children.push(line.slice(cursor, offset));
+    const klass = tokenClass(token);
+    children.push(klass ? h("span", { class: ["monaco-token", klass] }, token) : token);
+    cursor = offset + token.length;
+    return token;
+  });
+  if (cursor < line.length)
+    children.push(line.slice(cursor));
+  return h("span", { class: "monaco-line", key: lineIndex }, children);
+}
+
+const MonacoCodeBlock = defineComponent({
+  name: "MonacoCodeBlock",
+  props: {
+    node: {
+      type: Object,
+      required: true,
+    },
+  },
+  setup(props) {
+    return () => {
+      const lang = String(props.node.language || "");
+      const lines = String(props.node.code || "").split("\n");
+      return h("pre", { class: ["monaco-code-block", lang && `language-${lang}`] }, [
+        h("code", lines.map((line, index) => renderCodeLine(line, lang, index))),
+      ]);
+    };
+  },
+});
+
+setCustomComponents(streamPlayId, { code_block: MonacoCodeBlock });
 
 const chunks = [
   "解释 debounce 的核心思路。\n\n",
@@ -110,6 +174,7 @@ function reset() {
 onUnmounted(() => {
   window.clearInterval(timer);
   window.clearInterval(scrollTimer);
+  removeCustomComponents(streamPlayId);
 });
 </script>
 
@@ -172,7 +237,7 @@ onUnmounted(() => {
         </header>
         <div ref="rightHost" class="render-host actual-render">
           <MarkdownRender
-            custom-id="stream-play"
+            :custom-id="streamPlayId"
             :content="content"
             :final="isFinal"
             :is-dark="true"
@@ -208,36 +273,36 @@ onUnmounted(() => {
   align-items: center;
   gap: 10px;
   padding: 9px 12px;
-  border: 1px solid rgba(34, 211, 238, 0.22);
-  border-radius: 14px;
-  background: rgba(15, 23, 42, 0.56);
+  border: 1px solid rgba(86, 156, 214, 0.22);
+  border-radius: 8px;
+  background: rgba(37, 37, 38, 0.72);
 }
 
 button {
   height: 32px;
   border: 0;
-  border-radius: 999px;
+  border-radius: 4px;
   padding: 0 16px;
-  color: #e5e7eb;
+  color: #D4D4D4;
   font-weight: 850;
 }
 
 .play-primary {
-  background: linear-gradient(90deg, #22d3ee, #10b981);
-  color: #04111b;
+  background: #0E639C;
+  color: #FFFFFF;
 }
 
 .play-secondary {
   border: 1px solid rgba(148, 163, 184, 0.22);
-  background: rgba(8, 13, 27, 0.84);
+  background: #252526;
 }
 
 .play-progress {
   position: relative;
   height: 24px;
   overflow: hidden;
-  border-radius: 999px;
-  background: rgba(2, 6, 23, 0.76);
+  border-radius: 4px;
+  background: rgba(30, 30, 30, 0.76);
 }
 
 .play-progress span {
@@ -245,7 +310,7 @@ button {
   z-index: 1;
   display: block;
   padding: 4px 10px;
-  color: #94a3b8;
+  color: #A6A6A6;
   font-size: 12px;
   font-weight: 760;
 }
@@ -253,7 +318,7 @@ button {
 .play-progress i {
   position: absolute;
   inset: 0 auto 0 0;
-  background: rgba(34, 211, 238, 0.24);
+  background: rgba(86, 156, 214, 0.24);
   transition: width 160ms ease;
 }
 
@@ -267,16 +332,16 @@ button {
   min-width: 0;
   padding: 12px;
   border: 1px solid rgba(148, 163, 184, 0.2);
-  border-radius: 18px;
-  background: rgba(15, 23, 42, 0.58);
+  border-radius: 8px;
+  background: rgba(37, 37, 38, 0.72);
 }
 
 .play-panel.streamdown {
-  border-color: rgba(245, 158, 11, 0.32);
+  border-color: rgba(206, 145, 120, 0.32);
 }
 
 .play-panel.markstream {
-  border-color: rgba(16, 185, 129, 0.32);
+  border-color: rgba(78, 201, 176, 0.32);
 }
 
 .play-panel header,
@@ -293,14 +358,14 @@ button {
 }
 
 .play-panel header span {
-  color: #22d3ee;
+  color: #569CD6;
   font-size: 13px;
   font-weight: 850;
   text-transform: uppercase;
 }
 
 .play-panel header b {
-  color: #94a3b8;
+  color: #A6A6A6;
   font-size: 12px;
 }
 
@@ -308,12 +373,12 @@ button {
   position: relative;
   height: 236px;
   overflow: auto;
-  scrollbar-color: rgba(34, 211, 238, 0.58) rgba(2, 6, 23, 0.28);
+  scrollbar-color: rgba(86, 156, 214, 0.58) rgba(30, 30, 30, 0.28);
   scrollbar-width: thin;
   scroll-behavior: smooth;
   border: 1px solid rgba(148, 163, 184, 0.16);
-  border-radius: 14px;
-  background: rgba(2, 6, 23, 0.74);
+  border-radius: 6px;
+  background: #1E1E1E;
 }
 
 .render-host::-webkit-scrollbar {
@@ -322,25 +387,25 @@ button {
 }
 
 .render-host::-webkit-scrollbar-track {
-  background: rgba(2, 6, 23, 0.28);
+  background: rgba(30, 30, 30, 0.28);
 }
 
 .render-host::-webkit-scrollbar-thumb {
   border-radius: 999px;
-  background: rgba(34, 211, 238, 0.58);
+  background: rgba(86, 156, 214, 0.58);
 }
 
 .streamdown .render-host {
-  scrollbar-color: rgba(245, 158, 11, 0.58) rgba(2, 6, 23, 0.28);
+  scrollbar-color: rgba(206, 145, 120, 0.58) rgba(30, 30, 30, 0.28);
 }
 
 .streamdown .render-host::-webkit-scrollbar-thumb {
-  background: rgba(245, 158, 11, 0.58);
+  background: rgba(206, 145, 120, 0.58);
 }
 
 .markdown-sample {
   padding: 10px;
-  color: #dbe5ef;
+  color: #D4D4D4;
   font-size: 12px;
   line-height: 1.35;
   animation: repaint 180ms ease;
@@ -348,7 +413,7 @@ button {
 
 .markdown-sample p {
   margin: 0 0 8px;
-  color: #94a3b8;
+  color: #A6A6A6;
 }
 
 .markdown-sample pre {
@@ -356,14 +421,14 @@ button {
   padding: 10px;
   overflow: hidden;
   border-radius: 8px;
-  background: #111827;
+  background: #252526;
 }
 
 .markdown-sample code {
   display: grid;
   gap: 1px;
-  color: #e5e7eb;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  color: #D4D4D4;
+  font-family: var(--font-code);
   font-size: 10px;
   line-height: 1.25;
   white-space: pre-wrap;
@@ -390,14 +455,14 @@ button {
   padding: 7px 9px;
   border: 1px solid rgba(148, 163, 184, 0.16);
   border-radius: 8px;
-  background: rgba(15, 23, 42, 0.72);
-  color: #e5e7eb;
+  background: rgba(37, 37, 38, 0.72);
+  color: #D4D4D4;
   font-size: 11px;
 }
 
 .diagram-sample code {
   display: block;
-  color: #94a3b8;
+  color: #A6A6A6;
   white-space: nowrap;
 }
 
@@ -410,8 +475,8 @@ button {
   padding: 8px 10px;
   border-left: 0;
   border-radius: 8px;
-  background: rgba(15, 23, 42, 0.72);
-  color: #cbd5e1;
+  background: rgba(37, 37, 38, 0.72);
+  color: #D4D4D4;
 }
 
 .actual-render {
@@ -419,6 +484,20 @@ button {
 }
 
 .actual-render :deep(.markstream-vue) {
+  --markstream-code-font-family: var(--font-code);
+  --vscode-editor-font-family: var(--font-code);
+  --vscode-editor-font-size: 11px;
+  --vscode-editor-line-height: 1.45;
+  --vscode-editor-background: #1E1E1E;
+  --vscode-editor-foreground: #D4D4D4;
+  --vscode-editor-selection: rgba(86, 156, 214, 0.3);
+  --code-bg: #1E1E1E;
+  --code-fg: #D4D4D4;
+  --code-border: rgba(128, 128, 128, 0.22);
+  --code-header-bg: #252526;
+  --code-action-fg: #A6A6A6;
+  --code-action-hover-bg: rgba(86, 156, 214, 0.14);
+  --code-action-hover-fg: #FFFFFF;
   font-size: 11px;
   line-height: 1.3;
   padding-bottom: 6px;
@@ -426,6 +505,60 @@ button {
 
 .actual-render :deep(pre) {
   max-height: none;
+  background: #1E1E1E !important;
+}
+
+.actual-render :deep(code),
+.actual-render :deep(.shiki) {
+  font-family: var(--font-code) !important;
+  color: #D4D4D4;
+}
+
+.actual-render :deep(.monaco-code-block) {
+  margin: 0;
+  padding: 10px;
+  overflow: auto;
+  border: 1px solid rgba(128, 128, 128, 0.16);
+  border-radius: 6px;
+  background: #1E1E1E !important;
+  color: #D4D4D4;
+  font-family: var(--font-code);
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.actual-render :deep(.monaco-line) {
+  display: block;
+  min-height: 1.45em;
+  white-space: pre;
+}
+
+.actual-render :deep(.monaco-token.keyword) {
+  color: #C586C0;
+}
+
+.actual-render :deep(.monaco-token.string) {
+  color: #CE9178;
+}
+
+.actual-render :deep(.monaco-token.constant) {
+  color: #B5CEA8;
+}
+
+.actual-render :deep(.monaco-token.operator) {
+  color: #D4D4D4;
+}
+
+.actual-render :deep(.monaco-token.comment) {
+  color: #6A9955;
+}
+
+.actual-render :deep(.monaco-line.insert) {
+  color: #4EC9B0;
+}
+
+.actual-render :deep(.monaco-line.delete) {
+  color: #F48771;
 }
 
 .play-panel footer {
@@ -436,9 +569,9 @@ button {
   flex: 1 1 30%;
   padding: 5px 7px;
   border: 1px solid rgba(148, 163, 184, 0.16);
-  border-radius: 999px;
-  background: rgba(8, 13, 27, 0.72);
-  color: #94a3b8;
+  border-radius: 4px;
+  background: rgba(30, 30, 30, 0.72);
+  color: #A6A6A6;
   font-size: 10px;
   line-height: 1.2;
   text-align: center;
