@@ -9,7 +9,7 @@
   "devDependencies": {
     "@slidev/cli": "52.15.2",
     "@slidev/theme-default": "0.25.0",
-    "markstream-vue": "^1.0.1-beta.1",
+    "markstream-vue": "^1.0.1-beta.5",
     "vite": "^8.0.14",
     "vue": "3.5.34"
   }

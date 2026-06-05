@@ -1,9 +1,7 @@
 <script setup>
 import { computed, nextTick, onUnmounted, ref, watch } from "vue";
-import MarkdownRender, { enableMermaid } from "markstream-vue";
+import MarkdownRender from "markstream-vue";
 import "markstream-vue/index.css";
-
-enableMermaid();
 
 const chunks = [
   "解释 debounce 的核心思路。\n\n",
@@ -16,7 +14,7 @@ const chunks = [
   "```\n\n",
   "```mermaid\ngraph LR\n  input[Input] --> timer[Timer]\n  timer --> api[Search API]\n```\n\n",
   "```diff\n- onInput(run)\n+ onInput(debounce(run, 300))\n```\n\n",
-  "> final: 代码块、图表、diff 和滚动位置都应该稳定落地。\n",
+  "> final: 代码块、Mermaid 源码、diff 和滚动位置都应该稳定落地。\n",
 ];
 
 const step = ref(0);
@@ -26,16 +24,6 @@ const leftHost = ref(null);
 const rightHost = ref(null);
 let timer;
 let scrollTimer;
-
-const smoothStreamingOptions = {
-  minCharsPerSecond: 360,
-  maxCharsPerSecond: 960,
-  targetLatencyMs: 160,
-  catchUpLatencyMs: 220,
-  maxCommitFps: 60,
-  maxCharsPerCommit: 80,
-  flushOnFinish: true,
-};
 
 const content = computed(() => chunks.slice(0, step.value).join(""));
 const progress = computed(() => `${Math.round((step.value / chunks.length) * 100)}%`);
@@ -166,7 +154,7 @@ onUnmounted(() => {
             <pre v-if="showDiff" class="diff-sample"><code>- onInput(run)
 + onInput(debounce(run, 300))</code></pre>
             <blockquote v-if="showFinalNote">
-              final: 代码块、图表、diff 和滚动位置都应该稳定落地。
+              final: 代码块、Mermaid 源码、diff 和滚动位置都应该稳定落地。
             </blockquote>
           </article>
         </div>
@@ -180,7 +168,7 @@ onUnmounted(() => {
       <section class="play-panel markstream">
         <header>
           <span>markstream-vue</span>
-          <b>smoothStreaming on</b>
+          <b>content + final</b>
         </header>
         <div ref="rightHost" class="render-host actual-render">
           <MarkdownRender
@@ -190,18 +178,16 @@ onUnmounted(() => {
             :is-dark="true"
             :max-live-nodes="0"
             :batch-rendering="true"
-            :render-batch-size="4"
+            :render-batch-size="16"
             :render-batch-delay="8"
             :render-batch-budget-ms="4"
             :fade="false"
             :typewriter="true"
-            :smooth-streaming="true"
-            :smooth-streaming-options="smoothStreamingOptions"
-            :parse-coalesce-ms="32"
+            smooth-streaming="auto"
           />
         </div>
         <footer>
-          <span>smoothStreaming</span>
+          <span>final signal</span>
           <span>smooth autoscroll</span>
           <span>stable nodes</span>
         </footer>

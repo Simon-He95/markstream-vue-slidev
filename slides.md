@@ -13,7 +13,7 @@ colorSchema: dark
 <div class="deck cover-slide">
   <div class="token-stream" aria-hidden="true">
     <span># Answer</span>
-    <span>const stream = createMarkdownStream()</span>
+    <span>content + final + smooth-streaming</span>
     <span>&lt;thinking&gt;Searching context...&lt;/thinking&gt;</span>
     <span>&lt;tool-result status="done"&gt;12 docs&lt;/tool-result&gt;</span>
     <span>&#96;&#96;&#96;vue</span>
@@ -53,7 +53,7 @@ colorSchema: dark
     <div class="code-lines">
       <span><span class="tok comment"># Answer</span></span>
       <span><span class="tok fence">&#96;&#96;&#96;vue</span></span>
-      <span><span class="tok tag">&lt;MarkdownRender</span> <span class="tok attr">:content</span>=<span class="tok str">"content"</span> <span class="tok attr">:final</span>=<span class="tok str">"final"</span> <span class="tok tag">/&gt;</span></span>
+      <span><span class="tok tag">&lt;MarkdownRender</span> <span class="tok attr">custom-id</span>=<span class="tok str">"chat"</span> <span class="tok attr">:content</span>=<span class="tok str">"content"</span> <span class="tok attr">:final</span>=<span class="tok str">"final"</span> <span class="tok attr">smooth-streaming</span>=<span class="tok str">"auto"</span> <span class="tok tag">/&gt;</span></span>
       <span><span class="tok fence">&#96;&#96;&#96;</span></span>
       <span><span class="tok tag">&lt;thinking&gt;</span>...<span class="tok tag">&lt;/thinking&gt;</span></span>
       <span><span class="tok tag">&lt;tool-result&gt;</span>...<span class="tok tag">&lt;/tool-result&gt;</span></span>
@@ -279,7 +279,7 @@ colorSchema: dark
   <div class="capability-grid">
     <div class="glow-card capability" v-click>
       <p>Streaming 友好</p>
-      <span>final / typewriter / smooth-streaming</span>
+      <span>content / final / pacing</span>
     </div>
     <div class="glow-card capability" v-click>
       <p>Heavy Block Ready</p>
@@ -308,17 +308,15 @@ colorSchema: dark
         <span><span class="tok kw">import</span> MarkdownRender <span class="tok kw">from</span> <span class="tok str">'markstream-vue'</span></span>
         <span><span class="tok kw">import</span> <span class="tok str">'markstream-vue/index.css'</span></span>
         <span><span class="tok kw">import</span> { ref } <span class="tok kw">from</span> <span class="tok str">'vue'</span></span>
-        <span>&nbsp;</span>
         <span><span class="tok kw">const</span> content <span class="tok op">=</span> ref(<span class="tok str">''</span>)</span>
         <span><span class="tok kw">const</span> final <span class="tok op">=</span> ref(<span class="tok bool">false</span>)</span>
         <span><span class="tok tag">&lt;/script&gt;</span></span>
-        <span>&nbsp;</span>
         <span><span class="tok tag">&lt;template&gt;</span></span>
         <span>&nbsp;&nbsp;<span class="tok tag">&lt;MarkdownRender</span></span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tok attr">custom-id</span>=<span class="tok str">"chat"</span></span>
         <span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tok attr">:content</span>=<span class="tok str">"content"</span></span>
         <span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tok attr">:final</span>=<span class="tok str">"final"</span></span>
-        <span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tok attr">:max-live-nodes</span>=<span class="tok str">"0"</span></span>
-        <span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tok attr">:typewriter</span>=<span class="tok str">"true"</span></span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tok attr">smooth-streaming</span>=<span class="tok str">"auto"</span></span>
         <span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tok attr">:fade</span>=<span class="tok str">"false"</span></span>
         <span>&nbsp;&nbsp;<span class="tok tag">/&gt;</span></span>
         <span><span class="tok tag">&lt;/template&gt;</span></span>
@@ -334,7 +332,7 @@ colorSchema: dark
   </div>
 
   <div class="memory-line" v-click>
-    最小心智模型：不断更新 content，完成时设置 final。
+    最小心智模型：更新 content，完成时设置 final；高频流式再按场景加 smooth streaming / batching。
   </div>
 </div>
 
@@ -354,7 +352,7 @@ colorSchema: dark
 <div class="deck perf-trace-slide">
   <div class="section-head">
     <p class="eyebrow">Performance Evidence</p>
-    <h1>同样的 streaming 内容，CPU 证据直接贴出来。</h1>
+    <h1>按内容类型拆开看，瓶颈才清楚。</h1>
   </div>
 
   <div class="evidence-shot" v-click>
@@ -362,14 +360,14 @@ colorSchema: dark
   </div>
 
   <div class="perf-method" v-click>
-    Playwright + Chrome CDP · 2026-05-27 run · streamdown@2.5.0 core API（未启用 optional plugins）/ markstream-vue@1.0.1-beta.1 · 119 chunks
+    3-run median · Chrome CDP · 8 cases × 119 chunks · markstream-vue@1.0.1-beta.5 published package
   </div>
 
   <div class="trace-metrics" v-click>
-    <span>Main task 607ms → 160ms</span>
-    <span>Scripting 481ms → 12ms</span>
-    <span>DOM mutations 242 → 19</span>
-    <span>Long task 0 / 0</span>
+    <span>Full mix task: 633.6ms → 308ms</span>
+    <span>Full mix scripting: 296.4ms → 16.3ms</span>
+    <span>Full mix layout: 27.4ms → 20.6ms</span>
+    <span>Full mix DOM: 417 → 157</span>
   </div>
 </div>
 
@@ -534,28 +532,28 @@ colorSchema: dark
 
   <div class="optimization-grid">
     <div class="optimization-card" v-click>
-      <b>parse coalescing</b>
-      <span><code>parseCoalesceMs</code> 合并连续 token；只有换行、fence、表格等结构边界才立即 flush。</span>
+      <b>stream parser cache</b>
+      <span><code>parseMarkdownToStructure</code> 默认 <code>streamParse="auto"</code>，流式中间态复用 parser cache，final 时收束。</span>
     </div>
     <div class="optimization-card" v-click>
       <b>smooth streaming bridge</b>
-      <span><code>smoothStreaming</code> 控制可见内容节奏，不让 transport chunk 直接等于 DOM commit。</span>
+      <span><code>smoothStreaming="auto"</code> 控制可见内容节奏，不让 transport chunk 直接等于 DOM commit。</span>
     </div>
     <div class="optimization-card" v-click>
       <b>live range + batch render</b>
-      <span>只让增长中的尾部保持 live；大文档按 batch 和预算逐步进入 Vue tree。</span>
+      <span>默认虚拟化窗口保留滚动/内存；<code>maxLiveNodes=0</code> 时进入增量批次。</span>
     </div>
     <div class="optimization-card" v-click>
-      <b>heavy node workers</b>
-      <span>KaTeX 走 worker/cache/backpressure；Mermaid 走 worker parse + stable fallback。</span>
+      <b>heavy node deferral</b>
+      <span><code>viewportPriority</code> 和 <code>deferNodesUntilVisible</code> 让 Monaco、Mermaid、KaTeX 靠近视口再进入重型路径。</span>
     </div>
     <div class="optimization-card" v-click>
       <b>code block strategy</b>
-      <span><code>codeBlockStream</code>、<code>renderCodeBlocksAsPre</code>、Monaco / Shiki 按场景选择成本。</span>
+      <span>普通代码可用 <code>renderCodeBlocksAsPre</code> 或 <code>MarkdownCodeBlockNode</code>；需要交互时再接 Monaco。</span>
     </div>
     <div class="optimization-card" v-click>
       <b>custom components</b>
-      <span>custom tags 在 parser 阶段成为稳定节点，再映射到 app-scoped Vue components。</span>
+      <span><code>custom-html-tags</code> 让 trusted tags 成为稳定节点，再由 <code>VueRendererMarkdown</code> 映射到 app-scoped components。</span>
     </div>
   </div>
 
@@ -581,16 +579,16 @@ colorSchema: dark
     </div>
     <div class="render-rail">
       <div class="ux-row" v-click>
-        <strong>final=false</strong>
-        <span>处理中间态，允许 temporary auto-close</span>
-      </div>
-      <div class="ux-row" v-click>
-        <strong>typewriter=true</strong>
-        <span>让 token 输出更接近真实生成</span>
+        <strong>:final="final"</strong>
+        <span>完成时切到最终解析，未闭合 fence / math 不会停在 loading 中间态</span>
       </div>
       <div class="ux-row" v-click>
         <strong>smooth-streaming="auto"</strong>
-        <span>typewriter 或 max-live-nodes&lt;=0 时自动启用 pacing</span>
+        <span>typewriter 或 max-live-nodes&lt;=0 时自动 pacing</span>
+      </div>
+      <div class="ux-row" v-click>
+        <strong>:batch-rendering="true"</strong>
+        <span>禁用虚拟窗口时用批次提交，避免每个 token 直接变成 DOM commit</span>
       </div>
     </div>
   </div>
@@ -659,21 +657,23 @@ colorSchema: dark
     <div class="terminal-card map-code" v-click>
       <div class="terminal-dots"><i></i><i></i><i></i></div>
       <div class="code-lines">
-        <span><span class="tok kw">import</span> MarkdownRender, { setCustomComponents } <span class="tok kw">from</span> <span class="tok str">'markstream-vue'</span></span>
-        <span>&nbsp;</span>
-        <span><span class="tok kw">const</span> customTags <span class="tok op">=</span> [<span class="tok str">'thinking'</span>, <span class="tok str">'tool-result'</span>, <span class="tok str">'answer-box'</span>]</span>
-        <span>setCustomComponents(<span class="tok str">'agent'</span>, {</span>
-        <span>&nbsp;&nbsp;<span class="tok prop">thinking</span>: ThinkingNode,</span>
-        <span>&nbsp;&nbsp;<span class="tok prop">'tool-result'</span>: ToolResultNode,</span>
-        <span>&nbsp;&nbsp;<span class="tok prop">'answer-box'</span>: AnswerBoxNode,</span>
+        <span><span class="tok kw">import</span> MarkdownRender, { VueRendererMarkdown } <span class="tok kw">from</span> <span class="tok str">'markstream-vue'</span></span>
+        <span>createApp(App)</span>
+        <span>&nbsp;&nbsp;.use(VueRendererMarkdown, {</span>
+        <span>&nbsp;&nbsp;<span class="tok prop">components</span>: {</span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tok prop">thinking</span>: ThinkingNode,</span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tok prop">'tool-result'</span>: ToolResultNode,</span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tok prop">'answer-box'</span>: AnswerBoxNode,</span>
+        <span>&nbsp;&nbsp;}</span>
         <span>})</span>
-        <span>&lt;MarkdownRender custom-id="agent" :custom-html-tags="customTags" /&gt;</span>
+        <span>&nbsp;&nbsp;.component(<span class="tok str">'MarkdownRender'</span>, MarkdownRender)</span>
+        <span>&nbsp;&nbsp;.mount(<span class="tok str">'#app'</span>)</span>
       </div>
     </div>
   </div>
 
   <div class="memory-line" v-click>
-    核心设计：setCustomComponents(customId, mapping) 让每个业务节点都能按作用域覆盖。
+    生产 / SSR 优先用 app-scoped components；局部页面再用 scoped setCustomComponents。
   </div>
 </div>
 
@@ -757,7 +757,7 @@ colorSchema: dark
     <thead>
       <tr>
         <th>维度</th>
-        <th v-click>streamdown core config / common AI renderer</th>
+        <th v-click>streamdown core config</th>
         <th v-click>markstream-vue</th>
       </tr>
     </thead>
@@ -785,18 +785,18 @@ colorSchema: dark
       <tr v-click>
         <td>自定义 UI</td>
         <td>React 组件和插件体系强，但 Vue 业务需要额外适配</td>
-        <td>custom tags 直接映射 app-scoped Vue components</td>
+        <td>custom tags 通过 app-scoped Vue components 稳定接入</td>
       </tr>
       <tr v-click>
-        <td>CPU</td>
-        <td>当前 core-config E2E 样例里，parse / render / highlight 主线程开销更高</td>
-        <td>更少 DOM 更新 + 渐进 heavy block，CPU footprint 更低</td>
+        <td>CPU / DOM</td>
+        <td>本次 core-config E2E 样例里，scripting 与 DOM mutation 更高</td>
+        <td>scripting / DOM mutation 更低；layout / p95 按 workload 验证</td>
       </tr>
     </tbody>
   </table>
 
   <div class="memory-line" v-click>
-    streamdown 证明需求成立；markstream-vue 选择在 Vue 侧把稳定交互、低 CPU 和组件化做成默认路径。
+    streamdown 证明需求成立；markstream-vue 在 Vue 侧把稳定交互、低 scripting 和组件化做成默认路径。
   </div>
 </div>
 
@@ -877,16 +877,16 @@ colorSchema: dark
     </div>
     <div class="prod-row" v-click>
       <b>组件覆盖</b>
-      <span><code>setCustomComponents(customId, mapping)</code> 按场景覆盖 thinking / tool / answer 节点</span>
+      <span><code>VueRendererMarkdown</code> 注册 app-scoped components；局部场景用 <code>setCustomComponents</code></span>
     </div>
     <div class="prod-row" v-click>
       <b>Optional peers</b>
-      <span>需要公式/图表/代码增强时再装 katex / mermaid / stream-monaco / shiki</span>
+      <span>katex / mermaid / stream-monaco / d2 / infographic 按需安装</span>
     </div>
   </div>
 
   <div class="memory-line" v-click>
-    基础 renderer 保持轻；不可信 HTML 用 escape，业务组件和重型依赖都按需求接入。
+    基础 renderer 保持轻；不可信 HTML 用 escape，业务组件和 heavy peers 按需接入。
   </div>
 </div>
 
@@ -899,7 +899,7 @@ colorSchema: dark
   </div>
 
   <div class="vue-first-core glow-card">
-    <div v-click><span>Stable</span>Vue 3 renderer package · MarkdownRender · final · typewriter</div>
+    <div v-click><span>Stable</span>Vue 3 renderer package · MarkdownRender · content/nodes · final</div>
     <div v-click><span>Production</span>safe HTML · SSR · CSS exports · optional heavy peers</div>
     <div v-click><span>Foundation</span>AI Chat · Agent Report · Knowledge Base · Code Review</div>
   </div>
@@ -925,7 +925,7 @@ colorSchema: dark
   <div class="contributors-panel" v-motion :initial="{ opacity: 0, y: 18 }" :enter="{ opacity: 1, y: 0 }">
     <img
       class="contributors-image"
-      src="https://contrib.rocks/image?repo=Simon-He95/markstream-vue&columns=10"
+      src="./public/markstream-contributors.svg"
       alt="markstream-vue contributors"
     >
   </div>
@@ -942,7 +942,7 @@ colorSchema: dark
     <img class="qa-logo" src="./public/markstream-logo.svg" alt="markstream-vue logo">
     <h1>Q&A</h1>
     <p>Markdown 正在成为 AI 输出的 UI 协议。<br>Vue 下一步应该渲染什么？</p>
-    <div class="qr-placeholder" aria-label="QR placeholder"></div>
+    <img class="qr-code" src="./public/markstream-qr.png" alt="markstream-vue GitHub QR code">
   </div>
 
   <div class="qa-footer">
