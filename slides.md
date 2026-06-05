@@ -84,38 +84,41 @@ colorSchema: dark
       </div>
     </div>
     <div class="about-copy">
-      <p v-click><strong>前端爱好者 / OSS contributor</strong></p>
-      <p v-click>关注 Vue、DX、AI UI、Streaming Rendering、VS Code 插件</p>
-      <div class="project-line" v-click>
-        <span class="role-label">Maintainer</span>
-        <span class="project-chip"><img src="./public/project-logos/unocss.png" alt="">UnoCSS</span>
-        <span class="project-chip"><img src="./public/project-logos/deepchat.png" alt="">DeepChat</span>
-        <span class="project-chip"><img src="./public/project-logos/vue-vine.png" alt="">Vue Vine</span>
+      <div class="about-focus" v-click>
+        <span class="mini-label">focus</span>
+        <strong>Vue · DX · AI Output UI</strong>
+        <p>我关注的是生成中的内容，怎样从 token 变成稳定、可交互的界面。</p>
       </div>
-      <div class="project-line" v-click>
-        <span class="role-label">Author</span>
-        <span class="project-chip"><img src="./public/markstream-logo.svg" alt="">markstream-vue</span>
-        <span class="project-chip"><img src="./public/project-logos/vscode-use.png" alt="">vscode-use</span>
-        <span class="project-chip"><img src="./public/project-logos/awesome-compressor.png" alt="">awesome-compressor</span>
-      </div>
-      <div class="project-line vscode-plugins" v-click>
-        <span class="role-label">VS Code</span>
-        <span class="project-chip"><img src="./public/project-logos/vscode.svg" alt="">Common Intellisense</span>
-        <span class="project-chip"><img src="./public/project-logos/vscode.svg" alt="">UnoT</span>
-        <span class="project-chip"><img src="./public/project-logos/vscode.svg" alt="">Tailwind Magic</span>
-        <span class="project-chip"><img src="./public/project-logos/vscode.svg" alt="">To Tailwind</span>
-        <span class="project-chip"><img src="./public/project-logos/vscode.svg" alt="">Alias Jump</span>
-      </div>
-      <div class="project-line compact" v-click>
-        <span class="role-label">贡献者</span>
-        <span class="project-chip ghost"><img src="./public/project-logos/vite.png" alt="">Vite</span>
-        <span class="project-chip ghost"><img src="./public/project-logos/element-plus.png" alt="">Element Plus</span>
-        <span class="project-chip ghost"><img src="./public/project-logos/tdesign.png" alt="">TDesign Vue Next</span>
+      <div class="about-projects">
+        <div class="about-project-card" v-click>
+          <span class="role-label">Maintainer</span>
+          <div>
+            <span class="project-chip"><img src="./public/project-logos/unocss.png" alt="">UnoCSS</span>
+            <span class="project-chip"><img src="./public/project-logos/deepchat.png" alt="">DeepChat</span>
+            <span class="project-chip"><img src="./public/project-logos/vue-vine.png" alt="">Vue Vine</span>
+          </div>
+        </div>
+        <div class="about-project-card" v-click>
+          <span class="role-label">Author</span>
+          <div>
+            <span class="project-chip"><img src="./public/markstream-logo.svg" alt="">markstream-vue</span>
+            <span class="project-chip"><img src="./public/project-logos/vscode-use.png" alt="">vscode-use</span>
+            <span class="project-chip"><img src="./public/project-logos/awesome-compressor.png" alt="">awesome-compressor</span>
+          </div>
+        </div>
+        <div class="about-project-card" v-click>
+          <span class="role-label">Contributor</span>
+          <div>
+            <span class="project-chip ghost"><img src="./public/project-logos/vite.png" alt="">Vite</span>
+            <span class="project-chip ghost"><img src="./public/project-logos/element-plus.png" alt="">Element Plus</span>
+            <span class="project-chip ghost"><img src="./public/project-logos/tdesign.png" alt="">TDesign Vue Next</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="social-strip">
+  <div class="social-strip compact-social">
     <a href="https://github.com/Simon-He95" class="social-pill">
       <img src="./public/social-icons/github.svg" alt="">
       <span>Simon-He95</span>
@@ -138,10 +141,6 @@ colorSchema: dark
     </a>
   </div>
 
-  <div class="repo-line">
-    GitHub 上有 628 个 public repositories · VS Code Marketplace 多个 extensions
-  </div>
-
   <div class="memory-line" v-click>
     我不是想再造一个 Markdown 组件，而是想解决 AI 输出从 token 到 UI 的最后一公里。
   </div>
@@ -152,12 +151,34 @@ colorSchema: dark
 <div class="deck contrast-slide">
   <div class="section-head">
     <p class="eyebrow">从格式到协议</p>
-    <h1>Markdown 不再只是文档格式。</h1>
+    <h1>Markdown 从一张纸，变成一条正在发生的流。</h1>
   </div>
 
-  <div class="compare-grid">
-    <div v-click class="compare-panel"><p class="panel-label">过去</p><h2>Markdown</h2><div class="equals-line">=</div><p>完成后的文档</p></div>
-    <div v-click class="compare-panel primary"><p class="panel-label">现在</p><h2>Markdown</h2><div class="equals-line">=</div><p><span class="protocol-highlight">AI 输出协议</span></p></div>
+  <div class="protocol-story">
+    <div class="paper-scene" v-click>
+      <span class="scene-label">Before</span>
+      <div class="paper-sheet">
+        <span># Report</span>
+        <i></i><i></i><i></i><i></i>
+      </div>
+      <p>完成后再渲染</p>
+    </div>
+    <div class="stream-bridge" aria-hidden="true">
+      <span>#</span>
+      <span>token</span>
+      <span>&lt;tool&gt;</span>
+      <span>|</span>
+    </div>
+    <div class="protocol-scene" v-click>
+      <span class="scene-label">Now</span>
+      <div class="live-chat-card">
+        <b>AI Output Protocol</b>
+        <span>content</span>
+        <span>thinking</span>
+        <span>tool-result</span>
+      </div>
+      <p>边生成，边成为 UI</p>
+    </div>
   </div>
 
   <div class="memory-line" v-click>
@@ -170,25 +191,28 @@ colorSchema: dark
 <div class="deck unfinished-slide">
   <div class="section-head">
     <p class="eyebrow">流式渲染真正的问题</p>
-    <h1>难点不是 Markdown。<br><span class="gradient-text">难点是未完成的 Markdown。</span></h1>
+    <h1>观众看到的不是答案。<br><span class="gradient-text">是答案诞生的现场。</span></h1>
   </div>
 
-  <div class="split-visual">
-    <div class="terminal-card broken-panel">
+  <div class="stream-crash-scene">
+    <div class="terminal-card story-terminal">
       <div class="terminal-dots"><i></i><i></i><i></i></div>
-      <div class="code-lines broken-code">
+      <div class="code-lines live-broken-code">
         <span><span class="tok fence">&#96;&#96;&#96;ts</span></span>
         <span><span class="tok kw">const</span> answer <span class="tok op">=</span> <span class="tok kw">await</span> agent.run(</span>
-        <span>&nbsp;</span>
-        <span>|</span>
+        <span>&nbsp;&nbsp;<span class="tok str">"summarize latest context"</span></span>
+        <span><span class="typing-cursor">|</span></span>
       </div>
+      <div class="unfinished-table" aria-hidden="true">
+        <span>name</span><span>score</span>
+        <span>parser</span><span class="shaking-cell">...</span>
+      </div>
+      <div class="heavy-block-loading" aria-hidden="true">Mermaid block waiting</div>
     </div>
-    <div class="pain-list">
-      <div class="pain-item" v-click><span>01</span>代码块还没闭合：&#96;&#96;&#96;ts</div>
-      <div class="pain-item" v-click><span>02</span>表格边生成边抖动</div>
-      <div class="pain-item" v-click><span>03</span>Mermaid / KaTeX / Monaco heavy block 阻塞</div>
-      <div class="pain-item" v-click><span>04</span>长对话 DOM 持续膨胀</div>
-      <div class="pain-item" v-click><span>05</span>Agent 工具结果只能当字符串</div>
+    <div class="story-beats">
+      <div class="story-beat" v-click><span>01</span><b>半截代码块</b><em>语法还没闭合</em></div>
+      <div class="story-beat" v-click><span>02</span><b>跳动的结构</b><em>表格和公式还在改形</em></div>
+      <div class="story-beat" v-click><span>03</span><b>重型节点</b><em>Mermaid / KaTeX / Monaco 抢主线程</em></div>
     </div>
   </div>
 
@@ -202,31 +226,27 @@ colorSchema: dark
 <div class="deck judgment-slide">
   <div class="section-head">
     <p class="eyebrow">重新定义品类</p>
-    <h1>只叫 Markdown Renderer，太小了。</h1>
+    <h1>这不是把 Markdown 变成 HTML。<br>这是把 token 养成稳定 UI。</h1>
   </div>
 
-  <div class="flow-stage" v-click>
-    <span class="pipeline-node muted">完整 Markdown</span>
-    <span class="flow-arrow">→</span>
-    <span class="pipeline-node muted">HTML</span>
-    <span class="flow-caption">普通 Markdown Renderer</span>
-  </div>
-
-  <div class="flow-stage active" v-click>
-    <span class="pipeline-node">token stream</span>
-    <span class="flow-arrow">→</span>
-    <span class="pipeline-node">稳定可交互 UI</span>
-    <span class="flow-caption">AI Streaming Renderer</span>
-  </div>
-
-  <div
-    class="output-layer"
-    v-click
-    v-motion
-    :initial="{ opacity: 0, scale: 0.94 }"
-    :enter="{ opacity: 1, scale: 1, transition: { duration: 500 } }"
-  >
-    AI Output UI Layer
+  <div class="renderer-story">
+    <div class="renderer-rail" aria-hidden="true">
+      <span></span>
+    </div>
+    <div class="renderer-step muted" v-click>
+      <span>Markdown Renderer</span>
+      <b>complete markdown</b>
+      <i>HTML</i>
+    </div>
+    <div class="renderer-step primary" v-click>
+      <span>AI Streaming Renderer</span>
+      <b>token stream</b>
+      <i>stable interactive UI</i>
+    </div>
+    <div class="layer-card" v-click>
+      <img src="./public/markstream-logo.svg" alt="">
+      <strong>AI Output UI Layer</strong>
+    </div>
   </div>
 </div>
 
@@ -235,29 +255,28 @@ colorSchema: dark
 <div class="deck legacy-ai-slide">
   <div class="section-head">
     <p class="eyebrow">对比传统 AI 渲染</p>
-    <h1>流式输出时，renderer 已经是用户正在操作的 UI。</h1>
+    <h1>同样的 token，体验可以完全不同。</h1>
   </div>
 
-  <div class="legacy-grid">
-    <div class="legacy-card code-case" v-click>
-      <span class="mini-label">whole-block update</span>
-      <b>Code block 整体重绘</b>
-      <p>如果每次追加都替换整块 code，用户正在选中的代码、局部滚动和 hover 状态都可能被打断。</p>
+  <div class="render-video-grid">
+    <div class="render-video unstable" v-click>
+      <span class="scene-label">Traditional renderer</span>
+      <div class="video-topbar"><i></i><i></i><i></i></div>
+      <div class="video-lines jitter">
+        <span></span><span></span><span></span><span></span>
+      </div>
+      <div class="selection-ghost">selection lost</div>
     </div>
-    <div class="legacy-card" v-click>
-      <span class="mini-label">intermediate state</span>
-      <b>未完成语法反复改形</b>
-      <p>未闭合 fence、表格、Mermaid、数学公式在解析中间态来回变化，页面就会闪烁、抖动、跳高。</p>
-    </div>
-    <div class="legacy-card" v-click>
-      <span class="mini-label">heavy block</span>
-      <b>重型节点阻塞 token 节奏</b>
-      <p>如果 Shiki、Mermaid、KaTeX、Monaco 跟着每个 chunk 抢主线程，AI 输出越丰富，卡顿越明显。</p>
-    </div>
-    <div class="legacy-card" v-click>
-      <span class="mini-label">custom UI</span>
-      <b>业务组件接入成本高</b>
-      <p>thinking、tool result、diff、引用卡片都想变成组件；但跨 AST、HTML、框架组件和 SSR 作用域，适配会很重。</p>
+    <div class="render-video stable" v-click>
+      <span class="scene-label">markstream-vue</span>
+      <div class="video-topbar"><i></i><i></i><i></i></div>
+      <div class="video-lines">
+        <span></span><span></span><span></span><span></span>
+      </div>
+      <div class="component-card-mini">
+        <img src="./public/markstream-logo.svg" alt="">
+        <b>Vue component</b>
+      </div>
     </div>
   </div>
 
@@ -271,26 +290,38 @@ colorSchema: dark
 <div class="deck what-slide">
   <div class="section-head">
     <p class="eyebrow">它是什么</p>
-    <h1>markstream-vue: Vue 3 原生的流式 UI renderer</h1>
+    <h1>把增长中的内容，固定成可操作的 Vue UI。</h1>
+  </div>
+  <div class="product-map">
+    <div class="token-feed" v-click>
+      <span class="scene-label">Incoming</span>
+      <div class="feed-stack">
+        <span>content += chunk</span>
+        <span>&lt;thinking&gt;</span>
+        <span>&lt;tool-result&gt;</span>
+        <span>final = true</span>
+      </div>
+    </div>
+    <div class="markstream-core" v-click>
+      <img src="./public/markstream-logo.svg" alt="">
+      <b>markstream-vue</b>
+      <span>parse</span>
+      <span>schedule</span>
+      <span>keep identity</span>
+    </div>
+    <div class="stable-ui-preview" v-click>
+      <span class="scene-label">Outgoing</span>
+      <div class="ui-window">
+        <div class="video-topbar"><i></i><i></i><i></i></div>
+        <p>Streaming answer</p>
+        <div class="ui-code"></div>
+        <div class="ui-component">Vue component</div>
+      </div>
+    </div>
   </div>
 
-  <p class="lead">
-    一个为 Vue 3 设计的 AI streaming Markdown renderer，把持续变化的 Markdown 渲染成稳定、可交互、可扩展的 Vue UI。
-  </p>
-
-  <div class="capability-grid">
-    <div class="glow-card capability" v-click>
-      <p>Streaming 友好</p>
-      <span>content / final / pacing</span>
-    </div>
-    <div class="glow-card capability" v-click>
-      <p>Heavy Block Ready</p>
-      <span>Code / Mermaid / KaTeX / D2 / Monaco</span>
-    </div>
-    <div class="glow-card capability" v-click>
-      <p>Vue 组件原生接入</p>
-      <span>custom tags → app-scoped Vue components</span>
-    </div>
+  <div class="memory-line" v-click>
+    它关心的不是“渲染一次”，而是让每个增长中的节点保持稳定身份。
   </div>
 </div>
 
@@ -299,42 +330,34 @@ colorSchema: dark
 <div class="deck setup-slide">
   <div class="section-head">
     <p class="eyebrow">最小接入</p>
-    <h1>30 秒接入 Streaming Markdown</h1>
+    <h1>接入不是重写系统。<br>是接上三根线。</h1>
   </div>
-
-  <div class="code-chat-grid">
-    <div class="terminal-card code-large">
+  <div class="wiring-scene">
+    <div class="terminal-card wiring-code">
       <div class="terminal-dots"><i></i><i></i><i></i></div>
       <div class="code-lines">
-        <span><span class="tok tag">&lt;script setup lang="ts"&gt;</span></span>
         <span><span class="tok kw">import</span> MarkdownRender <span class="tok kw">from</span> <span class="tok str">'markstream-vue'</span></span>
-        <span><span class="tok kw">import</span> <span class="tok str">'markstream-vue/index.css'</span></span>
-        <span><span class="tok kw">import</span> { ref } <span class="tok kw">from</span> <span class="tok str">'vue'</span></span>
         <span><span class="tok kw">const</span> content <span class="tok op">=</span> ref(<span class="tok str">''</span>)</span>
         <span><span class="tok kw">const</span> final <span class="tok op">=</span> ref(<span class="tok bool">false</span>)</span>
-        <span><span class="tok tag">&lt;/script&gt;</span></span>
-        <span><span class="tok tag">&lt;template&gt;</span></span>
-        <span>&nbsp;&nbsp;<span class="tok tag">&lt;MarkdownRender</span></span>
-        <span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tok attr">custom-id</span>=<span class="tok str">"chat"</span></span>
-        <span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tok attr">:content</span>=<span class="tok str">"content"</span></span>
-        <span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tok attr">:final</span>=<span class="tok str">"final"</span></span>
-        <span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tok attr">smooth-streaming</span>=<span class="tok str">"auto"</span></span>
-        <span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tok attr">:fade</span>=<span class="tok str">"false"</span></span>
-        <span>&nbsp;&nbsp;<span class="tok tag">/&gt;</span></span>
-        <span><span class="tok tag">&lt;/template&gt;</span></span>
+        <span><span class="tok tag">&lt;MarkdownRender</span> <span class="tok attr">:content</span>=<span class="tok str">"content"</span> <span class="tok attr">:final</span>=<span class="tok str">"final"</span> <span class="tok tag">/&gt;</span></span>
       </div>
     </div>
-    <div class="browser-preview glow-card" v-click>
-      <div class="chat-bubble">
-        <p class="typing-line">流式回答生成中...</p>
-        <pre><code>await agent.run()</code></pre>
-        <p>以稳定的 Vue UI 持续更新。</p>
+    <div class="wire-board" aria-hidden="true">
+      <span>content</span>
+      <span>final</span>
+      <span>components</span>
+    </div>
+    <div class="setup-output" v-click>
+      <span class="scene-label">Result</span>
+      <div class="chat-bubble live-output">
+        <p class="typing-line">流式回答生成中</p>
+        <div class="answer-lines"><i></i><i></i><i></i></div>
+        <div class="tool-card">tool result → Vue card</div>
       </div>
     </div>
   </div>
-
   <div class="memory-line" v-click>
-    最小心智模型：更新 content，完成时设置 final；高频流式再按场景加 smooth streaming / batching。
+    最小心智模型：更新 content，完成时设置 final；复杂 UI 交给组件接管。
   </div>
 </div>
 
@@ -354,22 +377,40 @@ colorSchema: dark
 <div class="deck perf-trace-slide">
   <div class="section-head">
     <p class="eyebrow">Performance Evidence</p>
-    <h1>按内容类型拆开看，瓶颈才清楚。</h1>
+    <h1>不是“感觉更顺”。<br>瓶颈从 trace 里退场。</h1>
   </div>
 
-  <div class="evidence-shot" v-click>
-    <img src="./public/streaming-performance-evidence.png" alt="Streaming Markdown E2E performance evidence">
+  <div class="perf-story">
+    <div class="evidence-shot evidence-spotlight" v-click>
+      <img src="./public/streaming-performance-evidence.png" alt="Streaming Markdown E2E performance evidence">
+      <span aria-hidden="true"></span>
+    </div>
+    <div class="metric-board" v-click>
+      <div class="metric-card task">
+        <span>Task</span>
+        <b>633.6ms → 308ms</b>
+        <i></i>
+      </div>
+      <div class="metric-card scripting">
+        <span>Scripting</span>
+        <b>296.4ms → 16.3ms</b>
+        <i></i>
+      </div>
+      <div class="metric-card layout">
+        <span>Layout</span>
+        <b>27.4ms → 20.6ms</b>
+        <i></i>
+      </div>
+      <div class="metric-card dom">
+        <span>DOM</span>
+        <b>417 → 157</b>
+        <i></i>
+      </div>
+    </div>
   </div>
 
   <div class="perf-method" v-click>
     3-run median · Chrome CDP · 8 cases × 119 chunks · markstream-vue@1.0.1-beta.5 published package
-  </div>
-
-  <div class="trace-metrics" v-click>
-    <span>Full mix task: 633.6ms → 308ms</span>
-    <span>Full mix scripting: 296.4ms → 16.3ms</span>
-    <span>Full mix layout: 27.4ms → 20.6ms</span>
-    <span>Full mix DOM: 417 → 157</span>
   </div>
 </div>
 
@@ -378,34 +419,38 @@ colorSchema: dark
 <div class="deck parser-foundation-slide">
   <div class="section-head">
     <p class="eyebrow">Parser Foundation</p>
-    <h1>很多 AST-first Markdown renderer 的成本，先输在 parser 管线。</h1>
+    <h1>Streaming 里，parser 管线越长，越容易每个 chunk 都付费。</h1>
   </div>
 
-  <div class="parser-route">
-    <div class="parser-card ast" v-click>
+  <div class="parser-journey">
+    <div class="parser-road ast" v-click>
       <span class="mini-label">common AST pipeline</span>
-      <b>Markdown → AST → HTML AST → Framework tree → DOM</b>
-      <p>转换生态强，但 streaming 场景里，每个 chunk 都可能让多个中间层重新计算。</p>
+      <div class="road-nodes">
+        <b>Markdown</b><b>AST</b><b>HTML AST</b><b>Framework tree</b><b>DOM</b>
+      </div>
+      <p>每个 chunk 都可能穿过多层中间结构。</p>
     </div>
-    <div class="parser-card token" v-click>
+    <div class="parser-road token" v-click>
       <span class="mini-label">markstream-vue</span>
-      <b>Markdown → markdown-it-ts Token → streaming nodes</b>
-      <p>基于 markdown-it 兼容的 ruler / token parser，直接进入适合 Vue 渲染的节点结构，减少中间步骤。</p>
+      <div class="road-nodes">
+        <b>Markdown</b><b>markdown-it-ts Token</b><b>streaming nodes</b>
+      </div>
+      <p>直接进入适合 Vue 更新的节点结构。</p>
     </div>
   </div>
 
-  <div class="parser-bench-grid">
-    <div class="bench-card" v-click>
+  <div class="parser-speed-grid">
+    <div class="speed-card" v-click>
       <span>remark append</span>
       <b>58.9× / 69.7× / 90.4×</b>
       <small>5k / 20k / 100k chars</small>
     </div>
-    <div class="bench-card" v-click>
+    <div class="speed-card" v-click>
       <span>micromark append</span>
       <b>46.5× / 50.7× / 58.9×</b>
       <small>5k / 20k / 100k chars</small>
     </div>
-    <div class="bench-card" v-click>
+    <div class="speed-card" v-click>
       <span>remark + rehype render</span>
       <b>23.9× / 36.6× / 37.1×</b>
       <small>5k / 20k / 100k chars</small>
@@ -422,28 +467,39 @@ colorSchema: dark
 <div class="deck demo-slide">
   <div class="section-head">
     <p class="eyebrow">Live Demo</p>
-    <h1>Demo: 从 SSE 到 Vue 组件</h1>
+    <h1>一条 SSE，不应该只是刷字。它会逐帧变成界面。</h1>
   </div>
 
-  <div class="demo-grid">
-    <div class="terminal-card demo-terminal">
+  <div class="demo-story">
+    <div class="terminal-card sse-reel">
       <div class="terminal-dots"><i></i><i></i><i></i></div>
-      <div class="code-lines event-block" v-click>
-        <span><span class="tok prop">event</span>: <span class="tok str">token</span></span>
-        <span><span class="tok prop">data</span>: <span class="tok tag">&lt;thinking&gt;</span>Searching docs...<span class="tok tag">&lt;/thinking&gt;</span></span>
+      <div class="reel-frame" v-click>
+        <span class="mini-label">frame 01 · intent</span>
+        <div class="code-lines event-block">
+          <span><span class="tok prop">event</span>: <span class="tok str">token</span></span>
+          <span><span class="tok prop">data</span>: <span class="tok tag">&lt;thinking&gt;</span>Searching docs...<span class="tok tag">&lt;/thinking&gt;</span></span>
+        </div>
+        <p>先接住“正在思考”。</p>
       </div>
-      <div class="code-lines event-block" v-click>
-        <span><span class="tok prop">event</span>: <span class="tok str">token</span></span>
-        <span><span class="tok prop">data</span>: <span class="tok fence">&#96;&#96;&#96;ts</span></span>
-        <span><span class="tok prop">data</span>: <span class="tok kw">const</span> answer <span class="tok op">=</span> <span class="tok kw">await</span> agent.run()</span>
-        <span><span class="tok prop">data</span>: <span class="tok fence">&#96;&#96;&#96;</span></span>
+      <div class="reel-frame" v-click>
+        <span class="mini-label">frame 02 · structure</span>
+        <div class="code-lines event-block">
+          <span><span class="tok prop">data</span>: <span class="tok fence">&#96;&#96;&#96;ts</span></span>
+          <span><span class="tok prop">data</span>: <span class="tok kw">const</span> answer <span class="tok op">=</span> <span class="tok kw">await</span> agent.run()</span>
+          <span><span class="tok prop">data</span>: <span class="tok fence">&#96;&#96;&#96;</span></span>
+        </div>
+        <p>未闭合代码块也能站住。</p>
       </div>
-      <div class="code-lines event-block" v-click>
-        <span><span class="tok prop">event</span>: <span class="tok str">done</span></span>
-        <span><span class="tok prop">data</span>: final=<span class="tok bool">true</span></span>
+      <div class="reel-frame" v-click>
+        <span class="mini-label">frame 03 · commit</span>
+        <div class="code-lines event-block">
+          <span><span class="tok prop">event</span>: <span class="tok str">done</span></span>
+          <span><span class="tok prop">data</span>: final=<span class="tok bool">true</span></span>
+        </div>
+        <p>完成时稳定落地。</p>
       </div>
     </div>
-    <div class="browser-window glow-card">
+    <div class="browser-window demo-live glow-card">
       <div class="browser-top"><span></span><span></span><span></span><b>localhost:3030</b></div>
       <div class="demo-preview">
         <div class="preview-row thinking-card" v-click>
@@ -464,7 +520,7 @@ colorSchema: dark
   </div>
 
   <div class="demo-steps" v-click>
-    SSE chunks → content 追加 → MarkdownRender 解析中间态 → heavy blocks 稳定渲染 → custom tags 变成 Vue 组件 → final=true 收束
+    content append → incomplete parse → stable heavy blocks → custom tags → final commit
   </div>
 </div>
 
@@ -473,7 +529,7 @@ colorSchema: dark
 <div class="deck pipeline-slide">
   <div class="section-head">
     <p class="eyebrow">核心实现</p>
-    <h1>低 CPU 的关键，是少做无意义重绘。</h1>
+    <h1>CPU 省下来，是因为每个 chunk 都被分流。</h1>
   </div>
 
   <div class="pipeline-strip">
@@ -485,17 +541,17 @@ colorSchema: dark
     <div class="pipeline-step" v-click>
       <span>02</span>
       <b>incomplete parse</b>
-      <p>容忍未闭合 Markdown</p>
+      <p>未闭合也能解析</p>
     </div>
     <div class="pipeline-step" v-click>
       <span>03</span>
       <b>stable live nodes</b>
-      <p>保持代码块、图表、组件身份</p>
+      <p>保持节点身份</p>
     </div>
     <div class="pipeline-step" v-click>
       <span>04</span>
       <b>update scheduler</b>
-      <p>控制 DOM 提交节奏</p>
+      <p>控制提交节奏</p>
     </div>
     <div class="pipeline-step" v-click>
       <span>05</span>
@@ -507,15 +563,15 @@ colorSchema: dark
   <div class="principle-grid">
     <div class="principle" v-click>
       <b>文本走快路径</b>
-      <span>cheap text append，不让每个 chunk 触发 heavy render</span>
+      <span>cheap text append</span>
     </div>
     <div class="principle" v-click>
       <b>重型节点排队</b>
-      <span>Shiki / Mermaid / KaTeX / Monaco 渐进进入渲染链路</span>
+      <span>靠近视口再渲染</span>
     </div>
     <div class="principle" v-click>
       <b>交互状态保留</b>
-      <span>selection、局部滚动、组件状态不跟着 token 丢失</span>
+      <span>selection / scroll 不丢</span>
     </div>
   </div>
 
@@ -529,33 +585,35 @@ colorSchema: dark
 <div class="deck noderender-optimization-slide">
   <div class="section-head">
     <p class="eyebrow">NodeRenderer Optimization</p>
-    <h1>NodeRenderer 做的不是“渲染更多”，而是“少提交”。</h1>
+    <h1>NodeRenderer 的工作，是保护主线程预算。</h1>
   </div>
 
-  <div class="optimization-grid">
-    <div class="optimization-card" v-click>
-      <b>stream parser cache</b>
-      <span><code>parseMarkdownToStructure</code> 默认 <code>streamParse="auto"</code>，流式中间态复用 parser cache，final 时收束。</span>
+  <div class="budget-board">
+    <div class="main-thread-card" v-click>
+      <span class="mini-label">main thread budget</span>
+      <b>parse 少一点<br>commit 慢一点<br>heavy block 晚一点</b>
     </div>
-    <div class="optimization-card" v-click>
-      <b>smooth streaming bridge</b>
-      <span><code>smoothStreaming="auto"</code> 控制可见内容节奏，不让 transport chunk 直接等于 DOM commit。</span>
-    </div>
-    <div class="optimization-card" v-click>
-      <b>live range + batch render</b>
-      <span>默认虚拟化窗口保留滚动/内存；<code>maxLiveNodes=0</code> 时进入增量批次。</span>
-    </div>
-    <div class="optimization-card" v-click>
-      <b>heavy node deferral</b>
-      <span><code>viewportPriority</code> 和 <code>deferNodesUntilVisible</code> 让 Monaco、Mermaid、KaTeX 靠近视口再进入重型路径。</span>
-    </div>
-    <div class="optimization-card" v-click>
-      <b>code block strategy</b>
-      <span>普通代码可用 <code>renderCodeBlocksAsPre</code> 或 <code>MarkdownCodeBlockNode</code>；需要交互时再接 Monaco。</span>
-    </div>
-    <div class="optimization-card" v-click>
-      <b>custom components</b>
-      <span><code>custom-html-tags</code> 让 trusted tags 成为稳定节点，再由 <code>VueRendererMarkdown</code> 映射到 app-scoped components。</span>
+    <div class="budget-grid">
+      <div class="budget-card" v-click>
+        <span>Parser cache</span>
+        <b>streamParse="auto"</b>
+        <small>中间态复用 cache，final 时收束。</small>
+      </div>
+      <div class="budget-card" v-click>
+        <span>Visible pacing</span>
+        <b>smoothStreaming="auto"</b>
+        <small>transport chunk 不直接等于 DOM commit。</small>
+      </div>
+      <div class="budget-card" v-click>
+        <span>Live range</span>
+        <b>maxLiveNodes</b>
+        <small>保留滚动、selection、组件身份。</small>
+      </div>
+      <div class="budget-card" v-click>
+        <span>Heavy deferral</span>
+        <b>viewportPriority</b>
+        <small>Monaco / Mermaid / KaTeX 靠近视口再渲染。</small>
+      </div>
     </div>
   </div>
 
@@ -569,29 +627,38 @@ colorSchema: dark
 <div class="deck ux-slide">
   <div class="section-head">
     <p class="eyebrow">Streaming UX</p>
-    <h1>让流式输出看起来“有意图”。</h1>
+    <h1>不要让 token 自己决定节奏。</h1>
   </div>
 
-  <div class="stream-grid">
-    <div class="chunk-rail">
+  <div class="ux-console">
+    <div class="chunk-rail ux-feed">
       <span v-click>chunk_01: "# Answer"</span>
       <span v-click>chunk_02: "&#96;&#96;&#96;ts"</span>
       <span v-click>chunk_03: "const a"</span>
       <span v-click>chunk_04: "final..."</span>
     </div>
-    <div class="render-rail">
-      <div class="ux-row" v-click>
-        <strong>:final="final"</strong>
-        <span>完成时切到最终解析，未闭合 fence / math 不会停在 loading 中间态</span>
+    <div class="tempo-stage">
+      <div class="tempo-row" v-click>
+        <b>:final="final"</b>
+        <span>false → true</span>
+        <i></i>
       </div>
-      <div class="ux-row" v-click>
-        <strong>smooth-streaming="auto"</strong>
-        <span>typewriter 或 max-live-nodes&lt;=0 时自动 pacing</span>
+      <div class="tempo-row" v-click>
+        <b>smooth-streaming="auto"</b>
+        <span>transport ≠ DOM commit</span>
+        <i></i>
       </div>
-      <div class="ux-row" v-click>
-        <strong>:batch-rendering="true"</strong>
-        <span>禁用虚拟窗口时用批次提交，避免每个 token 直接变成 DOM commit</span>
+      <div class="tempo-row" v-click>
+        <b>:batch-rendering="true"</b>
+        <span>chunks → batches</span>
+        <i></i>
       </div>
+    </div>
+    <div class="message-preview" v-click>
+      <span class="mini-label">reader sees</span>
+      <b>稳定增长的回答</b>
+      <div class="answer-lines"><i></i><i></i><i></i></div>
+      <em>rhythm · stability · completion</em>
     </div>
   </div>
 
@@ -605,25 +672,33 @@ colorSchema: dark
 <div class="deck heavy-slide">
   <div class="section-head">
     <p class="eyebrow">不只是文本</p>
-    <h1>AI 输出不只是 text。</h1>
+    <h1>Heavy block 要排队上场，不能抢走 token 的主线程。</h1>
   </div>
 
-  <div class="heavy-grid">
-    <div class="heavy-panel" v-click>
-      <span class="mini-label">Code</span>
-      <p>streaming diff / Monaco / Shiki</p>
+  <div class="heavy-stage">
+    <div class="live-output-panel" v-click>
+      <span class="mini-label">live output</span>
+      <div class="answer-lines"><i></i><i></i><i></i></div>
+      <div class="heavy-slot">Mermaid block waiting</div>
+      <div class="answer-lines small"><i></i><i></i></div>
     </div>
-    <div class="heavy-panel" v-click>
-      <span class="mini-label">Diagram</span>
-      <p>Mermaid / D2 / Infographic</p>
-    </div>
-    <div class="heavy-panel" v-click>
-      <span class="mini-label">Formula</span>
-      <p>KaTeX</p>
-    </div>
-    <div class="heavy-panel" v-click>
-      <span class="mini-label">Rich Node</span>
-      <p>image / custom renderer / interactive block</p>
+    <div class="heavy-queue">
+      <div class="heavy-ticket" v-click>
+        <span>Code</span>
+        <b>Monaco / Shiki</b>
+      </div>
+      <div class="heavy-ticket" v-click>
+        <span>Diagram</span>
+        <b>Mermaid / D2</b>
+      </div>
+      <div class="heavy-ticket" v-click>
+        <span>Formula</span>
+        <b>KaTeX</b>
+      </div>
+      <div class="heavy-ticket" v-click>
+        <span>Rich Node</span>
+        <b>image / custom renderer</b>
+      </div>
     </div>
   </div>
 
@@ -637,15 +712,15 @@ colorSchema: dark
 <div class="deck components-slide">
   <div class="section-head">
     <p class="eyebrow">记忆点 01</p>
-    <h1>让 AI 输出渲染成 <span v-mark.box="{ at: 4, color: '#569CD6' }">真实 Vue 组件</span>。</h1>
+    <h1>AI 输出里的标签，可以穿梭成 <span v-mark.box="{ at: 4, color: '#569CD6' }">真实 Vue 组件</span>。</h1>
   </div>
 
-  <div class="component-map">
-    <div class="terminal-card map-code" v-click>
+  <div class="component-story">
+    <div class="terminal-card map-code tag-stream" v-click>
       <div class="terminal-dots"><i></i><i></i><i></i></div>
       <div class="code-lines">
         <span><span class="tok tag">&lt;thinking&gt;</span></span>
-        <span>I need to search the knowledge base first.</span>
+        <span>Search knowledge base first.</span>
         <span><span class="tok tag">&lt;/thinking&gt;</span></span>
         <span><span class="tok tag">&lt;tool-result</span> <span class="tok attr">name</span>=<span class="tok str">"search"</span> <span class="tok attr">status</span>=<span class="tok str">"done"</span><span class="tok tag">&gt;</span></span>
         <span>Found 12 related documents.</span>
@@ -655,21 +730,25 @@ colorSchema: dark
         <span><span class="tok tag">&lt;/answer-box&gt;</span></span>
       </div>
     </div>
-    <div class="map-arrow" v-click>→</div>
-    <div class="terminal-card map-code" v-click>
-      <div class="terminal-dots"><i></i><i></i><i></i></div>
-      <div class="code-lines">
-        <span><span class="tok kw">import</span> MarkdownRender, { VueRendererMarkdown } <span class="tok kw">from</span> <span class="tok str">'markstream-vue'</span></span>
-        <span>createApp(App)</span>
-        <span>&nbsp;&nbsp;.use(VueRendererMarkdown, {</span>
-        <span>&nbsp;&nbsp;<span class="tok prop">components</span>: {</span>
-        <span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tok prop">thinking</span>: ThinkingNode,</span>
-        <span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tok prop">'tool-result'</span>: ToolResultNode,</span>
-        <span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tok prop">'answer-box'</span>: AnswerBoxNode,</span>
-        <span>&nbsp;&nbsp;}</span>
-        <span>})</span>
-        <span>&nbsp;&nbsp;.component(<span class="tok str">'MarkdownRender'</span>, MarkdownRender)</span>
-        <span>&nbsp;&nbsp;.mount(<span class="tok str">'#app'</span>)</span>
+    <div class="component-tunnel" v-click>
+      <span>&lt;thinking&gt;</span>
+      <i></i>
+      <span>&lt;tool-result&gt;</span>
+      <i></i>
+      <span>&lt;answer-box&gt;</span>
+    </div>
+    <div class="component-preview" v-click>
+      <div class="preview-row thinking-card">
+        <span>Thinking</span>
+        <b>Search knowledge base first.</b>
+      </div>
+      <div class="preview-row tool-card">
+        <span>Tool</span>
+        <b>12 related documents</b>
+      </div>
+      <div class="preview-row answer-card">
+        <span>Final</span>
+        <b>Here is the answer...</b>
       </div>
     </div>
   </div>
@@ -684,29 +763,36 @@ colorSchema: dark
 <div class="deck agent-slide">
   <div class="section-head">
     <p class="eyebrow">典型场景</p>
-    <h1>markstream-vue 放在哪里</h1>
+    <h1>它不是只放在 chat 里。它是 AI 输出层。</h1>
   </div>
 
-  <div class="path-map">
-    <div class="path-node" v-click>
-      <strong>AI Chat</strong>
-      <span>流式回答、代码、公式、图表</span>
+  <div class="use-case-board">
+    <div class="output-core" v-click>
+      <img src="./public/markstream-logo.svg" alt="">
+      <b>AI Output UI Layer</b>
+      <span>content · nodes · final</span>
     </div>
-    <div class="path-node" v-click>
-      <strong>Agent Report</strong>
-      <span>thinking、tool result、step card</span>
-    </div>
-    <div class="path-node" v-click>
-      <strong>Knowledge Base</strong>
-      <span>长文档、引用、来源卡片</span>
-    </div>
-    <div class="path-node" v-click>
-      <strong>Code Review</strong>
-      <span>diff、解释、修复建议</span>
-    </div>
-    <div class="path-node" v-click>
-      <strong>Docs / CMS</strong>
-      <span>Markdown + Vue custom blocks</span>
+    <div class="use-case-grid">
+      <div class="use-case-card" v-click>
+        <strong>AI Chat</strong>
+        <span>回答、代码、公式、图表</span>
+      </div>
+      <div class="use-case-card" v-click>
+        <strong>Agent Report</strong>
+        <span>thinking、tool result、step card</span>
+      </div>
+      <div class="use-case-card" v-click>
+        <strong>Knowledge Base</strong>
+        <span>长文档、引用、来源卡片</span>
+      </div>
+      <div class="use-case-card" v-click>
+        <strong>Code Review</strong>
+        <span>diff、解释、修复建议</span>
+      </div>
+      <div class="use-case-card wide" v-click>
+        <strong>Docs / CMS</strong>
+        <span>Markdown + Vue custom blocks</span>
+      </div>
     </div>
   </div>
 
@@ -720,25 +806,28 @@ colorSchema: dark
 <div class="deck perf-slide">
   <div class="section-head">
     <p class="eyebrow">可观察质量</p>
-    <h1>性能，本质是低 CPU 下的稳定性。</h1>
+    <h1>性能不是一个分数。是四个观测点同时稳定。</h1>
   </div>
 
-  <div class="metrics-board">
-    <div class="metric-check" v-click>
+  <div class="quality-board">
+    <div class="quality-primary" v-click>
+      <span class="mini-label">visible quality</span>
       <b>Perceived Stability</b>
-      <span>CLS / scroll drift / block flashing</span>
+      <p>CLS · scroll drift · block flashing</p>
     </div>
-    <div class="metric-check" v-click>
-      <b>Streaming Responsiveness</b>
-      <span>CPU footprint / frame p95 / long task</span>
-    </div>
-    <div class="metric-check" v-click>
-      <b>Heavy Block Readiness</b>
-      <span>Mermaid ready / KaTeX ready / fallback count</span>
-    </div>
-    <div class="metric-check" v-click>
-      <b>Resource Health</b>
-      <span>DOM node count / heap / idle CPU</span>
+    <div class="quality-grid">
+      <div class="quality-card" v-click>
+        <b>Streaming Responsiveness</b>
+        <span>CPU footprint · frame p95 · long task</span>
+      </div>
+      <div class="quality-card" v-click>
+        <b>Heavy Block Readiness</b>
+        <span>Mermaid · KaTeX · fallback count</span>
+      </div>
+      <div class="quality-card" v-click>
+        <b>Resource Health</b>
+        <span>DOM nodes · heap · idle CPU</span>
+      </div>
     </div>
   </div>
 
@@ -755,47 +844,24 @@ colorSchema: dark
     <h1>streamdown 是参照，不是 Vue 场景的终点。</h1>
   </div>
 
-  <table class="compare-table">
-    <thead>
-      <tr>
-        <th>维度</th>
-        <th v-click>streamdown core config</th>
-        <th v-click>markstream-vue</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-click>
-        <td>生态落点</td>
-        <td>React / Vercel / AI SDK</td>
-        <td>Vue 3 / Nuxt / VitePress</td>
-      </tr>
-      <tr v-click>
-        <td>Code 更新</td>
-        <td>整块 code 随 chunk 重算/替换时，selection / 局部滚动容易被打断</td>
-        <td>面向 live block 控制更新节奏，final 后稳定落地</td>
-      </tr>
-      <tr v-click>
-        <td>中间态</td>
-        <td>未闭合 Markdown 如果反复替换临时结构，代码块、表格、图表容易闪烁和跳高</td>
-        <td>final=false 处理临时结构，减少中间态 DOM 抖动</td>
-      </tr>
-      <tr v-click>
-        <td>重型节点</td>
-        <td>如果 Mermaid / KaTeX / 高亮随每个 chunk 进入主线程，token 节奏会被抢占</td>
-        <td>heavy block 渐进渲染，避免打断 token 输出</td>
-      </tr>
-      <tr v-click>
-        <td>自定义 UI</td>
-        <td>React 组件和插件体系强，但 Vue 业务需要额外适配</td>
-        <td>custom tags 通过 app-scoped Vue components 稳定接入</td>
-      </tr>
-      <tr v-click>
-        <td>CPU / DOM</td>
-        <td>本次 core-config E2E 样例里，scripting 与 DOM mutation 更高</td>
-        <td>scripting / DOM mutation 更低；layout / p95 按 workload 验证</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="ecosystem-compare">
+    <div class="ecosystem-card" v-click>
+      <span>streamdown</span>
+      <b>React / Vercel / AI SDK</b>
+      <p>证明 streaming markdown 需求成立。</p>
+    </div>
+    <div class="ecosystem-card primary" v-click>
+      <span>markstream-vue</span>
+      <b>Vue 3 / Nuxt / VitePress</b>
+      <p>把稳定交互、低 scripting 和 Vue components 做成默认路径。</p>
+    </div>
+  </div>
+  <div class="compare-points">
+    <div v-click><b>Code 更新</b><span>live block 控制更新节奏，final 后稳定落地</span></div>
+    <div v-click><b>中间态</b><span>final=false 处理临时结构，减少 DOM 抖动</span></div>
+    <div v-click><b>重型节点</b><span>heavy block 渐进渲染，不打断 token 输出</span></div>
+    <div v-click><b>自定义 UI</b><span>custom tags → app-scoped Vue components</span></div>
+  </div>
 
   <div class="memory-line" v-click>
     streamdown 证明需求成立；markstream-vue 在 Vue 侧把稳定交互、低 scripting 和组件化做成默认路径。
@@ -807,51 +873,52 @@ colorSchema: dark
 <div class="deck adoption-slide">
   <div class="section-head">
     <p class="eyebrow">Public Adoption Signals</p>
-    <h1>不是 demo：真实开源项目正在接入。</h1>
+    <h1>不是 demo。真实项目已经把它放进 package.json。</h1>
   </div>
 
-  <div class="adoption-stats" v-click>
-    <div>
-      <b>92+</b>
-      <span>外部 public repos</span>
+  <div class="adoption-story">
+    <div class="adoption-stats" v-click>
+      <div>
+        <b>92+</b>
+        <span>外部 public repos</span>
+      </div>
+      <div>
+        <b>109</b>
+        <span>package.json hits</span>
+      </div>
+      <p>保守口径：只统计 package.json 中声明了 <code>markstream-vue</code> 的公开仓库，排除 Simon-He95/*。</p>
     </div>
-    <div>
-      <b>109</b>
-      <span>package.json hits</span>
-    </div>
-    <p>保守口径：只统计 package.json 中声明了 <code>markstream-vue</code> 的公开仓库，排除 Simon-He95/*。</p>
-  </div>
-
-  <div class="adoption-grid">
-    <div class="adoption-card" v-click>
-      <b>AstrBot</b>
-      <span>33.5k stars</span>
-      <small>AI agent assistant / IM platforms</small>
-    </div>
-    <div class="adoption-card" v-click>
-      <b>mcp-chrome</b>
-      <span>11.8k stars</span>
-      <small>Chrome extension based MCP server</small>
-    </div>
-    <div class="adoption-card" v-click>
-      <b>HuLa</b>
-      <span>7.4k stars</span>
-      <small>Rust + Vue3 cross-platform IM</small>
-    </div>
-    <div class="adoption-card" v-click>
-      <b>DeepChat</b>
-      <span>5.9k stars</span>
-      <small>AI assistant desktop app</small>
-    </div>
-    <div class="adoption-card" v-click>
-      <b>telegram-search</b>
-      <span>3.9k stars</span>
-      <small>Telegram history export/search</small>
-    </div>
-    <div class="adoption-card" v-click>
-      <b>Memoh</b>
-      <span>1.8k stars</span>
-      <small>self-hosted AI agent platform</small>
+    <div class="adoption-grid">
+      <div class="adoption-card" v-click>
+        <b>AstrBot</b>
+        <span>33.5k stars</span>
+        <small>AI agent assistant</small>
+      </div>
+      <div class="adoption-card" v-click>
+        <b>mcp-chrome</b>
+        <span>11.8k stars</span>
+        <small>Chrome MCP server</small>
+      </div>
+      <div class="adoption-card" v-click>
+        <b>HuLa</b>
+        <span>7.4k stars</span>
+        <small>Rust + Vue3 IM</small>
+      </div>
+      <div class="adoption-card" v-click>
+        <b>DeepChat</b>
+        <span>5.9k stars</span>
+        <small>AI desktop app</small>
+      </div>
+      <div class="adoption-card" v-click>
+        <b>telegram-search</b>
+        <span>3.9k stars</span>
+        <small>history export/search</small>
+      </div>
+      <div class="adoption-card" v-click>
+        <b>Memoh</b>
+        <span>1.8k stars</span>
+        <small>AI agent platform</small>
+      </div>
     </div>
   </div>
 
@@ -865,25 +932,28 @@ colorSchema: dark
 <div class="deck production-slide">
   <div class="section-head">
     <p class="eyebrow">生产环境</p>
-    <h1>进入生产，不只是能渲染。</h1>
+    <h1>进入生产，最后检查的是边界。</h1>
   </div>
 
-  <div class="prod-checklist">
-    <div class="prod-row" v-click>
-      <b>HTML policy 可控</b>
-      <code>html-policy="safe" / "escape"</code>
+  <div class="production-gates">
+    <div class="gate-card policy" v-click>
+      <span class="mini-label">boundary 01</span>
+      <b>HTML policy</b>
+      <code>safe / escape</code>
     </div>
-    <div class="prod-row" v-click>
-      <b>SSR ready</b>
-      <span>Vue / Vite / Nuxt / VitePress</span>
-    </div>
-    <div class="prod-row" v-click>
-      <b>组件覆盖</b>
-      <span><code>VueRendererMarkdown</code> 注册 app-scoped components；局部场景用 <code>setCustomComponents</code></span>
-    </div>
-    <div class="prod-row" v-click>
-      <b>Optional peers</b>
-      <span>katex / mermaid / stream-monaco / d2 / infographic 按需安装</span>
+    <div class="gate-list">
+      <div class="gate-row" v-click>
+        <b>SSR ready</b>
+        <span>Vue / Vite / Nuxt / VitePress</span>
+      </div>
+      <div class="gate-row" v-click>
+        <b>组件覆盖</b>
+        <span>app-scoped components；局部场景再用 scoped set</span>
+      </div>
+      <div class="gate-row" v-click>
+        <b>Optional peers</b>
+        <span>katex / mermaid / monaco / d2 按需安装</span>
+      </div>
     </div>
   </div>
 
@@ -897,18 +967,19 @@ colorSchema: dark
 <div class="deck vue-first-slide">
   <div class="section-head">
     <p class="eyebrow">定位</p>
-    <h1>Vue 3 stable, rendering foundation.</h1>
+    <h1>稳定承诺先给 Vue 3。探索留在实验层。</h1>
   </div>
 
-  <div class="vue-first-core glow-card">
-    <div v-click><span>Stable</span>Vue 3 renderer package · MarkdownRender · content/nodes · final</div>
-    <div v-click><span>Production</span>safe HTML · SSR · CSS exports · optional heavy peers</div>
-    <div v-click><span>Foundation</span>AI Chat · Agent Report · Knowledge Base · Code Review</div>
-  </div>
-
-  <div class="ecosystem-line" v-click>
-    Experimental / internal expansion:<br>
-    <span>Vue 2 · Vue 3 · Svelte · React · Nuxt · Next · Angular</span>
+  <div class="position-board">
+    <div class="stable-pillar" v-click>
+      <span class="mini-label">stable public surface</span>
+      <b>Vue 3 renderer foundation</b>
+      <p>MarkdownRender · content/nodes · final · SSR · safe HTML</p>
+    </div>
+    <div class="experiment-pillar" v-click>
+      <span class="mini-label">experimental / internal expansion</span>
+      <div>Vue 2</div><div>Vue 3</div><div>Svelte</div><div>React</div><div>Nuxt</div><div>Next</div><div>Angular</div>
+    </div>
   </div>
 
   <div class="memory-line" v-click>
@@ -949,6 +1020,7 @@ colorSchema: dark
 
   <div class="qa-footer">
     GitHub: Simon-He95/markstream-vue<br>
-    Docs / Playground / Discussions
+    Docs / Playground / Discussions<br>
+    <span class="slidev-credit">Slides made with Slidev · Thanks Anthony Fu (antfu)</span>
   </div>
 </div>
