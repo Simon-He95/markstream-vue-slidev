@@ -275,7 +275,7 @@ onUnmounted(() => {
   padding: 9px 12px;
   border: 1px solid rgba(86, 156, 214, 0.22);
   border-radius: 8px;
-  background: rgba(37, 37, 38, 0.72);
+  background: rgb(var(--surface-2-rgb) / 0.72);
 }
 
 button {
@@ -283,7 +283,7 @@ button {
   border: 0;
   border-radius: 4px;
   padding: 0 16px;
-  color: #D4D4D4;
+  color: var(--code-text);
   font-weight: 850;
 }
 
@@ -294,7 +294,7 @@ button {
 
 .play-secondary {
   border: 1px solid rgba(148, 163, 184, 0.22);
-  background: #252526;
+  background: var(--code-panel);
 }
 
 .play-progress {
@@ -302,7 +302,7 @@ button {
   height: 24px;
   overflow: hidden;
   border-radius: 4px;
-  background: rgba(30, 30, 30, 0.76);
+  background: rgb(var(--surface-1-rgb) / 0.76);
 }
 
 .play-progress span {
@@ -310,7 +310,7 @@ button {
   z-index: 1;
   display: block;
   padding: 4px 10px;
-  color: #A6A6A6;
+  color: var(--muted);
   font-size: 12px;
   font-weight: 760;
 }
@@ -333,7 +333,7 @@ button {
   padding: 12px;
   border: 1px solid rgba(148, 163, 184, 0.2);
   border-radius: 8px;
-  background: rgba(37, 37, 38, 0.72);
+  background: rgb(var(--surface-2-rgb) / 0.72);
 }
 
 .play-panel.streamdown {
@@ -365,7 +365,7 @@ button {
 }
 
 .play-panel header b {
-  color: #A6A6A6;
+  color: var(--muted);
   font-size: 12px;
 }
 
@@ -373,12 +373,12 @@ button {
   position: relative;
   height: 236px;
   overflow: auto;
-  scrollbar-color: rgba(86, 156, 214, 0.58) rgba(30, 30, 30, 0.28);
+  scrollbar-color: rgba(86, 156, 214, 0.58) rgb(var(--surface-1-rgb) / 0.28);
   scrollbar-width: thin;
   scroll-behavior: smooth;
   border: 1px solid rgba(148, 163, 184, 0.16);
   border-radius: 6px;
-  background: #1E1E1E;
+  background: var(--code-bg);
 }
 
 .render-host::-webkit-scrollbar {
@@ -387,7 +387,7 @@ button {
 }
 
 .render-host::-webkit-scrollbar-track {
-  background: rgba(30, 30, 30, 0.28);
+  background: rgb(var(--surface-1-rgb) / 0.28);
 }
 
 .render-host::-webkit-scrollbar-thumb {
@@ -396,7 +396,7 @@ button {
 }
 
 .streamdown .render-host {
-  scrollbar-color: rgba(206, 145, 120, 0.58) rgba(30, 30, 30, 0.28);
+  scrollbar-color: rgba(206, 145, 120, 0.58) rgb(var(--surface-1-rgb) / 0.28);
 }
 
 .streamdown .render-host::-webkit-scrollbar-thumb {
@@ -405,7 +405,7 @@ button {
 
 .markdown-sample {
   padding: 10px;
-  color: #D4D4D4;
+  color: var(--code-text);
   font-size: 12px;
   line-height: 1.35;
   animation: repaint 180ms ease;
@@ -413,7 +413,7 @@ button {
 
 .markdown-sample p {
   margin: 0 0 8px;
-  color: #A6A6A6;
+  color: var(--muted);
 }
 
 .markdown-sample pre {
@@ -421,13 +421,13 @@ button {
   padding: 10px;
   overflow: hidden;
   border-radius: 8px;
-  background: #252526;
+  background: var(--code-panel);
 }
 
 .markdown-sample code {
   display: grid;
   gap: 1px;
-  color: #D4D4D4;
+  color: var(--code-text);
   font-family: var(--font-code);
   font-size: 10px;
   line-height: 1.25;
@@ -455,14 +455,14 @@ button {
   padding: 7px 9px;
   border: 1px solid rgba(148, 163, 184, 0.16);
   border-radius: 8px;
-  background: rgba(37, 37, 38, 0.72);
-  color: #D4D4D4;
+  background: rgb(var(--surface-2-rgb) / 0.72);
+  color: var(--code-text);
   font-size: 11px;
 }
 
 .diagram-sample code {
   display: block;
-  color: #A6A6A6;
+  color: var(--muted);
   white-space: nowrap;
 }
 
@@ -475,8 +475,8 @@ button {
   padding: 8px 10px;
   border-left: 0;
   border-radius: 8px;
-  background: rgba(37, 37, 38, 0.72);
-  color: #D4D4D4;
+  background: rgb(var(--surface-2-rgb) / 0.72);
+  color: var(--code-text);
 }
 
 .actual-render {
@@ -488,16 +488,9 @@ button {
   --vscode-editor-font-family: var(--font-code);
   --vscode-editor-font-size: 11px;
   --vscode-editor-line-height: 1.45;
-  --vscode-editor-background: #1E1E1E;
-  --vscode-editor-foreground: #D4D4D4;
+  --vscode-editor-background: var(--code-bg);
+  --vscode-editor-foreground: var(--code-text);
   --vscode-editor-selection: rgba(86, 156, 214, 0.3);
-  --code-bg: #1E1E1E;
-  --code-fg: #D4D4D4;
-  --code-border: rgba(128, 128, 128, 0.22);
-  --code-header-bg: #252526;
-  --code-action-fg: #A6A6A6;
-  --code-action-hover-bg: rgba(86, 156, 214, 0.14);
-  --code-action-hover-fg: #FFFFFF;
   font-size: 11px;
   line-height: 1.3;
   padding-bottom: 6px;
@@ -505,13 +498,13 @@ button {
 
 .actual-render :deep(pre) {
   max-height: none;
-  background: #1E1E1E !important;
+  background: var(--code-bg) !important;
 }
 
 .actual-render :deep(code),
 .actual-render :deep(.shiki) {
   font-family: var(--font-code) !important;
-  color: #D4D4D4;
+  color: var(--code-text);
 }
 
 .actual-render :deep(.monaco-code-block) {
@@ -520,8 +513,8 @@ button {
   overflow: auto;
   border: 1px solid rgba(128, 128, 128, 0.16);
   border-radius: 6px;
-  background: #1E1E1E !important;
-  color: #D4D4D4;
+  background: var(--code-bg) !important;
+  color: var(--code-text);
   font-family: var(--font-code);
   font-size: 11px;
   line-height: 1.45;
@@ -534,31 +527,31 @@ button {
 }
 
 .actual-render :deep(.monaco-token.keyword) {
-  color: #C586C0;
+  color: var(--code-keyword);
 }
 
 .actual-render :deep(.monaco-token.string) {
-  color: #CE9178;
+  color: var(--code-string);
 }
 
 .actual-render :deep(.monaco-token.constant) {
-  color: #B5CEA8;
+  color: var(--code-number);
 }
 
 .actual-render :deep(.monaco-token.operator) {
-  color: #D4D4D4;
+  color: var(--code-text);
 }
 
 .actual-render :deep(.monaco-token.comment) {
-  color: #6A9955;
+  color: var(--code-comment);
 }
 
 .actual-render :deep(.monaco-line.insert) {
-  color: #4EC9B0;
+  color: var(--accent);
 }
 
 .actual-render :deep(.monaco-line.delete) {
-  color: #F48771;
+  color: var(--code-danger);
 }
 
 .play-panel footer {
@@ -570,8 +563,8 @@ button {
   padding: 5px 7px;
   border: 1px solid rgba(148, 163, 184, 0.16);
   border-radius: 4px;
-  background: rgba(30, 30, 30, 0.72);
-  color: #A6A6A6;
+  background: rgb(var(--surface-1-rgb) / 0.72);
+  color: var(--muted);
   font-size: 10px;
   line-height: 1.2;
   text-align: center;
