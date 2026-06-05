@@ -66,6 +66,8 @@ colorSchema: dark
 ---
 
 <div class="deck about-slide">
+  <img class="slide-corner-logo" src="./public/markstream-logo.svg" alt="" aria-hidden="true">
+
   <div class="section-head">
     <p class="eyebrow">About Simon</p>
     <h1>关于 <span class="gradient-text">Simon</span></h1>
@@ -105,7 +107,7 @@ colorSchema: dark
         <span class="project-chip"><img src="./public/project-logos/vscode.svg" alt="">Alias Jump</span>
       </div>
       <div class="project-line compact" v-click>
-        <span class="role-label">PRs</span>
+        <span class="role-label">贡献者</span>
         <span class="project-chip ghost"><img src="./public/project-logos/vite.png" alt="">Vite</span>
         <span class="project-chip ghost"><img src="./public/project-logos/element-plus.png" alt="">Element Plus</span>
         <span class="project-chip ghost"><img src="./public/project-logos/tdesign.png" alt="">TDesign Vue Next</span>
