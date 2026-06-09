@@ -579,101 +579,72 @@ colorSchema: dark
 
 ---
 
-<div class="deck ecosystem-slide">
-  <div class="section-head">
+<div class="deck ecosystem-slide ecosystem-v3">
+  <div class="section-head compact-head">
     <p class="eyebrow">生态与落地</p>
-    <h1>它不是只放在 chat 里。它是 AI 输出层。</h1>
+    <h1>不是 Chat 组件。<br><span class="gradient-text">是 Vue 的 AI Output Layer。</span></h1>
   </div>
-
-  <div class="ecosystem-compare">
-    <div class="ecosystem-card" v-click>
-      <span>streamdown</span>
-      <b>React / Vercel / AI SDK</b>
-      <p>证明 streaming markdown 需求成立。</p>
-    </div>
-    <div class="ecosystem-card primary" v-click>
-      <span>markstream-vue</span>
-      <b>Vue 3 / Nuxt / VitePress</b>
-      <p>把稳定交互、低 scripting 和组件化做成默认路径。</p>
-    </div>
+  <div class="output-layer-canvas">
+  <div class="stream-feed" aria-label="AI stream input">
+  <span class="mini-label">input stream</span>
+  <div class="stream-token token-a">content</div>
+  <div class="stream-token token-b">thinking</div>
+  <div class="stream-token token-c">tool-result</div>
+  <div class="stream-token token-d">custom-tags</div>
   </div>
-
-  <div class="use-case-grid ecosystem-uses">
-    <div class="use-case-card" v-click>
-      <strong>AI Chat</strong>
-      <span>回答、代码、公式、图表</span>
-    </div>
-    <div class="use-case-card" v-click>
-      <strong>Agent Report</strong>
-      <span>thinking、tool result、step card</span>
-    </div>
-    <div class="use-case-card" v-click>
-      <strong>Knowledge Base</strong>
-      <span>长文档、引用、来源卡片</span>
-    </div>
-    <div class="use-case-card" v-click>
-      <strong>Code Review</strong>
-      <span>diff、解释、修复建议</span>
-    </div>
+  <div class="canvas-beam beam-a" aria-hidden="true"><i></i></div>
+  <div class="canvas-beam beam-b" aria-hidden="true"><i></i></div>
+  <div class="canvas-beam beam-c" aria-hidden="true"><i></i></div>
+  <div class="layer-core glow-card">
+  <div class="core-orbit" aria-hidden="true"></div>
+  <img src="./public/markstream-logo.svg" alt="markstream-vue logo">
+  <b>markstream-vue</b>
+  <span>parse · schedule · render</span>
   </div>
-
-  <div class="production-strip" v-click>
-    <div><b>SSR ready</b><span>Vue / Vite / Nuxt / VitePress</span></div>
-    <div><b>HTML safe</b><span>escape 模式，不可信 HTML 不直出</span></div>
-    <div><b>Optional peers</b><span>katex / mermaid / monaco / d2 按需安装</span></div>
+  <div class="surface-cloud" aria-label="AI output surfaces">
+  <div class="surface-tile chat"><i aria-hidden="true"></i><b>AI Chat</b><span>answer / code</span></div>
+  <div class="surface-tile agent"><i aria-hidden="true"></i><b>Agent</b><span>steps / tools</span></div>
+  <div class="surface-tile docs"><i aria-hidden="true"></i><b>Docs</b><span>cite / search</span></div>
+  <div class="surface-tile review"><i aria-hidden="true"></i><b>Review</b><span>diff / patch</span></div>
   </div>
-
-  <div class="memory-line" v-click>
-    Agent 的输出不应该永远停留在字符串层。
+  <div class="runtime-rail" aria-label="Runtime capabilities">
+  <span>Vue 3</span><span>Nuxt</span><span>VitePress</span><span>SSR</span><span>Safe HTML</span><span>KaTeX</span><span>Mermaid</span><span>Monaco</span>
+  </div>
   </div>
 </div>
 
 ---
 
-<div class="deck adoption-slide">
-  <div class="section-head">
+<div class="deck adoption-slide adoption-v2">
+  <div class="section-head compact-head">
     <p class="eyebrow">Public Adoption Signals</p>
-    <h1>Public dependency signals，<br>不等于生产流量。</h1>
+    <h1>先看公开依赖信号，<br><span class="gradient-text">但不把它讲成生产流量。</span></h1>
   </div>
 
-  <div class="adoption-story">
-    <div class="adoption-stats" v-click>
-      <div>
-        <b>92+</b>
-        <span>外部 public repos</span>
-      </div>
-      <div>
-        <b>109</b>
-        <span>package.json hits</span>
-      </div>
-      <p>保守口径：只统计 package.json 中声明了 <code>markstream-vue</code> 的公开仓库，排除 Simon-He95/*。</p>
+  <div class="adoption-radar">
+    <div class="radar-center" v-click>
+      <img src="./public/social-icons/github.svg" alt="GitHub">
+      <b>92+</b>
+      <span>external repos</span>
+      <small>109 package.json hits</small>
     </div>
-    <div class="adoption-grid">
-      <div class="adoption-card" v-click>
-        <b>AstrBot</b>
-        <span>33.5k ★</span>
-        <small>AI agent assistant</small>
-      </div>
-      <div class="adoption-card" v-click>
-        <b>mcp-chrome</b>
-        <span>11.8k ★</span>
-        <small>Chrome MCP server</small>
-      </div>
-      <div class="adoption-card" v-click>
-        <b>HuLa</b>
-        <span>7.4k ★</span>
-        <small>Rust + Vue3 IM</small>
-      </div>
-      <div class="adoption-card" v-click>
-        <b>DeepChat</b>
-        <span>5.9k ★</span>
-        <small>AI desktop app</small>
-      </div>
+    <div class="repo-orbit repo-a" v-click>
+      <b>AstrBot</b><span>33.5k ★</span>
+    </div>
+    <div class="repo-orbit repo-b" v-click>
+      <b>mcp-chrome</b><span>11.8k ★</span>
+    </div>
+    <div class="repo-orbit repo-c" v-click>
+      <b>HuLa</b><span>7.4k ★</span>
+    </div>
+    <div class="repo-orbit repo-d" v-click>
+      <img src="./public/project-logos/deepchat.png" alt="DeepChat">
+      <b>DeepChat</b><span>5.9k ★</span>
     </div>
   </div>
 
-  <div class="source-note" v-click>
-    GitHub code search: "markstream-vue" filename:package.json，as of 2026-05-31。星标与依赖版本会变化，这是 adoption signal，不等于生产流量。
+  <div class="signal-footnote" v-click>
+    GitHub code search · <code>"markstream-vue" filename:package.json</code> · exclude <code>Simon-He95/*</code> · as of 2026-05-31
   </div>
 </div>
 
