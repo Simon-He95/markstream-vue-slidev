@@ -66,6 +66,7 @@ colorSchema: dark
 ---
 
 <div class="deck about-slide">
+  <img class="slide-corner-logo" src="./public/markstream-logo.svg" alt="">
   <div class="section-head">
     <p class="eyebrow">About Simon</p>
     <h1>关于 <span class="gradient-text">Simon</span></h1>
