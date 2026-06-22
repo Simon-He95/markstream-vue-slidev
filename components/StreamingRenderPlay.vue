@@ -181,10 +181,10 @@ onUnmounted(() => {
 <template>
   <div class="stream-play">
     <div class="play-toolbar">
-      <button class="play-primary" type="button" @click="running ? pause() : play()">
+      <button class="pixel-button compact btn-retro pxl-corner-sm" type="button" @click="running ? pause() : play()">
         {{ running ? "Pause" : "Play" }}
       </button>
-      <button class="play-secondary" type="button" @click="reset">
+      <button class="pixel-button compact btn-retro pxl-corner-sm" type="button" @click="reset">
         Reset
       </button>
       <div class="play-progress">
@@ -194,7 +194,7 @@ onUnmounted(() => {
     </div>
 
     <div class="play-grid">
-      <section class="play-panel streamdown">
+      <section class="play-panel streamdown pxl-corner-md pxl-shadow">
         <header>
           <span>common renderer model</span>
           <b>remount #{{ remountCount }}</b>
@@ -230,7 +230,7 @@ onUnmounted(() => {
         </footer>
       </section>
 
-      <section class="play-panel markstream">
+      <section class="play-panel markstream pxl-corner-md pxl-shadow">
         <header>
           <span>markstream-vue</span>
           <b>content + final</b>
@@ -272,53 +272,58 @@ onUnmounted(() => {
   grid-template-columns: auto auto minmax(0, 1fr);
   align-items: center;
   gap: 10px;
-  padding: 9px 12px;
-  border: 1px solid rgba(86, 156, 214, 0.22);
-  border-radius: 8px;
-  background: rgb(var(--surface-2-rgb) / 0.72);
-}
-
-button {
-  height: 32px;
-  border: 0;
-  border-radius: 4px;
-  padding: 0 16px;
-  color: var(--code-text);
-  font-weight: 850;
-}
-
-.play-primary {
-  background: #0E639C;
-  color: #FFFFFF;
-}
-
-.play-secondary {
-  border: 1px solid rgba(148, 163, 184, 0.22);
-  background: var(--code-panel);
+  padding: 10px 12px;
+  border: 2px solid var(--retro-border-strong);
+  background: var(--retro-card);
+  clip-path: polygon(
+    4px 0,
+    calc(100% - 4px) 0,
+    calc(100% - 4px) 2px,
+    calc(100% - 2px) 2px,
+    calc(100% - 2px) 4px,
+    100% 4px,
+    100% calc(100% - 4px),
+    calc(100% - 2px) calc(100% - 4px),
+    calc(100% - 2px) calc(100% - 2px),
+    calc(100% - 4px) calc(100% - 2px),
+    calc(100% - 4px) 100%,
+    4px 100%,
+    4px calc(100% - 2px),
+    2px calc(100% - 2px),
+    2px calc(100% - 4px),
+    0 calc(100% - 4px),
+    0 4px,
+    2px 4px,
+    2px 2px,
+    4px 2px
+  );
 }
 
 .play-progress {
   position: relative;
-  height: 24px;
+  height: 32px;
   overflow: hidden;
-  border-radius: 4px;
-  background: rgb(var(--surface-1-rgb) / 0.76);
+  border: 2px solid var(--retro-border);
+  background: var(--retro-surface);
 }
 
 .play-progress span {
   position: relative;
   z-index: 1;
-  display: block;
-  padding: 4px 10px;
-  color: var(--muted);
-  font-size: 12px;
-  font-weight: 760;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 10px;
+  color: var(--retro-text);
+  font-family: var(--font-pixel-local);
+  font-size: 9px;
+  text-transform: uppercase;
 }
 
 .play-progress i {
   position: absolute;
   inset: 0 auto 0 0;
-  background: rgba(86, 156, 214, 0.24);
+  background: rgba(0, 255, 136, 0.25);
   transition: width 160ms ease;
 }
 
@@ -331,17 +336,16 @@ button {
 .play-panel {
   min-width: 0;
   padding: 12px;
-  border: 1px solid rgba(148, 163, 184, 0.2);
-  border-radius: 8px;
-  background: rgb(var(--surface-2-rgb) / 0.72);
+  border: 2px solid var(--retro-border-strong);
+  background: var(--retro-card);
 }
 
 .play-panel.streamdown {
-  border-color: rgba(206, 145, 120, 0.32);
+  border-color: var(--retro-red);
 }
 
 .play-panel.markstream {
-  border-color: rgba(78, 201, 176, 0.32);
+  border-color: var(--retro-green);
 }
 
 .play-panel header,
@@ -358,26 +362,28 @@ button {
 }
 
 .play-panel header span {
-  color: #569CD6;
-  font-size: 13px;
-  font-weight: 850;
+  color: var(--retro-cyan);
+  font-family: var(--font-pixel-local);
+  font-size: 9px;
+  font-weight: 700;
   text-transform: uppercase;
 }
 
 .play-panel header b {
-  color: var(--muted);
-  font-size: 12px;
+  color: var(--retro-muted);
+  font-family: var(--font-pixel-local);
+  font-size: 9px;
+  font-weight: 700;
 }
 
 .render-host {
   position: relative;
-  height: 236px;
+  height: 190px;
   overflow: auto;
-  scrollbar-color: rgba(86, 156, 214, 0.58) rgb(var(--surface-1-rgb) / 0.28);
+  scrollbar-color: var(--retro-cyan) var(--retro-surface);
   scrollbar-width: thin;
   scroll-behavior: smooth;
-  border: 1px solid rgba(148, 163, 184, 0.16);
-  border-radius: 6px;
+  border: 2px solid var(--retro-border);
   background: var(--code-bg);
 }
 
@@ -387,20 +393,19 @@ button {
 }
 
 .render-host::-webkit-scrollbar-track {
-  background: rgb(var(--surface-1-rgb) / 0.28);
+  background: var(--retro-surface);
 }
 
 .render-host::-webkit-scrollbar-thumb {
-  border-radius: 999px;
-  background: rgba(86, 156, 214, 0.58);
+  background: var(--retro-cyan);
 }
 
 .streamdown .render-host {
-  scrollbar-color: rgba(206, 145, 120, 0.58) rgb(var(--surface-1-rgb) / 0.28);
+  scrollbar-color: var(--retro-red) var(--retro-surface);
 }
 
 .streamdown .render-host::-webkit-scrollbar-thumb {
-  background: rgba(206, 145, 120, 0.58);
+  background: var(--retro-red);
 }
 
 .markdown-sample {
@@ -413,14 +418,14 @@ button {
 
 .markdown-sample p {
   margin: 0 0 8px;
-  color: var(--muted);
+  color: var(--retro-muted);
 }
 
 .markdown-sample pre {
   margin: 0;
   padding: 10px;
   overflow: hidden;
-  border-radius: 8px;
+  border: 2px solid var(--retro-border);
   background: var(--code-panel);
 }
 
@@ -438,10 +443,9 @@ button {
   display: inline-block;
   margin: 7px 0 0;
   padding: 5px 8px;
-  border: 1px solid rgba(248, 113, 113, 0.32);
-  border-radius: 999px;
+  border: 2px solid var(--retro-red);
   background: rgba(127, 29, 29, 0.36);
-  color: #fca5a5;
+  color: var(--retro-red);
   font-size: 10px;
   font-weight: 850;
   text-transform: uppercase;
@@ -453,16 +457,15 @@ button {
   gap: 10px;
   margin-top: 7px;
   padding: 7px 9px;
-  border: 1px solid rgba(148, 163, 184, 0.16);
-  border-radius: 8px;
-  background: rgb(var(--surface-2-rgb) / 0.72);
+  border: 2px solid var(--retro-border);
+  background: var(--retro-surface);
   color: var(--code-text);
   font-size: 11px;
 }
 
 .diagram-sample code {
   display: block;
-  color: var(--muted);
+  color: var(--retro-muted);
   white-space: nowrap;
 }
 
@@ -473,9 +476,8 @@ button {
 .markdown-sample blockquote {
   margin: 8px 0 0;
   padding: 8px 10px;
-  border-left: 0;
-  border-radius: 8px;
-  background: rgb(var(--surface-2-rgb) / 0.72);
+  border: 2px solid var(--retro-green);
+  background: rgba(0, 255, 136, 0.08);
   color: var(--code-text);
 }
 
@@ -511,8 +513,7 @@ button {
   margin: 0;
   padding: 10px;
   overflow: auto;
-  border: 1px solid rgba(128, 128, 128, 0.16);
-  border-radius: 6px;
+  border: 2px solid var(--retro-border);
   background: var(--code-bg) !important;
   color: var(--code-text);
   font-family: var(--font-code);
@@ -561,13 +562,14 @@ button {
 .play-panel footer span {
   flex: 1 1 30%;
   padding: 5px 7px;
-  border: 1px solid rgba(148, 163, 184, 0.16);
-  border-radius: 4px;
-  background: rgb(var(--surface-1-rgb) / 0.72);
-  color: var(--muted);
-  font-size: 10px;
+  border: 2px solid var(--retro-border);
+  background: var(--retro-surface);
+  color: var(--retro-muted);
+  font-family: var(--font-pixel-local);
+  font-size: 8px;
   line-height: 1.2;
   text-align: center;
+  text-transform: uppercase;
 }
 
 @keyframes repaint {

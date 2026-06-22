@@ -92,7 +92,7 @@ function syncAbout(transition) {
 
   visible.value = true
   rememberAboutFrame(rect)
-  setFrame(rect, { opacity: 0.46, shadow: false }, transition)
+  setFrame(rect, { opacity: 1, shadow: false }, transition)
   return true
 }
 
@@ -194,7 +194,6 @@ onBeforeUnmount(() => {
 @keyframes shared-logo-return {
   from {
     transform: translate(var(--return-dx), var(--return-dy)) scale(var(--return-scale-x), var(--return-scale-y));
-    opacity: 0.46;
     box-shadow: none;
   }
 

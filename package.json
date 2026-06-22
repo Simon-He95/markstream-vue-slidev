@@ -7,9 +7,12 @@
     "build": "slidev build"
   },
   "devDependencies": {
+    "@pxlkit/ui-kit": "^2.0.1",
     "@slidev/cli": "52.15.2",
     "@slidev/theme-default": "0.25.0",
     "markstream-vue": "^1.0.1-beta.5",
+    "motion-v": "^2.3.0",
+    "tailwindcss": "^4.3.1",
     "vite": "^8.0.14",
     "vue": "3.5.34"
   }
