@@ -6,7 +6,7 @@ import StreamingRenderPlay from "./StreamingRenderPlay.vue";
   <div class="deck dark">
     <div class="slide-head compact-head">
       <span class="pixel-kicker success pxl-corner-sm">LIVE DEMO</span>
-      <h1>同一份 token，差异直接出现在交互里。</h1>
+      <h1>同一份流式内容，交互差异会立刻暴露。</h1>
     </div>
 
     <StreamingRenderPlay v-click />

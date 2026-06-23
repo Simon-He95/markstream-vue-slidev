@@ -23,12 +23,12 @@ Here is the answer...
       <PxlCodeWindow v-click title="stream-tags.md" compact :code="code" />
 
       <div class="chat-stack">
-        <div v-click class="pixel-bubble cyan pxl-corner-md"><b>Thinking</b><span>Search knowledge base first.</span></div>
-        <div v-click class="pixel-bubble green pxl-corner-md"><b>Tool</b><span>12 related documents</span></div>
-        <div v-click class="pixel-bubble pxl-corner-md"><b>Final</b><span>Here is the answer...</span></div>
+        <div v-click class="pixel-bubble cyan pxl-corner-md"><b>思考中</b><span>先检索知识库。</span></div>
+        <div v-click class="pixel-bubble green pxl-corner-md"><b>工具结果</b><span>找到 12 份相关文档</span></div>
+        <div v-click class="pixel-bubble pxl-corner-md"><b>最终回答</b><span>这里是整理后的答案...</span></div>
       </div>
     </div>
 
-    <p v-click class="takeaway">SSE 里的 custom tags 不是字符串，它们是 Vue 组件在流中的锚点。</p>
+    <p v-click class="takeaway">流里的自定义标签，不只是字符串；它们可以成为 Vue 组件的挂载点。</p>
   </div>
 </template>

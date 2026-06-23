@@ -1,8 +1,8 @@
 <script setup>
 const nodes = [
-  ["半截结构", "代码块、表格、Mermaid 先出现不完整状态。"],
-  ["重型节点", "Monaco / KaTeX / Mermaid 不应该反复 remount。"],
-  ["交互状态", "scroll、selection、组件内部状态要跟着节点身份留下来。"],
+  ["未完成结构", "代码块、表格、Mermaid 生成到一半也要能站住。"],
+  ["重型内容", "Monaco / KaTeX / Mermaid 不能随着每次更新反复重挂。"],
+  ["交互状态", "滚动位置、选区和组件内部状态要跟着节点留下来。"],
 ];
 </script>
 
@@ -10,13 +10,13 @@ const nodes = [
   <div class="deck dark identity-deck">
     <div class="slide-head">
       <span class="pixel-kicker pxl-corner-sm">STREAMING UI</span>
-      <h1>增长中的节点，不能一直被重建。</h1>
+      <h1>内容还在增长，UI 不能一直推倒重来。</h1>
     </div>
 
     <div class="identity-lab">
       <div v-click class="identity-core pxl-corner-lg">
-        <span>stable node identity</span>
-        <b>DOM 不换人</b>
+        <span>稳定节点身份</span>
+        <b>节点不换人</b>
         <i></i>
       </div>
 
@@ -35,6 +35,6 @@ const nodes = [
       </div>
     </div>
 
-    <p v-click class="takeaway">AI Streaming Renderer 关心的不是“渲染一次”，而是让每个增长中的节点保持稳定身份。</p>
+    <p v-click class="takeaway">流式渲染真正要保住的，是正在增长的代码块、表格和组件状态。</p>
   </div>
 </template>

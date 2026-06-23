@@ -13,7 +13,7 @@ final=true`;
   <div class="deck dark problem-deck">
     <div class="slide-head">
       <span class="pixel-kicker danger pxl-corner-sm">PROBLEM</span>
-      <h1>传统 Markdown renderer 默认输入已经完成。</h1>
+      <h1>传统 Markdown renderer 默认拿到的是完整文档。</h1>
     </div>
 
     <div class="problem-stage">
@@ -30,7 +30,7 @@ final=true`;
           <div><b>02</b><span>parse 成完整 AST</span></div>
           <div><b>03</b><span>一次性渲染 HTML</span></div>
         </div>
-        <strong class="assumption-stamp">static input</strong>
+        <strong class="assumption-stamp">完整输入</strong>
       </motion.div>
 
       <div v-click class="broken-live-panel">
@@ -38,9 +38,9 @@ final=true`;
           <div class="pixel-alert info pxl-corner-md">用户看到的是生成过程，不是完成后的文档截图。</div>
         </PxlCodeWindow>
         <div class="crash-overlay pxl-corner-sm">
-          <span>unclosed fence</span>
-          <span>layout jump</span>
-          <span>heavy block waiting</span>
+          <span>未闭合代码块</span>
+          <span>布局跳动</span>
+          <span>重型块等待</span>
         </div>
       </div>
     </div>

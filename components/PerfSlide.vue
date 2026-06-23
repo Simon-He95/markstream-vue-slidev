@@ -24,7 +24,7 @@ const items = [
       <PxlStatColumn
         v-click
         :items="items"
-        note="3-run median · Chrome CDP · 8 cases × 119 chunks"
+        note="3-run median · Chrome CDP · 8 cases × 119 段输入"
       />
     </div>
   </div>

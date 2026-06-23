@@ -188,7 +188,7 @@ onUnmounted(() => {
         Reset
       </button>
       <div class="play-progress">
-        <span>{{ step }} / {{ chunks.length }} chunks</span>
+        <span>{{ step }} / {{ chunks.length }} 段输入</span>
         <i :style="{ width: progress }" />
       </div>
     </div>
@@ -196,8 +196,8 @@ onUnmounted(() => {
     <div class="play-grid">
       <section class="play-panel streamdown pxl-corner-md pxl-shadow">
         <header>
-          <span>common renderer model</span>
-          <b>remount #{{ remountCount }}</b>
+          <span>普通渲染方式</span>
+          <b>第 {{ remountCount }} 次重挂</b>
         </header>
         <div ref="leftHost" class="render-host">
           <article class="markdown-sample" :key="remountCount">
@@ -210,7 +210,7 @@ onUnmounted(() => {
               :key="line"
             >{{ line }}</span></code></pre>
             <div v-if="selectionInterrupted" class="selection-note lost">
-              selection interrupted by remount
+              选区被重挂打断
             </div>
             <div v-if="showMermaid" class="diagram-sample">
               <span>Mermaid</span>
@@ -224,16 +224,16 @@ onUnmounted(() => {
           </article>
         </div>
         <footer>
-          <span>whole block update</span>
-          <span>scroll jumps</span>
-          <span>selection interrupted</span>
+          <span>整块更新</span>
+          <span>滚动跳动</span>
+          <span>选区中断</span>
         </footer>
       </section>
 
       <section class="play-panel markstream pxl-corner-md pxl-shadow">
         <header>
           <span>markstream-vue</span>
-          <b>content + final</b>
+          <b>内容 + 完成信号</b>
         </header>
         <div ref="rightHost" class="render-host actual-render">
           <MarkdownRender
@@ -252,9 +252,9 @@ onUnmounted(() => {
           />
         </div>
         <footer>
-          <span>final signal</span>
-          <span>smooth autoscroll</span>
-          <span>stable nodes</span>
+          <span>完成信号</span>
+          <span>平滑跟随滚动</span>
+          <span>稳定节点</span>
         </footer>
       </section>
     </div>

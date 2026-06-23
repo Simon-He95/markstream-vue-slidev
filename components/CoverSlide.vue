@@ -1,5 +1,6 @@
 <script setup>
 import { motion } from "motion-v";
+import AnimeDotField from "./AnimeDotField.vue";
 import PxlCodeWindow from "./PxlCodeWindow.vue";
 
 const code = "$ npm i markstream-vue\n\n<MarkdownRender\n  :content=\"content\"\n  :final=\"final\"\n  smooth-streaming=\"auto\"\n/>";
@@ -13,29 +14,30 @@ const tokens = ["content", "thinking", "tool-result", "custom-tags"];
         <span class="pixel-kicker pxl-corner-sm">PXLKIT SURFACE · VUE 3</span>
         <h1 class="deck-title">markstream-vue</h1>
         <p class="deck-subtitle">
-          Streaming Markdown 不是把字刷出来，而是让 AI 输出过程稳定变成 Vue UI。
+          流式 Markdown 不只是把字打出来，而是把生成中的内容稳定落成 Vue UI。
         </p>
         <div v-click class="hero-ribbon pxl-corner-md">
-          <span>stream chunks</span>
-          <span>stable nodes</span>
-          <span>Vue components</span>
+          <span>流式输入</span>
+          <span>稳定节点</span>
+          <span>Vue 组件</span>
         </div>
         <div v-click class="pixel-stat-row">
           <div class="pixel-stat pxl-corner-md pxl-shadow">
-            <span>target</span>
+            <span>目标</span>
             <b>Vue 3</b>
-            <small>renderer foundation</small>
+            <small>渲染基础能力</small>
           </div>
           <div class="pixel-stat pxl-corner-md pxl-shadow">
-            <span>signal</span>
+            <span>信号</span>
             <b>final</b>
-            <small>stream settle point</small>
+            <small>生成完成信号</small>
           </div>
         </div>
         <p class="speaker-line">Simon He / Simon-He95</p>
       </div>
 
-      <div v-click class="hero-orbit" aria-hidden="true">
+      <div class="hero-orbit" aria-hidden="true">
+        <AnimeDotField :slide-no="1" />
         <div class="logo-portal pxl-corner-lg">
           <img class="cover-logo" src="/markstream-logo.svg" alt="markstream-vue logo">
           <span></span>
@@ -55,7 +57,7 @@ const tokens = ["content", "thinking", "tool-result", "custom-tags"];
         <i class="orbit-ring ring-b"></i>
       </div>
 
-      <div v-click class="hero-window-stack">
+      <div class="hero-window-stack">
         <PxlCodeWindow title="renderer.vue" :code="code" />
         <div class="pixel-sparkline pxl-corner-sm" aria-hidden="true">
           <i style="height: 34%" />

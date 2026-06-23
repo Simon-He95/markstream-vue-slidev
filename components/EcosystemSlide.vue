@@ -6,12 +6,12 @@ import SignalCarousel from "./SignalCarousel.vue";
   <div class="deck dark">
     <div class="slide-head">
       <span class="pixel-kicker pxl-corner-sm">ECOSYSTEM</span>
-      <h1>不是 Chat 组件，是 Vue 的 AI Output Layer。</h1>
+      <h1>它不是一个聊天框，而是 Vue 里的 AI 输出层。</h1>
     </div>
 
     <v-click-gap size="3" />
     <SignalCarousel click-controlled />
 
-    <p v-click class="takeaway compact-takeaway">公开 1.x 稳定承诺先聚焦 Vue 3；跨框架包与 playground 留在实验层。</p>
+    <p v-click class="takeaway compact-takeaway">1.x 先把 Vue 3 做稳；跨框架包和 playground 继续放在实验层。</p>
   </div>
 </template>

@@ -53,7 +53,7 @@ const plugins = ["Common Intellisense", "UnoT", "Tailwind Magic", "Alias Jump"];
           <b>{{ project[1] }}</b>
         </motion.div>
         <div class="about-focus pxl-corner-lg">
-          <span>focus</span>
+          <span>方向</span>
           <b>把 AI 输出做成稳定、可组合的 Vue UI</b>
         </div>
       </div>
@@ -66,6 +66,6 @@ const plugins = ["Common Intellisense", "UnoT", "Tailwind Magic", "Alias Jump"];
       </div>
     </div>
 
-    <p v-click class="takeaway">我不是想再造一个 Markdown 组件，而是解决 AI 输出从 token 到 UI 的最后一公里。</p>
+    <p v-click class="takeaway">我不是想再造一个 Markdown 组件，而是把 AI 正在生成的内容，稳定变成可交互的 Vue UI。</p>
   </div>
 </template>

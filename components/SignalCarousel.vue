@@ -11,28 +11,28 @@ const props = defineProps({
 
 const items = [
   {
-    label: "Adoption",
+    label: "依赖信号",
     title: "公开依赖信号",
     value: "92+",
-    body: "external repos detected by GitHub code search",
+    body: "GitHub code search 能看到的外部仓库引用",
     chips: ["AstrBot", "mcp-chrome", "HuLa", "DeepChat"],
   },
   {
-    label: "Surface",
-    title: "AI Output Layer",
+    label: "输出接口",
+    title: "AI 输出层",
     value: "Vue 3",
-    body: "content / thinking / tool-result / custom-tags 统一进入 renderer",
+    body: "正文、思考过程、工具结果和自定义标签统一进入 renderer",
     chips: ["Chat", "Agent", "Docs", "Review"],
   },
   {
-    label: "Runtime",
+    label: "运行环境",
     title: "落地形态",
     value: "SSR",
     body: "Nuxt、VitePress、Safe HTML、KaTeX、Mermaid、Monaco 按需接入",
     chips: ["Nuxt", "VitePress", "Safe HTML", "Mermaid"],
   },
   {
-    label: "Components",
+    label: "组件化",
     title: "可组合输出",
     value: "Tags",
     body: "thinking / tool-result / answer-box 可以映射成真实 Vue 组件",
@@ -82,9 +82,9 @@ function goTo(itemIndex) {
       </div>
 
       <div class="pixel-stat pxl-corner-md pxl-shadow">
-        <span>signal</span>
+        <span>重点</span>
         <b>{{ active.value }}</b>
-        <small>current focus</small>
+        <small>当前重点</small>
       </div>
     </div>
 

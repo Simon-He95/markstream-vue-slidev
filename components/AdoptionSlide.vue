@@ -11,7 +11,7 @@ const repos = [
   <div class="deck dark">
     <div class="slide-head">
       <span class="pixel-kicker gold pxl-corner-sm">PUBLIC ADOPTION SIGNALS</span>
-      <h1>先看公开依赖信号，但不把它讲成生产流量。</h1>
+      <h1>公开依赖只能说明有人在试用，不能等同于生产流量。</h1>
     </div>
 
     <div class="adoption-radar">
@@ -19,8 +19,8 @@ const repos = [
       <div v-click class="adoption-main pxl-corner-lg pxl-shadow">
         <img src="/social-icons/github.svg" alt="GitHub">
         <b>92+</b>
-        <span>external repos</span>
-        <small>109 package.json hits</small>
+        <span>外部仓库</span>
+        <small>109 个 package.json 命中</small>
       </div>
 
       <div class="repo-grid radar-repos">

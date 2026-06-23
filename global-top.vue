@@ -1,6 +1,7 @@
 <script setup>
 import { useNav } from '@slidev/client'
 import { computed, nextTick, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue'
+import AnimePageTransition from './components/AnimePageTransition.vue'
 
 const nav = useNav()
 const visible = ref(false)
@@ -17,6 +18,21 @@ const frame = reactive({
 })
 
 let settleTimer
+let anchorHideToken = 0
+
+function waitForFlightPaint() {
+  const image = document.querySelector('.shared-logo-flight')
+  if (!image)
+    return Promise.resolve()
+
+  const loaded = image.complete && image.naturalWidth > 0
+    ? Promise.resolve()
+    : new Promise(resolve => image.addEventListener('load', resolve, { once: true }))
+
+  return loaded
+    .then(() => new Promise(resolve => requestAnimationFrame(resolve)))
+    .then(() => new Promise(resolve => requestAnimationFrame(resolve)))
+}
 
 const logoStyle = computed(() => {
   const returnFrame = aboutFrame.value || frame
@@ -75,6 +91,28 @@ function setFrame(rect, options, transition) {
   frame.shadow = options.shadow
 }
 
+function setAnchorHidden(hidden) {
+  anchorHideToken += 1
+  const token = anchorHideToken
+
+  if (!hidden) {
+    document.documentElement.classList.remove('shared-logo-ready')
+    return
+  }
+
+  nextTick(() => {
+    if (token !== anchorHideToken || !visible.value)
+      return
+
+    waitForFlightPaint().then(() => {
+      if (token !== anchorHideToken || !visible.value)
+        return
+
+      document.documentElement.classList.add('shared-logo-ready')
+    })
+  })
+}
+
 function syncCover(transition = false) {
   const rect = readRect('.cover-logo')
   if (!rect)
@@ -82,6 +120,7 @@ function syncCover(transition = false) {
 
   visible.value = true
   setFrame(rect, { opacity: 1, shadow: true }, transition)
+  setAnchorHidden(true)
   return true
 }
 
@@ -93,6 +132,7 @@ function syncAbout(transition) {
   visible.value = true
   rememberAboutFrame(rect)
   setFrame(rect, { opacity: 1, shadow: false }, transition)
+  setAnchorHidden(true)
   return true
 }
 
@@ -101,8 +141,10 @@ function syncCurrent() {
     syncCover()
   else if (nav.currentSlideNo.value === 2)
     syncAbout(false)
-  else
+  else {
     visible.value = false
+    setAnchorHidden(false)
+  }
 }
 
 function syncCoverAfterMotion() {
@@ -140,6 +182,7 @@ watch(
     }
 
     visible.value = false
+    setAnchorHidden(false)
   },
   { immediate: true, flush: 'post' },
 )
@@ -158,12 +201,14 @@ window.addEventListener('resize', syncCurrent)
 
 onBeforeUnmount(() => {
   clearTimeout(settleTimer)
+  setAnchorHidden(false)
   window.removeEventListener('resize', syncCurrent)
 })
 </script>
 
 <template>
   <Teleport to="body">
+    <AnimePageTransition />
     <img
       v-show="visible"
       class="shared-logo-flight"

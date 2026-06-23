@@ -1,14 +1,16 @@
 <script setup>
+import AnimeSchedulerSweep from "./AnimeSchedulerSweep.vue";
+
 const signals = [
-  [":final=\"final\"", "false → true 触发收束与稳定落地"],
-  ["smooth-streaming=\"auto\"", "transport chunk 不直接等于 DOM commit"],
-  [":batch-rendering=\"true\"", "chunks 合并为 batches，减少 commit 频率"],
+  [":final=\"final\"", "从生成中切到完成态，统一收束"],
+  ["smooth-streaming=\"auto\"", "显示节奏和网络片段解耦"],
+  [":batch-rendering=\"true\"", "把多段内容合并后再更新页面"],
 ];
 
 const budgets = [
-  ["Parser cache", "streamParse=\"auto\"", "中间态复用 cache，final 时收束"],
-  ["Live range", "maxLiveNodes", "保留 scroll、selection、组件身份"],
-  ["Heavy deferral", "viewportPriority", "Monaco / Mermaid / KaTeX 靠近视口再渲染"],
+  ["解析缓存", "streamParse=\"auto\"", "复用中间结果，完成时再统一收束"],
+  ["保留区域", "maxLiveNodes", "保留滚动位置、选区和组件身份"],
+  ["重型块延后", "viewportPriority", "Monaco / Mermaid / KaTeX 靠近视口再渲染"],
 ];
 </script>
 
@@ -16,12 +18,13 @@ const budgets = [
   <div class="deck dark">
     <div class="slide-head">
       <span class="pixel-kicker gold pxl-corner-sm">SCHEDULER</span>
-      <h1>transport chunk 不直接等于 DOM commit。</h1>
+      <h1>收到一段内容，不代表立刻改一次 DOM。</h1>
     </div>
 
     <div class="scheduler-console">
       <div v-click class="scheduler-terminal pxl-corner-lg pxl-shadow">
-        <div class="pixel-titlebar"><span></span><span></span><span></span><b>signals</b></div>
+        <AnimeSchedulerSweep :slide-no="10" />
+        <div class="pixel-titlebar"><span></span><span></span><span></span><b>更新信号</b></div>
         <div class="signal-row" v-for="signal in signals" :key="signal[0]">
           <b>{{ signal[0] }}</b>
           <span>{{ signal[1] }}</span>
@@ -30,7 +33,7 @@ const budgets = [
 
       <div v-click class="scheduler-controls pxl-corner-lg pxl-shadow">
         <div class="control-meter">
-          <span>commit rate</span>
+          <span>页面更新频率</span>
           <i></i>
         </div>
         <div class="control-knobs">
@@ -44,6 +47,6 @@ const budgets = [
       </div>
     </div>
 
-    <p v-click class="takeaway">用户感受到的不是 token，而是节奏、稳定性和完成感。</p>
+    <p v-click class="takeaway">用户感受到的是顺滑、稳定和完成感，而不是底层来了多少小片段。</p>
   </div>
 </template>

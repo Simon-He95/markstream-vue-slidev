@@ -1,9 +1,11 @@
 <script setup>
-const steps = ["chunk buffer", "incomplete parse", "stable live nodes", "update scheduler", "final commit"];
+import AnimeCircuitTrace from "./AnimeCircuitTrace.vue";
+
+const steps = ["接收片段", "允许未完成结构", "复用已有节点", "安排更新节奏", "完成后收束"];
 const cards = [
-  ["fast path", "文本走快路径", "cheap text append，减少 parse 和 DOM mutation。"],
-  ["scheduler", "重型节点排队", "靠近视口再渲染，避免 Monaco / Mermaid 抢主线程。"],
-  ["identity", "交互状态保留", "DOM identity 稳定后，scroll 和 selection 不会反复丢失。"],
+  ["轻量文本", "文本直接追加", "普通文本不反复走完整解析，也不反复改整棵 DOM。"],
+  ["渲染节奏", "重型内容排队", "靠近视口再渲染，避免 Monaco / Mermaid 抢主线程。"],
+  ["状态稳定", "交互状态保留", "节点身份稳定后，滚动位置和选区不会反复丢失。"],
 ];
 </script>
 
@@ -11,10 +13,11 @@ const cards = [
   <div class="deck dark pipeline-deck">
     <div class="slide-head">
       <span class="pixel-kicker pxl-corner-sm">CORE PIPELINE</span>
-      <h1>不是每个 chunk 全量重渲染。</h1>
+      <h1>不是每收到一小段，就整页重渲。</h1>
     </div>
 
     <div class="pipeline-circuit">
+      <AnimeCircuitTrace :slide-no="9" />
       <div v-click v-for="(step, index) in steps" :key="step" class="circuit-node" :class="{ final: index === steps.length - 1 }">
         <span>0{{ index + 1 }}</span>
         <b>{{ step }}</b>

@@ -18,9 +18,9 @@ import { motion } from "motion-v";
         <span class="arrow">→</span>
         <span class="new">16.3ms</span>
       </motion.div>
-      <p v-click class="big-number-sub">降低 94.5%，收益来自减少每个 chunk 的全量重渲染。</p>
+      <p v-click class="big-number-sub">降低 94.5%，核心来自少做整页重渲。</p>
       <div v-click class="big-number-meta pxl-corner-sm">
-        3-run median · Chrome CDP · 8 cases × 119 chunks · markstream-vue@1.0.1-beta.5
+        3-run median · Chrome CDP · 8 cases × 119 段输入 · markstream-vue@1.0.1-beta.5
       </div>
     </div>
   </div>

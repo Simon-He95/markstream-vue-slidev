@@ -19,7 +19,7 @@ const streamTokens = ["#", "content", "<thinking>", "<tool-result>", "final"];
         :animate="{ opacity: 1, y: 0 }"
         :transition="{ duration: 0.32 }"
       >
-        <span class="pixel-kicker danger small pxl-corner-sm">Before</span>
+        <span class="pixel-kicker danger small pxl-corner-sm">过去</span>
         <div class="paper-sheet-mini">
           <b># Report</b>
           <i /><i /><i /><i />
@@ -49,16 +49,16 @@ const streamTokens = ["#", "content", "<thinking>", "<tool-result>", "final"];
         :animate="{ opacity: 1, y: 0 }"
         :transition="{ delay: 0.12, duration: 0.32 }"
       >
-        <span class="pixel-kicker success small pxl-corner-sm">Now</span>
+        <span class="pixel-kicker success small pxl-corner-sm">现在</span>
         <div class="ui-stack-preview">
-          <section><b>Thinking</b><span>Searching context...</span></section>
-          <section><b>Tool result</b><span>12 docs attached</span></section>
-          <section><b>Final</b><span>stable Vue components</span></section>
+          <section><b>思考中</b><span>检索上下文...</span></section>
+          <section><b>工具结果</b><span>已关联 12 份文档</span></section>
+          <section><b>最终回答</b><span>稳定 Vue 组件</span></section>
         </div>
         <p>边生成，边成为稳定 UI。</p>
       </motion.div>
     </div>
 
-    <p class="takeaway">从“渲染文档”到“渲染生成过程”。</p>
+    <p class="takeaway">重点不再是渲染一份完成后的文档，而是接住正在发生的生成过程。</p>
   </div>
 </template>
