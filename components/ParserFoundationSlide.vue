@@ -1,8 +1,8 @@
 <script setup>
 const speedCards = [
-  ["remark append", "58.9× / 69.7× / 90.4×", "5k / 20k / 100k chars"],
-  ["micromark append", "46.5× / 50.7× / 58.9×", "5k / 20k / 100k chars"],
-  ["remark + rehype render", "23.9× / 36.6× / 37.1×", "5k / 20k / 100k chars"],
+  ["vs markdown-it render", "9.7× / 10.8× / 12.8×", "5k / 20k / 100k chars"],
+  ["vs remark append", "147.7× / 156.2× / 204.5×", "5k / 20k / 100k chars"],
+  ["vs micromark append", "120.6× / 123.1× / 127.8×", "5k / 20k / 100k chars"],
 ];
 </script>
 
@@ -10,7 +10,7 @@ const speedCards = [
   <div class="deck dark">
     <div class="slide-head">
       <span class="pixel-kicker pxl-corner-sm">PARSER FOUNDATION</span>
-      <h1>返回越快、内容越长，解析链路里的浪费越容易被放大。</h1>
+      <h1>markdown-it-ts@1.0.2 把大文本和增量输入当成性能目标。</h1>
     </div>
 
     <div class="parser-roads">
@@ -26,7 +26,7 @@ const speedCards = [
         <div class="road-nodes compact">
           <b>Markdown</b><b>markdown-it-ts Token</b><b>可增量更新</b>
         </div>
-        <p>直接生成更适合 Vue 更新的数据，少绕几层。</p>
+        <p>直接生成更适合 Vue 更新的数据，少绕几层，后面才能稳住频繁更新。</p>
       </div>
     </div>
 
@@ -38,6 +38,6 @@ const speedCards = [
       </div>
     </div>
 
-    <small class="method-note source-note">数据来自 markdown-it-ts@1.0.0 README synthetic append-heavy harness；不是所有场景都能达到 50×。</small>
+    <small class="method-note source-note">markdown-it-ts@1.0.2 README · synthetic harness，真实项目请用自己的语料复现。</small>
   </div>
 </template>

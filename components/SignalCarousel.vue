@@ -11,32 +11,32 @@ const props = defineProps({
 
 const items = [
   {
-    label: "依赖信号",
-    title: "公开依赖信号",
-    value: "92+",
-    body: "GitHub code search 能看到的外部仓库引用",
-    chips: ["AstrBot", "mcp-chrome", "HuLa", "DeepChat"],
+    label: "版本信号",
+    title: "最新发布",
+    value: "1.0.4",
+    body: "npm latest：markstream-vue 1.0.4；parser 家族也进入 1.x。",
+    chips: ["Vue 3", "Nuxt", "VitePress", "1.x"],
   },
   {
     label: "输出接口",
     title: "AI 输出层",
     value: "Vue 3",
-    body: "正文、思考过程、工具结果和自定义标签，都能走同一套渲染入口",
+    body: "content / nodes、final、自定义标签，都能走同一套渲染入口。",
     chips: ["Chat", "Agent", "Docs", "Review"],
   },
   {
     label: "运行环境",
     title: "落地形态",
     value: "SSR",
-    body: "Nuxt、VitePress、Safe HTML、KaTeX、Mermaid、Monaco 按需接入",
-    chips: ["Nuxt", "VitePress", "Safe HTML", "Mermaid"],
+    body: "Nuxt、VitePress、Safe HTML、CSS exports 和 worker client 都在 1.x 稳定面里。",
+    chips: ["Nuxt", "VitePress", "Safe HTML", "CSS"],
   },
   {
     label: "组件化",
     title: "可组合输出",
     value: "Tags",
-    body: "thinking / tool-result / answer-box 不只显示文本，也可以挂载 Vue 组件",
-    chips: ["Thinking", "Tool", "Answer", "Slots"],
+    body: "thinking / tool-result / answer-box 可以映射 Vue 组件，复杂输出不必退回纯文本。",
+    chips: ["Thinking", "Tool", "Answer", "Components"],
   },
 ];
 

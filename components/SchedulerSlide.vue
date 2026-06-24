@@ -3,14 +3,14 @@ import AnimeSchedulerSweep from "./AnimeSchedulerSweep.vue";
 
 const signals = [
   [":final=\"final\"", "告诉渲染器：这次回答已经结束，可以补齐收尾"],
-  ["smooth-streaming=\"auto\"", "网络来得再碎，屏幕上也按舒服的节奏显示"],
+  [":max-live-nodes=\"0\"", "聊天面板切到增量批次，输出越长也不整页重建"],
   [":batch-rendering=\"true\"", "攒几段再更新，减少页面抖动"],
 ];
 
 const budgets = [
-  ["解析缓存", "streamParse=\"auto\"", "前面算过的结果继续用，少做重复工作"],
-  ["保留现场", "maxLiveNodes", "滚动位置、选区和正在看的内容不要被打断"],
-  ["复杂内容延后", "viewportPriority", "Monaco / Mermaid / KaTeX 快进入视口时再渲染"],
+  ["长文档默认", "max-live-nodes=220", "只保留有限 DOM，滚动和内存更稳"],
+  ["聊天批次", "renderBatchSize=16", "少量多次更新，保留流式输出的节奏"],
+  ["单帧预算", "frame budget", "限制每帧工作量，避免抢走交互"],
 ];
 </script>
 
@@ -18,7 +18,7 @@ const budgets = [
   <div class="deck dark">
     <div class="slide-head">
       <span class="pixel-kicker gold pxl-corner-sm">SCHEDULER</span>
-      <h1>扛住高频输出，不是每收到一段就马上刷新页面。</h1>
+      <h1>markstream-vue@1.0.4：长文档和聊天面板走不同更新策略。</h1>
     </div>
 
     <div class="scheduler-console">
@@ -47,6 +47,6 @@ const budgets = [
       </div>
     </div>
 
-    <p v-click class="takeaway">渲染器要把模型的输出节奏，变成用户看起来舒服、页面也稳定的更新节奏。</p>
+    <p v-click class="takeaway scheduler-takeaway">长文档用虚拟窗口；聊天面板把 live nodes 设为 0，切到增量流式体验。</p>
   </div>
 </template>

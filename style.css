@@ -2456,6 +2456,11 @@ html.shared-logo-ready .slide-corner-logo {
   line-height: 1.2;
 }
 
+.scheduler-takeaway {
+  right: 410px;
+  font-size: 16px;
+}
+
 .control-meter {
   display: grid;
   gap: 6px;
@@ -2535,6 +2540,47 @@ html.shared-logo-ready .slide-corner-logo {
   display: grid;
   place-items: center;
   padding: 14px;
+}
+
+.performance-mode-map {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 12px;
+  width: 100%;
+}
+
+.performance-mode-map section {
+  display: grid;
+  grid-template-columns: 74px minmax(0, 1fr);
+  gap: 5px 12px;
+  align-items: baseline;
+  border: 2px solid var(--retro-border-strong);
+  background: rgba(9, 10, 18, 0.84);
+  padding: 14px;
+}
+
+.performance-mode-map span,
+.performance-mode-map b {
+  font-family: var(--font-pixel-local);
+  text-transform: uppercase;
+}
+
+.performance-mode-map span {
+  color: var(--retro-green);
+  font-size: 8px;
+}
+
+.performance-mode-map b {
+  color: var(--retro-text);
+  font-size: 9px;
+}
+
+.performance-mode-map small {
+  grid-column: 2;
+  color: var(--retro-muted);
+  font-size: 13px;
+  line-height: 1.35;
 }
 
 .scan-beam {

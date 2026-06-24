@@ -248,7 +248,6 @@ onUnmounted(() => {
             :render-batch-budget-ms="4"
             :fade="false"
             :typewriter="true"
-            smooth-streaming="auto"
           />
         </div>
         <footer>

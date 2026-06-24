@@ -12,6 +12,6 @@ import SignalCarousel from "./SignalCarousel.vue";
     <v-click-gap size="3" />
     <SignalCarousel click-controlled />
 
-    <p v-click class="takeaway compact-takeaway">markstream-vue 先把 Vue 3 的 AI 输出渲染做稳，再继续探索跨框架和 playground。</p>
+    <p v-click class="takeaway compact-takeaway">Vue 3 稳定面已经进入 1.x；parser、core 和跨框架包继续围绕同一套流式 Markdown 能力推进。</p>
   </div>
 </template>
