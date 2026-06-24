@@ -12,7 +12,7 @@ const items = [
   <div class="deck dark">
     <div class="slide-head">
       <span class="pixel-kicker success pxl-corner-sm">PERFORMANCE EVIDENCE</span>
-      <h1>性能不是一个分数，<br>是几个观测点同时稳定。</h1>
+      <h1>要说“扛得住”，就要同时看脚本、任务和 DOM。</h1>
     </div>
 
     <div class="perf-board">

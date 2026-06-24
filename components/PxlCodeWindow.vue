@@ -20,11 +20,11 @@ const patterns = [
   ["comment", /^(\/\/.*|<!--.*?-->)/],
   ["fence", /^```.*$/],
   ["str", /^("[^"]*"|'[^']*'|`[^`]*`)/],
-  ["tag", /^(<\/?[\w.-]+)/],
+  ["tag", /^(<\/?[\w.-]+|\/?>)/],
   ["attr", /^([:@]?[A-Za-z_][\w-]*)(?=\=)/],
   ["kw", /^(const|let|var|import|from|await|return|if|else|function|new|class|extends|type|interface|as|event|data)\b/],
   ["bool", /^(true|false|null|undefined|\d+(?:\.\d+)?)\b/],
-  ["op", /^([{}()[\].,;=+\-*/<>:]+)/],
+  ["op", /^([{}()[\].,;=+\-*,:]+)/],
 ];
 
 function tokenizeLine(line) {
@@ -45,7 +45,7 @@ function tokenizeLine(line) {
       continue;
     }
 
-    const next = rest.search(/\/\/|<!--|```|"|'|`|<\/?|[:@]?[A-Za-z_][\w-]*(?=\=)|\b(?:const|let|var|import|from|await|return|if|else|function|new|class|extends|type|interface|as|event|data|true|false|null|undefined|\d+(?:\.\d+)?)\b|[{}()[\].,;=+\-*/<>:]+/);
+    const next = rest.search(/\/\/|<!--|```|"|'|`|<\/?[\w.-]+|\/?>|[:@]?[A-Za-z_][\w-]*(?=\=)|\b(?:const|let|var|import|from|await|return|if|else|function|new|class|extends|type|interface|as|event|data|true|false|null|undefined|\d+(?:\.\d+)?)\b|[{}()[\].,;=+\-*,:]+/);
     const end = next <= 0 ? 1 : next;
     tokens.push({ text: rest.slice(0, end), type: "" });
     rest = rest.slice(end);

@@ -1,9 +1,8 @@
 <script setup>
 import { motion } from "motion-v";
 import AnimeDotField from "./AnimeDotField.vue";
-import PxlCodeWindow from "./PxlCodeWindow.vue";
+import StreamAssemblyMachine from "./StreamAssemblyMachine.vue";
 
-const code = "$ npm i markstream-vue\n\n<MarkdownRender\n  :content=\"content\"\n  :final=\"final\"\n  smooth-streaming=\"auto\"\n/>";
 const tokens = ["content", "thinking", "tool-result", "custom-tags"];
 </script>
 
@@ -11,26 +10,26 @@ const tokens = ["content", "thinking", "tool-result", "custom-tags"];
   <div class="deck dark cover-deck">
     <div class="hero-launch">
       <div class="hero-copy">
-        <span class="pixel-kicker pxl-corner-sm">PXLKIT SURFACE · VUE 3</span>
-        <h1 class="deck-title">markstream-vue</h1>
+        <span class="pixel-kicker pxl-corner-sm">MARKSTREAM-VUE · AI OUTPUT RENDERER</span>
+        <h1 class="deck-title">你的 Markdown 渲染器，<br>扛得住 AI 输出吗？</h1>
         <p class="deck-subtitle">
-          流式 Markdown 不只是把字打出来，而是把生成中的内容稳定落成 Vue UI。
+          当模型返回更快、内容更长、形式更丰富，渲染器会从组件变成基础设施。
         </p>
         <div v-click class="hero-ribbon pxl-corner-md">
-          <span>流式输入</span>
-          <span>稳定节点</span>
-          <span>Vue 组件</span>
+          <span>更快</span>
+          <span>更长</span>
+          <span>更多形态</span>
         </div>
         <div v-click class="pixel-stat-row">
           <div class="pixel-stat pxl-corner-md pxl-shadow">
-            <span>目标</span>
-            <b>Vue 3</b>
-            <small>渲染基础能力</small>
+            <span>挑战</span>
+            <b>AI 输出</b>
+            <small>高频、长文本、多类型</small>
           </div>
           <div class="pixel-stat pxl-corner-md pxl-shadow">
-            <span>信号</span>
-            <b>final</b>
-            <small>生成完成信号</small>
+            <span>方案</span>
+            <b>markstream</b>
+            <small>给 Vue 用的流式 Markdown 渲染器</small>
           </div>
         </div>
         <p class="speaker-line">Simon He / Simon-He95</p>
@@ -58,16 +57,7 @@ const tokens = ["content", "thinking", "tool-result", "custom-tags"];
       </div>
 
       <div class="hero-window-stack">
-        <PxlCodeWindow title="renderer.vue" :code="code" />
-        <div class="pixel-sparkline pxl-corner-sm" aria-hidden="true">
-          <i style="height: 34%" />
-          <i style="height: 52%" />
-          <i style="height: 42%" />
-          <i style="height: 76%" />
-          <i style="height: 64%" />
-          <i style="height: 88%" />
-          <i style="height: 72%" />
-        </div>
+        <StreamAssemblyMachine :slide-no="1" compact mode="hero" />
       </div>
     </div>
   </div>

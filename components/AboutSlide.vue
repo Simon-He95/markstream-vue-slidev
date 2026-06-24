@@ -66,6 +66,6 @@ const plugins = ["Common Intellisense", "UnoT", "Tailwind Magic", "Alias Jump"];
       </div>
     </div>
 
-    <p v-click class="takeaway">我不是想再造一个 Markdown 组件，而是把 AI 正在生成的内容，稳定变成可交互的 Vue UI。</p>
+    <p v-click class="takeaway">这些项目让我长期站在 Vue、AI UI 和流式渲染的交叉点上。</p>
   </div>
 </template>

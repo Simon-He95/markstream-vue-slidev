@@ -1,8 +1,8 @@
 <script setup>
 const nodes = [
-  ["未完成结构", "代码块、表格、Mermaid 生成到一半也要能站住。"],
-  ["重型内容", "Monaco / KaTeX / Mermaid 不能随着每次更新反复重挂。"],
-  ["交互状态", "滚动位置、选区和组件内部状态要跟着节点留下来。"],
+  ["多类型内容", "代码、表格、Mermaid、工具结果和自定义标签都要边生成边显示。"],
+  ["高频更新", "文本不断追加时，页面不能跟着闪、跳、整块重建。"],
+  ["交互状态", "用户正在滚动或选择代码时，渲染更新不应该打断他。"],
 ];
 </script>
 
@@ -10,13 +10,13 @@ const nodes = [
   <div class="deck dark identity-deck">
     <div class="slide-head">
       <span class="pixel-kicker pxl-corner-sm">STREAMING UI</span>
-      <h1>内容还在增长，UI 不能一直推倒重来。</h1>
+      <h1>更强的渲染器，要同时处理内容形态、更新频率和交互体验。</h1>
     </div>
 
     <div class="identity-lab">
       <div v-click class="identity-core pxl-corner-lg">
-        <span>稳定节点身份</span>
-        <b>节点不换人</b>
+        <span>更新不打断页面</span>
+        <b>不闪、不跳、不重建</b>
         <i></i>
       </div>
 
@@ -35,6 +35,6 @@ const nodes = [
       </div>
     </div>
 
-    <p v-click class="takeaway">流式渲染真正要保住的，是正在增长的代码块、表格和组件状态。</p>
+    <p v-click class="takeaway">markstream-vue 的目标，是让 AI 输出一边增长，一边保持可读、可操作，并且能接进 Vue 组件。</p>
   </div>
 </template>

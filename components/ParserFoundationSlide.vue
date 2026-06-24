@@ -10,12 +10,12 @@ const speedCards = [
   <div class="deck dark">
     <div class="slide-head">
       <span class="pixel-kicker pxl-corner-sm">PARSER FOUNDATION</span>
-      <h1>流式场景里，解析链路越长，小片段的成本越容易被放大。</h1>
+      <h1>返回越快、内容越长，解析链路里的浪费越容易被放大。</h1>
     </div>
 
     <div class="parser-roads">
       <div v-click class="pixel-card parser-road pxl-corner-lg pxl-shadow">
-        <span class="pixel-kicker danger small pxl-corner-sm">常见 AST 管线</span>
+        <span class="pixel-kicker danger small pxl-corner-sm">常见渲染链路</span>
         <div class="road-nodes">
           <b>Markdown</b><b>AST</b><b>HTML AST</b><b>Framework tree</b><b>DOM</b>
         </div>
@@ -24,9 +24,9 @@ const speedCards = [
       <div v-click class="pixel-card parser-road pxl-corner-lg pxl-shadow">
         <span class="pixel-kicker success small pxl-corner-sm">markstream-vue</span>
         <div class="road-nodes compact">
-          <b>Markdown</b><b>markdown-it-ts Token</b><b>流式节点</b>
+          <b>Markdown</b><b>markdown-it-ts Token</b><b>可增量更新</b>
         </div>
-        <p>直接进入适合 Vue 更新的节点结构。</p>
+        <p>直接生成更适合 Vue 更新的数据，少绕几层。</p>
       </div>
     </div>
 

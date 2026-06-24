@@ -2,7 +2,7 @@
   <div class="deck dark">
     <div class="slide-head">
       <span class="pixel-kicker pxl-corner-sm">POSITIONING</span>
-      <h1>先把 Vue 3 的稳定体验做好，其他方向保持实验。</h1>
+      <h1>markstream-vue 的边界：先让 Vue 3 扛住 AI 输出。</h1>
     </div>
 
     <div class="pixel-grid two">

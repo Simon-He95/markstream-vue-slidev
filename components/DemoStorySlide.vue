@@ -14,8 +14,8 @@ data: final=true`;
 
 const frames = [
   ["01", "intent", "先接住“正在思考”。", "Thinking"],
-  ["02", "structure", "未闭合代码块也能站住。", "Code block"],
-  ["03", "settle", "完成时稳定落地。", "Final"],
+  ["02", "structure", "代码块还没写完，也先稳住版面。", "Code block"],
+  ["03", "settle", "完成后再补齐高亮和组件。", "Final"],
 ];
 </script>
 
@@ -23,7 +23,7 @@ const frames = [
   <div class="deck dark">
     <div class="slide-head">
       <span class="pixel-kicker success pxl-corner-sm">LIVE DEMO</span>
-      <h1>不要只做打字机效果，<br>SSE 还要驱动 UI 成形。</h1>
+      <h1>同一条 AI 输出，markstream-vue 会让界面一步步成形。</h1>
     </div>
 
     <div class="demo-reel">
@@ -49,6 +49,6 @@ const frames = [
       </div>
     </div>
 
-    <p v-click class="takeaway">内容持续追加，结构允许未完成；重型块保持稳定，自定义标签最后落成组件。</p>
+    <p v-click class="takeaway demo-takeaway">它不是打字机效果，而是让生成中的内容先可读，完成后再变成稳定的 Vue UI。</p>
   </div>
 </template>

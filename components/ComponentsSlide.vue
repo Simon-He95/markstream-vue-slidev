@@ -16,7 +16,7 @@ Here is the answer...
   <div class="deck dark">
     <div class="slide-head">
       <span class="pixel-kicker gold pxl-corner-sm">CUSTOM COMPONENTS</span>
-      <h1>AI 输出里的标签，可以落成真实 Vue 组件。</h1>
+      <h1>AI 输出不只会写 Markdown，也会输出可组件化的结构。</h1>
     </div>
 
     <div class="pixel-grid api-grid">
@@ -29,6 +29,6 @@ Here is the answer...
       </div>
     </div>
 
-    <p v-click class="takeaway">流里的自定义标签，不只是字符串；它们可以成为 Vue 组件的挂载点。</p>
+    <p v-click class="takeaway">这样一来，渲染器不只是显示答案，还能把答案接进真实产品界面。</p>
   </div>
 </template>

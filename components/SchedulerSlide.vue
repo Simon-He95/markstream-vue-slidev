@@ -2,15 +2,15 @@
 import AnimeSchedulerSweep from "./AnimeSchedulerSweep.vue";
 
 const signals = [
-  [":final=\"final\"", "从生成中切到完成态，统一收束"],
-  ["smooth-streaming=\"auto\"", "显示节奏和网络片段解耦"],
-  [":batch-rendering=\"true\"", "把多段内容合并后再更新页面"],
+  [":final=\"final\"", "告诉渲染器：这次回答已经结束，可以补齐收尾"],
+  ["smooth-streaming=\"auto\"", "网络来得再碎，屏幕上也按舒服的节奏显示"],
+  [":batch-rendering=\"true\"", "攒几段再更新，减少页面抖动"],
 ];
 
 const budgets = [
-  ["解析缓存", "streamParse=\"auto\"", "复用中间结果，完成时再统一收束"],
-  ["保留区域", "maxLiveNodes", "保留滚动位置、选区和组件身份"],
-  ["重型块延后", "viewportPriority", "Monaco / Mermaid / KaTeX 靠近视口再渲染"],
+  ["解析缓存", "streamParse=\"auto\"", "前面算过的结果继续用，少做重复工作"],
+  ["保留现场", "maxLiveNodes", "滚动位置、选区和正在看的内容不要被打断"],
+  ["复杂内容延后", "viewportPriority", "Monaco / Mermaid / KaTeX 快进入视口时再渲染"],
 ];
 </script>
 
@@ -18,7 +18,7 @@ const budgets = [
   <div class="deck dark">
     <div class="slide-head">
       <span class="pixel-kicker gold pxl-corner-sm">SCHEDULER</span>
-      <h1>收到一段内容，不代表立刻改一次 DOM。</h1>
+      <h1>扛住高频输出，不是每收到一段就马上刷新页面。</h1>
     </div>
 
     <div class="scheduler-console">
@@ -47,6 +47,6 @@ const budgets = [
       </div>
     </div>
 
-    <p v-click class="takeaway">用户感受到的是顺滑、稳定和完成感，而不是底层来了多少小片段。</p>
+    <p v-click class="takeaway">渲染器要把模型的输出节奏，变成用户看起来舒服、页面也稳定的更新节奏。</p>
   </div>
 </template>

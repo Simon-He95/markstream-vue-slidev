@@ -78,7 +78,7 @@ const chunks = [
   "```\n\n",
   "```mermaid\ngraph LR\n  input[Input] --> timer[Timer]\n  timer --> api[Search API]\n```\n\n",
   "```diff\n- onInput(run)\n+ onInput(debounce(run, 300))\n```\n\n",
-  "> final: 代码块、Mermaid 源码、diff 和滚动位置都应该稳定落地。\n",
+  "> final: 代码高亮、Mermaid、diff 和滚动位置都应该稳稳保住。\n",
 ];
 
 const step = ref(0);
@@ -197,7 +197,7 @@ onUnmounted(() => {
       <section class="play-panel streamdown pxl-corner-md pxl-shadow">
         <header>
           <span>普通渲染方式</span>
-          <b>第 {{ remountCount }} 次重挂</b>
+          <b>第 {{ remountCount }} 次重建</b>
         </header>
         <div ref="leftHost" class="render-host">
           <article class="markdown-sample" :key="remountCount">
@@ -210,7 +210,7 @@ onUnmounted(() => {
               :key="line"
             >{{ line }}</span></code></pre>
             <div v-if="selectionInterrupted" class="selection-note lost">
-              选区被重挂打断
+              选区被重建打断
             </div>
             <div v-if="showMermaid" class="diagram-sample">
               <span>Mermaid</span>
@@ -219,7 +219,7 @@ onUnmounted(() => {
             <pre v-if="showDiff" class="diff-sample"><code>- onInput(run)
 + onInput(debounce(run, 300))</code></pre>
             <blockquote v-if="showFinalNote">
-              final: 代码块、Mermaid 源码、diff 和滚动位置都应该稳定落地。
+              final: 代码高亮、Mermaid、diff 和滚动位置都应该稳稳保住。
             </blockquote>
           </article>
         </div>
@@ -254,7 +254,7 @@ onUnmounted(() => {
         <footer>
           <span>完成信号</span>
           <span>平滑跟随滚动</span>
-          <span>稳定节点</span>
+          <span>页面不重建</span>
         </footer>
       </section>
     </div>

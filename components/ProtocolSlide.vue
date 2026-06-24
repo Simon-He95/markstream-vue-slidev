@@ -1,64 +1,65 @@
 <script setup>
 import { motion } from "motion-v";
 
-const streamTokens = ["#", "content", "<thinking>", "<tool-result>", "final"];
+const trends = [
+  ["更快", "模型返回速度上来后，渲染器要处理更高频的页面更新。"],
+  ["更长", "上下文窗口和最大输出变大，一次回答可能就是一整页内容。"],
+  ["更多", "代码、表格、工具结果、组件标签开始混在同一条流里。"],
+];
+
+const needs = ["更新不卡页面", "多类型都能显示", "交互不被打断"];
 </script>
 
 <template>
   <div class="deck dark protocol-deck">
     <div class="slide-head">
-      <span class="pixel-kicker pxl-corner-sm">FROM DOC TO STREAM</span>
-      <h1>Markdown 从一张纸，变成一条正在发生的流。</h1>
+      <span class="pixel-kicker pxl-corner-sm">WHY NOW</span>
+      <h1>AI 输出不再是几行文字，而是持续生成的界面内容。</h1>
     </div>
 
-    <div class="protocol-machine">
+    <div class="origin-story">
       <motion.div
+        v-for="(trend, index) in trends"
         v-click
-        class="protocol-source pxl-corner-lg pxl-shadow"
-        :initial="{ opacity: 0, y: 18 }"
+        :key="trend[0]"
+        class="origin-card pxl-corner-lg pxl-shadow"
+        :style="{ '--i': index }"
+        :initial="{ opacity: 0, y: 18, rotate: -1 }"
         :animate="{ opacity: 1, y: 0 }"
-        :transition="{ duration: 0.32 }"
+        :transition="{ delay: index * 0.08, duration: 0.28 }"
       >
-        <span class="pixel-kicker danger small pxl-corner-sm">过去</span>
-        <div class="paper-sheet-mini">
-          <b># Report</b>
-          <i /><i /><i /><i />
-        </div>
-        <p>完成后再渲染，面对静态文档。</p>
+        <span>{{ trend[0] }}</span>
+        <p>{{ trend[1] }}</p>
       </motion.div>
 
-      <div v-click class="token-conveyor" aria-hidden="true">
-        <i></i>
-        <motion.span
-          v-for="(token, index) in streamTokens"
-          :key="token"
-          class="conveyor-token pxl-corner-sm"
-          :class="`conveyor-${index + 1}`"
-          :initial="{ opacity: 0, x: -12 }"
-          :animate="{ opacity: 1, x: 0 }"
-          :transition="{ delay: index * 0.08, duration: 0.24 }"
-        >
-          {{ token }}
-        </motion.span>
+      <motion.div
+        v-click
+        class="origin-pressure pxl-corner-lg pxl-shadow"
+        :initial="{ opacity: 0, scale: 0.96 }"
+        :animate="{ opacity: 1, y: 0 }"
+        :transition="{ delay: 0.18, duration: 0.32 }"
+      >
+        <div class="pressure-meter">
+          <span>tokens / sec</span>
+          <i></i>
+        </div>
+        <div class="pressure-meter wide">
+          <span>context size</span>
+          <i></i>
+        </div>
+        <div class="pressure-meter tall">
+          <span>ui blocks</span>
+          <i></i>
+        </div>
+      </motion.div>
+
+      <div v-click class="origin-answer pxl-corner-lg pxl-shadow">
+        <span class="pixel-kicker success small pxl-corner-sm">MARKSTREAM-VUE</span>
+        <h2>我们需要一个更强的 Markdown 渲染器。</h2>
+        <div class="origin-needs">
+          <b v-for="need in needs" :key="need">{{ need }}</b>
+        </div>
       </div>
-
-      <motion.div
-        v-click
-        class="protocol-ui pxl-corner-lg pxl-shadow"
-        :initial="{ opacity: 0, y: 18 }"
-        :animate="{ opacity: 1, y: 0 }"
-        :transition="{ delay: 0.12, duration: 0.32 }"
-      >
-        <span class="pixel-kicker success small pxl-corner-sm">现在</span>
-        <div class="ui-stack-preview">
-          <section><b>思考中</b><span>检索上下文...</span></section>
-          <section><b>工具结果</b><span>已关联 12 份文档</span></section>
-          <section><b>最终回答</b><span>稳定 Vue 组件</span></section>
-        </div>
-        <p>边生成，边成为稳定 UI。</p>
-      </motion.div>
     </div>
-
-    <p class="takeaway">重点不再是渲染一份完成后的文档，而是接住正在发生的生成过程。</p>
   </div>
 </template>

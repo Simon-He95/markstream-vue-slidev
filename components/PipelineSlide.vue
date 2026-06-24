@@ -1,11 +1,11 @@
 <script setup>
 import AnimeCircuitTrace from "./AnimeCircuitTrace.vue";
 
-const steps = ["接收片段", "允许未完成结构", "复用已有节点", "安排更新节奏", "完成后收束"];
+const steps = ["只解析新增内容", "按块更新页面", "普通文本快速追加", "复杂内容稍后处理", "完成后补齐细节"];
 const cards = [
-  ["轻量文本", "文本直接追加", "普通文本不反复走完整解析，也不反复改整棵 DOM。"],
-  ["渲染节奏", "重型内容排队", "靠近视口再渲染，避免 Monaco / Mermaid 抢主线程。"],
-  ["状态稳定", "交互状态保留", "节点身份稳定后，滚动位置和选区不会反复丢失。"],
+  ["解析成本", "只看变化的部分", "内容变长时，不必每次从头解析整篇 Markdown。"],
+  ["页面更新", "能原地更新就原地更新", "代码块、表格和工具结果尽量留在原处，滚动和选区不被打断。"],
+  ["主线程预算", "复杂渲染排到后面", "Monaco / Mermaid / KaTeX 等到合适时机再渲染，避免抢走交互。"],
 ];
 </script>
 
@@ -13,7 +13,7 @@ const cards = [
   <div class="deck dark pipeline-deck">
     <div class="slide-head">
       <span class="pixel-kicker pxl-corner-sm">CORE PIPELINE</span>
-      <h1>不是每收到一小段，就整页重渲。</h1>
+      <h1>它能扛住的关键，是把每次更新的成本压下来。</h1>
     </div>
 
     <div class="pipeline-circuit">

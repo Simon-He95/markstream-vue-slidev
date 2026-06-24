@@ -21,7 +21,7 @@ const items = [
     label: "输出接口",
     title: "AI 输出层",
     value: "Vue 3",
-    body: "正文、思考过程、工具结果和自定义标签统一进入 renderer",
+    body: "正文、思考过程、工具结果和自定义标签，都能走同一套渲染入口",
     chips: ["Chat", "Agent", "Docs", "Review"],
   },
   {
@@ -35,7 +35,7 @@ const items = [
     label: "组件化",
     title: "可组合输出",
     value: "Tags",
-    body: "thinking / tool-result / answer-box 可以映射成真实 Vue 组件",
+    body: "thinking / tool-result / answer-box 不只显示文本，也可以挂载 Vue 组件",
     chips: ["Thinking", "Tool", "Answer", "Slots"],
   },
 ];

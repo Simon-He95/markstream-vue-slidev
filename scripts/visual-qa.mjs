@@ -159,6 +159,14 @@ async function waitForRuntime(page, expression, timeoutMs = 4000) {
   return false;
 }
 
+async function navigateToSlide(page, slide) {
+  await page.send("Page.navigate", { url: `${baseUrl}/${slide}` });
+  await waitForSlideContent(page);
+  const clickCount = await page.evaluate(`(() => document.querySelectorAll('.slidev-vclick-target').length)()`);
+  await page.send("Page.navigate", { url: `${baseUrl}/${slide}?clicks=${clickCount}` });
+  await waitForSlideContent(page);
+}
+
 const inspectionExpression = `(() => {
   const viewport = { width: innerWidth, height: innerHeight };
   const slideRect = { left: 0, top: 0, right: innerWidth, bottom: innerHeight, width: innerWidth, height: innerHeight };
@@ -298,6 +306,10 @@ async function inspectLogoTransition(page) {
       && rect.width > 1
       && rect.height > 1;
   })()`);
+  await waitForRuntime(page, `(() => {
+    const cover = document.querySelector('.cover-logo');
+    return cover && getComputedStyle(cover).visibility === 'hidden';
+  })()`);
   const logoSnapshotExpression = `(() => {
     const allLogos = Array.from(document.querySelectorAll('.shared-logo-flight,.cover-logo,.slide-corner-logo')).map((el) => {
       const style = getComputedStyle(el);
@@ -404,8 +416,7 @@ async function main() {
     const page = await createPage(port);
     const slides = [];
     for (let slide = 1; slide <= slideCount; slide++) {
-      await page.send("Page.navigate", { url: `${baseUrl}/${slide}?clicks=999` });
-      await waitForSlideContent(page);
+      await navigateToSlide(page, slide);
       const inspection = await page.evaluate(inspectionExpression);
       const screenshot = `${outDir}/page-${String(slide).padStart(2, "0")}.png`;
       await page.screenshot(screenshot);
