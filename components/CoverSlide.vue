@@ -10,10 +10,10 @@ const tokens = ["content", "thinking", "tool-result", "custom-tags"];
   <div class="deck dark cover-deck">
     <div class="hero-launch">
       <div class="hero-copy">
-        <span class="pixel-kicker pxl-corner-sm">MARKSTREAM-VUE · AI OUTPUT RENDERER</span>
+        <span class="pixel-kicker pxl-corner-sm">VUECONF · MARKSTREAM-VUE</span>
         <h1 class="deck-title">你的 Markdown 渲染器，<br>扛得住 AI 输出吗？</h1>
         <p class="deck-subtitle">
-          当模型返回更快、内容更长、形式更丰富，渲染器会从组件变成基础设施。
+          模型吐字更快、上下文更长、形态更复杂——渲染器正在从一个组件，变成扛压力的基础设施。
         </p>
         <div v-click class="hero-ribbon pxl-corner-md">
           <span>更快</span>

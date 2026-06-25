@@ -1,7 +1,6 @@
 <script setup>
 import { useNav } from '@slidev/client'
 import { computed, nextTick, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue'
-import AnimePageTransition from './components/AnimePageTransition.vue'
 
 const nav = useNav()
 const visible = ref(false)
@@ -208,7 +207,6 @@ onBeforeUnmount(() => {
 
 <template>
   <Teleport to="body">
-    <AnimePageTransition />
     <img
       v-show="visible"
       class="shared-logo-flight"

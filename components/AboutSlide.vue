@@ -1,5 +1,4 @@
 <script setup>
-import { motion } from "motion-v";
 
 const projects = [
   ["Maintainer", "UnoCSS", "/project-logos/unocss.png"],
@@ -22,12 +21,9 @@ const plugins = ["Common Intellisense", "UnoT", "Tailwind Magic", "Alias Jump"];
     </div>
 
     <div class="about-console">
-      <motion.div
+      <div
         v-click
         class="about-id pxl-corner-lg pxl-shadow"
-        :initial="{ opacity: 0, x: -22 }"
-        :animate="{ opacity: 1, x: 0 }"
-        :transition="{ duration: 0.34 }"
       >
         <img class="profile-avatar" src="/simon-avatar.png" alt="Simon He GitHub avatar">
         <div>
@@ -36,22 +32,19 @@ const plugins = ["Common Intellisense", "UnoT", "Tailwind Magic", "Alias Jump"];
           <p>Simon-He95 · Shanghai</p>
           <strong>Vue / DX / AI UI / Streaming Rendering</strong>
         </div>
-      </motion.div>
+      </div>
 
       <div v-click class="oss-orbit">
-        <motion.div
+        <div
           v-for="(project, index) in projects"
           :key="project[1]"
           class="oss-chip pxl-corner-sm"
           :class="`oss-${index + 1}`"
-          :initial="{ opacity: 0, y: 14 }"
-          :animate="{ opacity: 1, y: 0 }"
-          :transition="{ delay: index * 0.05, duration: 0.24 }"
         >
           <img :src="project[2]" alt="">
           <span>{{ project[0] }}</span>
           <b>{{ project[1] }}</b>
-        </motion.div>
+        </div>
         <div class="about-focus pxl-corner-lg">
           <span>方向</span>
           <b>把 AI 输出做成稳定、可组合的 Vue UI</b>

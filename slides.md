@@ -1,12 +1,12 @@
 ---
 theme: default
-title: markstream-vue
-info: AI Streaming Markdown Renderer for Vue
+title: 你的 Markdown 渲染器，扛得住 AI 输出吗？
+info: markstream-vue · AI Streaming Markdown Renderer for Vue
 highlighter: shiki
 lineNumbers: false
 drawings:
   persist: false
-transition: fade-out
+transition: fade
 colorSchema: dark
 ---
 
@@ -18,19 +18,23 @@ colorSchema: dark
 
 ---
 
-<ProtocolSlide />
+<TrendSlide />
 
 ---
 
-<ProblemSlide />
+<PressureSlide />
 
 ---
 
-<StreamingUiSlide />
+<LegacySlide />
 
 ---
 
-<DemoStorySlide />
+<SolutionSlide />
+
+---
+
+<InternalsSlide />
 
 ---
 
@@ -38,43 +42,11 @@ colorSchema: dark
 
 ---
 
-<ApiSlide />
+<FeaturesSlide />
 
 ---
 
-<PipelineSlide />
-
----
-
-<SchedulerSlide />
-
----
-
-<BigNumberSlide />
-
----
-
-<PerfSlide />
-
----
-
-<ParserFoundationSlide />
-
----
-
-<ComponentsSlide />
-
----
-
-<EcosystemSlide />
-
----
-
-<AdoptionSlide />
-
----
-
-<PositioningSlide />
+<PerfDataSlide />
 
 ---
 

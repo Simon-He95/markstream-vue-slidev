@@ -272,30 +272,9 @@ onUnmounted(() => {
   align-items: center;
   gap: 10px;
   padding: 10px 12px;
-  border: 2px solid var(--retro-border-strong);
+  border: 1px solid var(--retro-border);
+  border-radius: 12px;
   background: var(--retro-card);
-  clip-path: polygon(
-    4px 0,
-    calc(100% - 4px) 0,
-    calc(100% - 4px) 2px,
-    calc(100% - 2px) 2px,
-    calc(100% - 2px) 4px,
-    100% 4px,
-    100% calc(100% - 4px),
-    calc(100% - 2px) calc(100% - 4px),
-    calc(100% - 2px) calc(100% - 2px),
-    calc(100% - 4px) calc(100% - 2px),
-    calc(100% - 4px) 100%,
-    4px 100%,
-    4px calc(100% - 2px),
-    2px calc(100% - 2px),
-    2px calc(100% - 4px),
-    0 calc(100% - 4px),
-    0 4px,
-    2px 4px,
-    2px 2px,
-    4px 2px
-  );
 }
 
 .play-progress {
@@ -377,7 +356,7 @@ onUnmounted(() => {
 
 .render-host {
   position: relative;
-  height: 190px;
+  height: 168px;
   overflow: auto;
   scrollbar-color: var(--retro-cyan) var(--retro-surface);
   scrollbar-width: thin;
