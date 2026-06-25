@@ -1,5 +1,8 @@
 <script setup>
-import { computed } from "vue";
+import { computed, h, nextTick, onBeforeUnmount, ref } from "vue";
+import MarkdownIt from "markdown-it";
+import MarkdownRender, { setCustomComponents } from "markstream-vue";
+import "markstream-vue/index.css";
 
 const props = defineProps({
   no: {
@@ -71,6 +74,100 @@ const rendererMetrics = [
   ["max long task", "0", "ms"],
   ["renderer DOM", "9", "nodes"],
 ];
+
+const streamCustomId = "slide-stream-demo";
+const streamCustomTags = ["think", "tool-result", "component-card"];
+
+function streamCustomBlock(type) {
+  return {
+    props: {
+      node: {
+        type: Object,
+        required: true,
+      },
+    },
+    setup(props) {
+      return () => h("span", { class: ["attach-stream-custom", `attach-stream-custom-${type}`] }, props.node.content);
+    },
+  };
+}
+
+setCustomComponents(streamCustomId, {
+  think: streamCustomBlock("think"),
+  "tool-result": streamCustomBlock("tool-result"),
+  "component-card": streamCustomBlock("component-card"),
+});
+
+const demoMarkdown = `# AI 回复：流式渲染任务
+
+> streaming · chunk 18 / 96 · 用户正在滚动
+
+## 当前目标
+
+把一段还没结束的 Markdown 一边接收、一边渲染成稳定 UI。
+
+- **段落**、_强调_、\`inline code\`
+- [文档链接](https://github.com/Simon-He95/markstream-vue)
+- 任务列表：\`parse → render → paint\`
+
+1. 接收 delta
+2. 只处理尾部不稳定区域
+3. 已稳定节点继续复用
+
+| stage | traditional | markstream-vue |
+| --- | ---: | ---: |
+| parse | full document | tail window |
+| render | replace all | patch nodes |
+| scroll | can drift | stable |
+
+\`\`\`ts
+for await (const delta of stream) {
+  renderer.push(delta)
+  scheduler.commit({ budget: 4 })
+}
+\`\`\`
+
+\`\`\`json
+{"chunk": 18, "mode": "tail-patch", "budget": "4ms"}
+\`\`\`
+
+<think>
+checking frame budget and scroll lock...
+</think>
+
+<tool-result status="ok">
+docs matched: 12 · reused blocks: 7
+</tool-result>
+
+<component-card>
+paint p95 target: under 16.7ms · DOM should stay small
+</component-card>`;
+
+function escapeHtml(value) {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+function highlightTs(code) {
+  return escapeHtml(code)
+    .replace(/\b(export|function|return|const|string)\b/g, '<span class="tok kw">$1</span>')
+    .replace(/\b(markdownIt|render|schedule|answer|delta)\b/g, '<span class="tok prop">$1</span>');
+}
+
+const plainMarkdown = new MarkdownIt({ html: true, linkify: true, breaks: true });
+const highlightedMarkdown = new MarkdownIt({
+  html: true,
+  linkify: true,
+  breaks: true,
+  highlight(code, lang) {
+    if (lang === "ts") {
+      return `<pre class="attach-demo-code highlighted"><code>${highlightTs(code)}</code></pre>`;
+    }
+    return `<pre class="attach-demo-code"><code>${escapeHtml(code)}</code></pre>`;
+  },
+});
 
 const projects = [
   ["UnoCSS", "/project-logos/unocss.png"],
@@ -228,6 +325,271 @@ container.<span class="tok prop">innerHTML</span> <span class="tok op">=</span> 
 
 const current = computed(() => slides[props.no] ?? slides[1]);
 const page = computed(() => String(props.no).padStart(2, "0"));
+const streamDelayOptions = [4, 8, 16];
+const streamChunkOptions = [1, 4, 8];
+const streamDelay = ref(8);
+const streamChunkSize = ref(4);
+const streamRunning = ref(false);
+const streamIndex = ref(0);
+const streamUpdates = ref(0);
+const streamContent = ref("");
+const streamRenderedHtml = ref("");
+const streamLastRenderMs = ref(0);
+const streamCpuPercent = ref(0);
+const streamFrameP95 = ref(0);
+const streamPaints = ref(0);
+const streamHeapMb = ref(0);
+const streamHeapAvailable = ref(false);
+const streamDomNodes = ref(0);
+const streamLastChunk = ref(0);
+const streamAutoFollow = ref(true);
+const streamSourceRef = ref(null);
+const streamHostRef = ref(null);
+const streamSamples = [];
+const streamCpuSamples = [];
+let streamTimer = 0;
+let streamScrollTimer = 0;
+let streamFollowTimer = 0;
+let streamFollowStopTimer = 0;
+
+const streamDone = computed(() => streamIndex.value >= demoMarkdown.length);
+const streamProgress = computed(() => Math.round((streamIndex.value / demoMarkdown.length) * 100));
+const streamStatus = computed(() => {
+  if (streamRunning.value) return "streaming";
+  if (streamDone.value) return "done";
+  return "ready";
+});
+const streamParseScope = computed(() => {
+  if (!streamIndex.value) return "0";
+  if (current.value.kind === "core") {
+    return `tail ${Math.min(streamIndex.value, streamLastChunk.value + 32)}`;
+  }
+  if (current.value.kind === "highlight") {
+    return `full ${streamIndex.value}+hi`;
+  }
+  return `full ${streamIndex.value}`;
+});
+const streamRerenderScope = computed(() => {
+  if (!streamUpdates.value) return "0";
+  if (current.value.kind === "core") return `patch ${streamUpdates.value}x`;
+  return `full ${streamUpdates.value}x`;
+});
+const streamMetrics = computed(() => [
+  ["parse", streamParseScope.value],
+  ["rerender", streamRerenderScope.value],
+  ["CPU %", formatPercent(streamCpuPercent.value)],
+  ["paint p95", `${streamFrameP95.value.toFixed(1)}ms`],
+  ["heap", streamHeapAvailable.value ? `${streamHeapMb.value.toFixed(1)}MB` : "n/a"],
+  ["DOM", String(streamDomNodes.value)],
+]);
+const streamCaption = computed(() => {
+  if (current.value.kind === "core") {
+    return "parse=tail window · rerender=patch nodes · CPU%=sync parser/render work ÷ delay · paint p95=update→rAF";
+  }
+  if (current.value.kind === "highlight") {
+    return "parse=full document + highlight · rerender=full replace · CPU%=sync parser/render work ÷ delay";
+  }
+  return "parse=full document · rerender=full replace · CPU%=sync parser/render work ÷ delay";
+});
+
+function clearStreamTimer() {
+  if (streamTimer) {
+    window.clearTimeout(streamTimer);
+    streamTimer = 0;
+  }
+}
+
+function clearStreamScrollTimer() {
+  if (streamScrollTimer) {
+    window.clearTimeout(streamScrollTimer);
+    streamScrollTimer = 0;
+  }
+}
+
+function clearStreamFollowTimers() {
+  if (streamFollowTimer) {
+    window.clearInterval(streamFollowTimer);
+    streamFollowTimer = 0;
+  }
+  if (streamFollowStopTimer) {
+    window.clearTimeout(streamFollowStopTimer);
+    streamFollowStopTimer = 0;
+  }
+}
+
+function percentile95(values) {
+  if (!values.length) return 0;
+  const sorted = [...values].sort((a, b) => a - b);
+  return sorted[Math.min(sorted.length - 1, Math.floor(sorted.length * 0.95))];
+}
+
+function average(values) {
+  if (!values.length) return 0;
+  return values.reduce((sum, value) => sum + value, 0) / values.length;
+}
+
+function formatPercent(value) {
+  if (streamUpdates.value && value < 1) return "<1%";
+  return `${value.toFixed(0)}%`;
+}
+
+function readHeapMb() {
+  const memory = performance.memory;
+  if (!memory) return null;
+  return memory.usedJSHeapSize / 1048576;
+}
+
+function scrollStreamPanes() {
+  if (!streamAutoFollow.value) return;
+  if (streamSourceRef.value) {
+    streamSourceRef.value.scrollTop = streamSourceRef.value.scrollHeight;
+  }
+  if (streamHostRef.value) {
+    streamHostRef.value.scrollTop = streamHostRef.value.scrollHeight;
+  }
+}
+
+function scheduleStreamScroll() {
+  clearStreamScrollTimer();
+  if (!streamAutoFollow.value || !streamRunning.value) return;
+  scrollStreamPanes();
+  window.requestAnimationFrame(scrollStreamPanes);
+  streamScrollTimer = window.setTimeout(() => {
+    scrollStreamPanes();
+    streamScrollTimer = window.setTimeout(scrollStreamPanes, 240);
+  }, streamDelay.value + 80);
+}
+
+function startStreamFollow() {
+  if (streamFollowStopTimer) {
+    window.clearTimeout(streamFollowStopTimer);
+    streamFollowStopTimer = 0;
+  }
+  if (!streamFollowTimer) {
+    streamFollowTimer = window.setInterval(scrollStreamPanes, 100);
+  }
+}
+
+function stopStreamFollow(delay = 0) {
+  if (!delay) {
+    clearStreamFollowTimers();
+    return;
+  }
+  if (streamFollowStopTimer) window.clearTimeout(streamFollowStopTimer);
+  streamFollowStopTimer = window.setTimeout(clearStreamFollowTimers, delay);
+}
+
+function setStreamDelay(value) {
+  streamDelay.value = value;
+}
+
+function setStreamChunkSize(value) {
+  streamChunkSize.value = value;
+}
+
+function isStreamPaneAtBottom(element) {
+  if (!element) return true;
+  return element.scrollTop + element.clientHeight >= element.scrollHeight - 3;
+}
+
+function handleStreamScroll(event) {
+  if (!streamRunning.value) return;
+  streamAutoFollow.value = isStreamPaneAtBottom(event.currentTarget);
+}
+
+async function updateStreamRender(nextContent) {
+  const start = performance.now();
+  streamContent.value = nextContent;
+  if (current.value.kind === "highlight") {
+    streamRenderedHtml.value = highlightedMarkdown.render(nextContent);
+  } else if (current.value.kind === "old") {
+    streamRenderedHtml.value = plainMarkdown.render(nextContent);
+  }
+  streamLastRenderMs.value = performance.now() - start;
+  await nextTick();
+  scheduleStreamScroll();
+  streamCpuSamples.push(Math.min(100, (streamLastRenderMs.value / Math.max(streamDelay.value, 1)) * 100));
+  if (streamCpuSamples.length > 60) streamCpuSamples.shift();
+  streamCpuPercent.value = average(streamCpuSamples);
+  const heapMb = readHeapMb();
+  streamHeapAvailable.value = heapMb !== null;
+  streamHeapMb.value = heapMb ?? 0;
+  streamDomNodes.value = streamHostRef.value?.querySelectorAll("*").length ?? 0;
+  window.requestAnimationFrame(() => {
+    streamSamples.push(performance.now() - start);
+    if (streamSamples.length > 60) streamSamples.shift();
+    streamFrameP95.value = percentile95(streamSamples);
+    streamPaints.value += 1;
+  });
+}
+
+async function streamTick() {
+  if (!streamRunning.value) return;
+  const nextIndex = Math.min(demoMarkdown.length, streamIndex.value + streamChunkSize.value);
+  streamLastChunk.value = nextIndex - streamIndex.value;
+  streamIndex.value = nextIndex;
+  streamUpdates.value += 1;
+  await updateStreamRender(demoMarkdown.slice(0, nextIndex));
+  if (streamDone.value) {
+    streamRunning.value = false;
+    streamAutoFollow.value = false;
+    clearStreamTimer();
+    clearStreamScrollTimer();
+    stopStreamFollow();
+    return;
+  }
+  streamTimer = window.setTimeout(streamTick, streamDelay.value);
+}
+
+function playStream() {
+  if (streamDone.value) resetStream();
+  if (streamRunning.value) return;
+  streamAutoFollow.value = true;
+  streamRunning.value = true;
+  startStreamFollow();
+  streamTimer = window.setTimeout(streamTick, streamDelay.value);
+}
+
+function pauseStream() {
+  streamRunning.value = false;
+  streamAutoFollow.value = false;
+  clearStreamTimer();
+  stopStreamFollow();
+}
+
+function toggleStream() {
+  if (streamRunning.value) {
+    pauseStream();
+  } else {
+    playStream();
+  }
+}
+
+function resetStream() {
+  pauseStream();
+  clearStreamScrollTimer();
+  streamIndex.value = 0;
+  streamUpdates.value = 0;
+  streamContent.value = "";
+  streamRenderedHtml.value = "";
+  streamLastRenderMs.value = 0;
+  streamCpuPercent.value = 0;
+  streamFrameP95.value = 0;
+  streamPaints.value = 0;
+  streamHeapMb.value = 0;
+  streamHeapAvailable.value = false;
+  streamDomNodes.value = 0;
+  streamLastChunk.value = 0;
+  streamAutoFollow.value = true;
+  streamSamples.length = 0;
+  streamCpuSamples.length = 0;
+}
+
+onBeforeUnmount(() => {
+  clearStreamTimer();
+  clearStreamScrollTimer();
+  clearStreamFollowTimers();
+});
 </script>
 
 <template>
@@ -324,7 +686,7 @@ const page = computed(() => String(props.no).padStart(2, "0"));
             <b>更多 UI block</b>
           </section>
           <p class="attach-equation">Context × Output × tokens/s × UI blocks → 争抢 16.7ms / frame</p>
-          <small class="attach-source">Sources accessed in attached deck: 2026-06-24</small>
+          <small class="attach-source">Verified against official model docs: Kimi, Z.AI, Anthropic, OpenAI, Google AI · 2026-06-25</small>
         </div>
 
         <div v-else-if="current.kind === 'problem'" class="attach-problem-layout">
@@ -341,22 +703,82 @@ const page = computed(() => String(props.no).padStart(2, "0"));
 
         <div v-else-if="current.kind === 'old'" class="attach-code-flow">
           <pre class="attach-code" v-html="current.codeHtml"></pre>
-          <section class="attach-flow-card attach-card">
-            <b>Markdown 完整文本</b><i></i><b>parse 一次性</b><i></i><b>HTML 字符串</b><i></i><b>DOM 替换</b>
-            <p>这个模型在“文档已完成”的时代很自然；但 AI stream 给你的不是完成稿，而是一边增长、一边变化的中间态。</p>
-            <div class="attach-chip-row"><span>假设：输入完整</span><span>假设：结构稳定</span><span>假设：可以重建</span></div>
+          <section class="attach-evidence-stack">
+            <section class="attach-flow-card attach-card">
+              <b>Markdown 完整文本</b><i></i><b>parse 一次性</b><i></i><b>HTML 字符串</b><i></i><b>DOM 替换</b>
+              <p>这个模型在“文档已完成”的时代很自然；但 AI stream 给你的不是完成稿，而是一边增长、一边变化的中间态。</p>
+            </section>
+            <section v-click class="attach-render-evidence attach-card">
+              <div class="attach-stream-head">
+                <span>STREAMING RENDER · markdown-it</span>
+                <em>{{ streamStatus }} · {{ streamProgress }}% · +{{ streamLastChunk }} chars</em>
+              </div>
+              <div class="attach-stream-controls" @click.stop @keydown.stop>
+                <button class="attach-play-button" type="button" @click="toggleStream">{{ streamRunning ? "II" : "▶" }}</button>
+                <button class="attach-reset-button" type="button" @click="resetStream">↺</button>
+                <div>
+                  <span>delay</span>
+                  <button v-for="delay in streamDelayOptions" :key="delay" type="button" :class="{ active: streamDelay === delay }" @click="setStreamDelay(delay)">{{ delay }}ms</button>
+                </div>
+                <div>
+                  <span>chunk</span>
+                  <button v-for="size in streamChunkOptions" :key="size" type="button" :class="{ active: streamChunkSize === size }" @click="setStreamChunkSize(size)">{{ size }}字</button>
+                </div>
+              </div>
+              <div class="attach-live-demo stream" :class="{ running: streamRunning }">
+                <pre ref="streamSourceRef" @scroll="handleStreamScroll"><code>{{ streamContent }}</code><i v-if="streamRunning"></i></pre>
+                <div ref="streamHostRef" class="attach-render-container" @scroll="handleStreamScroll" v-html="streamRenderedHtml"></div>
+              </div>
+              <div class="attach-stream-metrics">
+                <b v-for="metric in streamMetrics" :key="metric[0]">
+                  <span>{{ metric[0] }}</span>
+                  <em>{{ metric[1] }}</em>
+                </b>
+              </div>
+              <small>{{ streamCaption }}</small>
+            </section>
           </section>
         </div>
 
         <div v-else-if="current.kind === 'highlight'" class="attach-highlight-layout">
           <pre class="attach-code" v-html="current.codeHtml"></pre>
-          <section class="attach-step-list">
-            <article class="attach-card"><span>01</span><b>每来 1 个 chunk</b><small>full parse</small></article>
-            <article class="attach-card"><span>02</span><b>每个 code block</b><small>syntax highlight</small></article>
-            <article class="attach-card"><span>03</span><b>每次更新页面</b><small>full renderer</small></article>
-            <article class="attach-card"><span>04</span><b>用户交互中</b><small>layout / paint</small></article>
+          <section class="attach-evidence-stack">
+            <section class="attach-step-list compact">
+              <article class="attach-card"><span>01</span><b>每来 1 个 chunk</b><small>full parse</small></article>
+              <article class="attach-card"><span>02</span><b>每个 code block</b><small>Shiki highlight</small></article>
+              <article class="attach-card"><span>03</span><b>每次更新页面</b><small>full renderer</small></article>
+              <article class="attach-card"><span>04</span><b>用户交互中</b><small>layout / paint</small></article>
+            </section>
+            <section v-click class="attach-render-evidence danger attach-card">
+              <div class="attach-stream-head">
+                <span>STREAMING RENDER · highlighted</span>
+                <em>{{ streamStatus }} · {{ streamProgress }}% · +{{ streamLastChunk }} chars</em>
+              </div>
+              <div class="attach-stream-controls" @click.stop @keydown.stop>
+                <button class="attach-play-button" type="button" @click="toggleStream">{{ streamRunning ? "II" : "▶" }}</button>
+                <button class="attach-reset-button" type="button" @click="resetStream">↺</button>
+                <div>
+                  <span>delay</span>
+                  <button v-for="delay in streamDelayOptions" :key="delay" type="button" :class="{ active: streamDelay === delay }" @click="setStreamDelay(delay)">{{ delay }}ms</button>
+                </div>
+                <div>
+                  <span>chunk</span>
+                  <button v-for="size in streamChunkOptions" :key="size" type="button" :class="{ active: streamChunkSize === size }" @click="setStreamChunkSize(size)">{{ size }}字</button>
+                </div>
+              </div>
+              <div class="attach-live-demo stream" :class="{ running: streamRunning }">
+                <pre ref="streamSourceRef" @scroll="handleStreamScroll"><code>{{ streamContent }}</code><i v-if="streamRunning"></i></pre>
+                <div ref="streamHostRef" class="attach-render-container highlighted" @scroll="handleStreamScroll" v-html="streamRenderedHtml"></div>
+              </div>
+              <div class="attach-stream-metrics">
+                <b v-for="metric in streamMetrics" :key="metric[0]">
+                  <span>{{ metric[0] }}</span>
+                  <em>{{ metric[1] }}</em>
+                </b>
+              </div>
+              <small>{{ streamCaption }}</small>
+            </section>
           </section>
-          <p class="attach-takeaway">代码高亮解决了“看起来像 IDE”的问题，但没有解决“仍在生成时如何更新”的问题。</p>
         </div>
 
         <div v-else-if="current.kind === 'loop'" class="attach-loop-layout">
@@ -397,14 +819,59 @@ const page = computed(() => String(props.no).padStart(2, "0"));
         </div>
 
         <div v-else-if="current.kind === 'core'" class="attach-core-layout">
-          <section class="attach-step-list four">
-            <article class="attach-card"><span>01</span><b>Parse delta</b><small>只处理新增片段和尾部不稳定区域。</small></article>
-            <article class="attach-card"><span>02</span><b>Node reuse</b><small>稳定块复用，不做整页替换。</small></article>
-            <article class="attach-card"><span>03</span><b>Schedule</b><small>按帧预算分批提交。</small></article>
-            <article class="attach-card"><span>04</span><b>Finalize</b><small>结束后收敛为稳定文档。</small></article>
+          <section class="attach-core-left">
+            <section class="attach-step-list compact">
+              <article class="attach-card"><span>01</span><b>Parse delta</b><small>只处理新增片段和尾部不稳定区域。</small></article>
+              <article class="attach-card"><span>02</span><b>Node reuse</b><small>稳定块复用，不做整页替换。</small></article>
+              <article class="attach-card"><span>03</span><b>Schedule</b><small>按帧预算分批提交。</small></article>
+              <article class="attach-card"><span>04</span><b>Finalize</b><small>结束后收敛为稳定文档。</small></article>
+            </section>
+            <p class="attach-equation">核心原则：把“不稳定”限制在尾部，把“稳定”交还给 Vue。</p>
           </section>
-          <p class="attach-equation">核心原则：把“不稳定”限制在尾部，把“稳定”交还给 Vue。</p>
-          <div class="attach-chip-row"><span>docs mode</span><span>chat mode</span><span>virtual window</span><span>component slots</span></div>
+          <section v-click class="attach-render-evidence markstream attach-card">
+            <div class="attach-stream-head">
+              <span>MARKSTREAM-VUE LIVE · main-playground-chat</span>
+              <em>{{ streamStatus }} · {{ streamProgress }}% · +{{ streamLastChunk }} chars</em>
+            </div>
+            <div class="attach-stream-controls" @click.stop @keydown.stop>
+              <button class="attach-play-button" type="button" @click="toggleStream">{{ streamRunning ? "II" : "▶" }}</button>
+              <button class="attach-reset-button" type="button" @click="resetStream">↺</button>
+              <div>
+                <span>delay</span>
+                <button v-for="delay in streamDelayOptions" :key="delay" type="button" :class="{ active: streamDelay === delay }" @click="setStreamDelay(delay)">{{ delay }}ms</button>
+              </div>
+              <div>
+                <span>chunk</span>
+                <button v-for="size in streamChunkOptions" :key="size" type="button" :class="{ active: streamChunkSize === size }" @click="setStreamChunkSize(size)">{{ size }}字</button>
+              </div>
+            </div>
+            <div class="attach-live-demo markstream stream" :class="{ running: streamRunning }">
+              <pre ref="streamSourceRef" @scroll="handleStreamScroll"><code>{{ streamContent }}</code><i v-if="streamRunning"></i></pre>
+              <div ref="streamHostRef" class="attach-render-container markstream-host" @scroll="handleStreamScroll">
+                <MarkdownRender
+                  :content="streamContent"
+                  :final="streamDone"
+                  :is-dark="true"
+                  :custom-html-tags="streamCustomTags"
+                  :custom-id="streamCustomId"
+                  :max-live-nodes="0"
+                  :batch-rendering="true"
+                  :render-batch-size="16"
+                  :render-batch-delay="streamDelay"
+                  :render-batch-budget-ms="streamDelay"
+                  :fade="false"
+                  :typewriter="false"
+                />
+              </div>
+            </div>
+            <div class="attach-stream-metrics">
+              <b v-for="metric in streamMetrics" :key="metric[0]">
+                <span>{{ metric[0] }}</span>
+                <em>{{ metric[1] }}</em>
+              </b>
+            </div>
+            <small>{{ streamCaption }}</small>
+          </section>
         </div>
 
         <div v-else-if="current.kind === 'compare'" class="attach-compare-layout">
