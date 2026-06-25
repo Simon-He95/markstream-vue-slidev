@@ -10,76 +10,72 @@ transition: fade-out
 colorSchema: dark
 ---
 
-<CoverSlide />
+<AttachmentSlide :no="1" />
 
 ---
 
-<AboutSlide />
+<AttachmentSlide :no="2" />
 
 ---
 
-<ProtocolSlide />
+<AttachmentSlide :no="3" />
 
 ---
 
-<ProblemSlide />
+<AttachmentSlide :no="4" />
 
 ---
 
-<StreamingUiSlide />
+<AttachmentSlide :no="5" />
 
 ---
 
-<DemoStorySlide />
+<AttachmentSlide :no="6" />
 
 ---
 
-<LiveDemoSlide />
+<AttachmentSlide :no="7" />
 
 ---
 
-<ApiSlide />
+<AttachmentSlide :no="8" />
 
 ---
 
-<PipelineSlide />
+<AttachmentSlide :no="9" />
 
 ---
 
-<SchedulerSlide />
+<AttachmentSlide :no="10" />
 
 ---
 
-<BigNumberSlide />
+<AttachmentSlide :no="11" />
 
 ---
 
-<PerfSlide />
+<AttachmentSlide :no="12" />
 
 ---
 
-<ParserFoundationSlide />
+<AttachmentSlide :no="13" />
 
 ---
 
-<ComponentsSlide />
+<AttachmentSlide :no="14" />
 
 ---
 
-<EcosystemSlide />
+<AttachmentSlide :no="15" />
 
 ---
 
-<AdoptionSlide />
+<AttachmentSlide :no="16" />
 
 ---
 
-<PositioningSlide />
+<AttachmentSlide :no="17" />
 
 ---
 
-<ThanksSlide />
-
----
-
-<QaSlide />
+<AttachmentSlide :no="18" />
