@@ -3543,9 +3543,11 @@ html.shared-logo-ready .slide-corner-logo {
 }
 
 .attach-source {
+  display: block;
   color: var(--attach-dim);
   font-family: var(--font-code);
   font-size: 10px;
+  overflow-wrap: anywhere;
 }
 
 .attachment-why .attach-source {
@@ -3627,6 +3629,29 @@ html.shared-logo-ready .slide-corner-logo {
   line-height: 1.58;
   white-space: pre-wrap;
   animation: attach-code-in 620ms ease both;
+}
+
+.attachment-api .attach-api-layout {
+  gap: 14px;
+}
+
+.attachment-api .attach-code {
+  min-height: 0;
+  padding: 16px;
+  font-size: 13px;
+  line-height: 1.43;
+}
+
+.attachment-api .attach-step-list {
+  gap: 10px;
+}
+
+.attachment-api .attach-step-list .attach-card {
+  padding: 13px;
+}
+
+.attachment-api .attach-step-list .attach-card b {
+  font-size: 16px;
 }
 
 .attach-code .tok.kw {
@@ -4450,6 +4475,7 @@ html.shared-logo-ready .slide-corner-logo {
 
 .attach-stability-row {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   gap: 12px;
   margin-top: 12px;

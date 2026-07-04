@@ -11,8 +11,9 @@
     "@slidev/cli": "52.15.2",
     "@slidev/theme-default": "0.25.0",
     "animejs": "^4.5.0",
-    "markstream-vue": "^1.0.4",
+    "markstream-vue": "^1.0.5",
     "motion-v": "^2.3.0",
+    "stream-markdown-parser": "^1.0.9",
     "tailwindcss": "^4.3.1",
     "vite": "^8.0.14",
     "vue": "3.5.34"

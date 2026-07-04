@@ -13,8 +13,8 @@ const items = [
   {
     label: "版本信号",
     title: "最新发布",
-    value: "1.0.4",
-    body: "npm latest：markstream-vue 1.0.4；parser 家族也进入 1.x。",
+    value: "1.0.5",
+    body: "npm latest：markstream-vue 1.0.5；stream-markdown-parser 1.0.9。",
     chips: ["Vue 3", "Nuxt", "VitePress", "1.x"],
   },
   {

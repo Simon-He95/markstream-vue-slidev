@@ -45,34 +45,31 @@ const contributors = [
 
 const modelCards = [
   ["Kimi K2.7 Code", "256K context", "HighSpeed ≈ 180 tok/s", "短上下文场景最高约 260 tok/s"],
-  ["GLM-5", "200K context", "128K max output", "更长输出进入常规产品场景"],
-  ["Claude Opus 4.8", "1M ctx", "128K out", "百万上下文不再是单点实验"],
+  ["GLM-5.2", "1M context", "128K max output", "1M 无损上下文进入 Coding 场景"],
+  ["Claude Opus 4.8", "1M ctx", "128K out", "Claude API / Bedrock / Vertex；Foundry 为 200K"],
   ["GPT-5.5", "1.05M ctx", "128K out", "上下文与输出窗口同时放大"],
   ["Gemini 3.1 Pro", "1,048,576 ctx", "65,536 out", "长上下文工作流进入前端"],
 ];
 
 const parserRender = [
-  ["5k", "0.0211ms", "0.2325ms", "11.04×", "42%"],
-  ["20k", "0.0709ms", "0.9251ms", "13.05×", "52%"],
-  ["100k", "0.3448ms", "4.8841ms", "14.17×", "66%"],
-  ["200k", "0.7008ms", "11.17ms", "15.94×", "78%"],
-  ["1M", "5.0603ms", "75.93ms", "15.01×", "88%"],
+  ["Chat", "267.6", "46.3ms", "5.8×", "82%"],
+  ["README", "1038", "302ms", "3.4×", "71%"],
+  ["Change", "9103", "2689ms", "3.4×", "71%"],
+  ["Final", "8.0", "3.8ms", "2.1×", "53%"],
 ];
 
 const parserEvidence = [
-  ["5k", "0.0428ms", "0.1871ms", "4.37×", "46%"],
-  ["20k", "0.1240ms", "0.7473ms", "6.03×", "58%"],
-  ["50k", "0.3053ms", "1.8778ms", "6.15×", "66%"],
-  ["100k", "0.7143ms", "3.8961ms", "5.45×", "72%"],
-  ["200k", "1.6306ms", "9.5200ms", "5.84×", "80%"],
-  ["1M", "14.14ms", "66.81ms", "4.73×", "88%"],
+  ["Chat", "267.6", "46.3ms", "5.8×", "82%"],
+  ["README", "1038", "302ms", "3.4×", "71%"],
+  ["Change", "9103", "2689ms", "3.4×", "71%"],
+  ["Final", "8.0", "3.8ms", "2.1×", "53%"],
 ];
 
 const rendererMetrics = [
-  ["stream settle", "506.3", "ms"],
-  ["frame p95", "9.3", "ms"],
-  ["max long task", "0", "ms"],
-  ["renderer DOM", "9", "nodes"],
+  ["stream total", "2.0×", "11849→6024ms"],
+  ["main task", "-46%", "2236→1202ms"],
+  ["mutations", "-29%", "861→614"],
+  ["height drift", "0", "non image/katex"],
 ];
 
 const streamCustomId = "slide-stream-demo";
@@ -140,7 +137,7 @@ docs matched: 12 · reused blocks: 7
 </tool-result>
 
 <component-card>
-paint p95 target: under 16.7ms · DOM should stay small
+update→rAF target: under 16.7ms · DOM should stay small
 </component-card>`;
 
 function escapeHtml(value) {
@@ -204,7 +201,7 @@ const slides = {
     kind: "why",
     kicker: "WHY NOW",
     section: "BACKGROUND",
-    title: "上下文已经进入 1M，浏览器的压力也跟着放大。",
+    title: "长上下文正在从 256K 推到 1M+，浏览器的压力也跟着放大。",
   },
   4: {
     kind: "problem",
@@ -244,7 +241,7 @@ container.<span class="tok prop">innerHTML</span> <span class="tok op">=</span> 
     kind: "parser",
     kicker: "PARSER FOUNDATION",
     section: "PARSER LAYER",
-    title: "stream-markdown-parser + markdown-it-ts：先把全量循环拆掉。",
+    title: "普通 Markdown 的瓶颈是 full parse loop；stream-markdown-parser 把工作压到 dirty tail。",
   },
   9: {
     kind: "core",
@@ -253,18 +250,24 @@ container.<span class="tok prop">innerHTML</span> <span class="tok op">=</span> 
     title: "markstream-vue：把“更新范围”压到最小，而不是把机器跑满。",
   },
   10: {
+    kind: "perf",
+    kicker: "PERF STORY",
+    section: "PERFORMANCE EVIDENCE",
+    title: "1.0.5 的性能收益来自机制变化：少 parse、少 patch、少 layout drift。",
+  },
+  11: {
     kind: "compare",
     kicker: "REAL RENDERING",
     section: "SIDE BY SIDE",
-    title: "同样是 AI 回复，真实差异在更新模型，而不是 Markdown 样式。",
+    title: "普通 Markdown 与 markstream 的差距，核心是更新模型。",
   },
-  11: {
+  12: {
     kind: "scheduler",
     kicker: "SCHEDULER",
     section: "MAIN THREAD BUDGET",
     title: "真正的优化不是“更快地抢主线程”，而是给交互留预算。",
   },
-  12: {
+  13: {
     kind: "content",
     kicker: "CONTENT TYPES",
     section: "MARKDOWN AS UI PROTOCOL",
@@ -279,23 +282,25 @@ container.<span class="tok prop">innerHTML</span> <span class="tok op">=</span> 
 
 <span class="tok tag">&lt;component</span> <span class="tok attr">name</span><span class="tok op">=</span><span class="tok str">"Chart"</span> <span class="tok tag">/&gt;</span>`,
   },
-  13: {
+  14: {
     kind: "api",
     kicker: "API SURFACE",
     section: "API SHOULD STAY SIMPLE",
-    title: "复杂度留在内部，上手仍然是一行组件。",
-    codeHtml: `<span class="tok tag">&lt;MarkstreamRenderer</span>
+    title: "复杂度留在内部，业务侧仍然是一个组件和一组预算参数。",
+    codeHtml: `<span class="tok kw">import</span> MarkdownRender, { setCustomComponents } <span class="tok kw">from</span> <span class="tok str">"markstream-vue"</span>
+
+setCustomComponents(<span class="tok str">"chat"</span>, {
+  <span class="tok str">"tool-result"</span>: ToolResult
+})
+
+<span class="tok tag">&lt;MarkdownRender</span>
   <span class="tok attr">:content</span><span class="tok op">=</span><span class="tok str">"answer"</span>
-  <span class="tok attr">mode</span><span class="tok op">=</span><span class="tok str">"chat"</span>
+  <span class="tok attr">:final</span><span class="tok op">=</span><span class="tok str">"done"</span>
+  <span class="tok attr">custom-id</span><span class="tok op">=</span><span class="tok str">"chat"</span>
+  <span class="tok attr">:custom-html-tags</span><span class="tok op">=</span><span class="tok str">"tags"</span>
   <span class="tok attr">:max-live-nodes</span><span class="tok op">=</span><span class="tok str">"0"</span>
-  <span class="tok attr">:components</span><span class="tok op">=</span><span class="tok str">"components"</span>
+  <span class="tok attr">:batch-rendering</span><span class="tok op">=</span><span class="tok str">"true"</span>
 <span class="tok tag">/&gt;</span>`,
-  },
-  14: {
-    kind: "perf",
-    kicker: "PERF STORY",
-    section: "PERFORMANCE EVIDENCE",
-    title: "性能证据分两层：parser 的吞吐，renderer 的页面更新质量。",
   },
   15: {
     kind: "playbook",
@@ -377,19 +382,19 @@ const streamRerenderScope = computed(() => {
 const streamMetrics = computed(() => [
   ["parse", streamParseScope.value],
   ["rerender", streamRerenderScope.value],
-  ["CPU %", formatPercent(streamCpuPercent.value)],
-  ["paint p95", `${streamFrameP95.value.toFixed(1)}ms`],
+  ["main %", formatPercent(streamCpuPercent.value)],
+  ["rAF p95", `${streamFrameP95.value.toFixed(1)}ms`],
   ["heap", streamHeapAvailable.value ? `${streamHeapMb.value.toFixed(1)}MB` : "n/a"],
   ["DOM", String(streamDomNodes.value)],
 ]);
 const streamCaption = computed(() => {
   if (current.value.kind === "core") {
-    return "parse=tail window · rerender=patch nodes · CPU%=sync parser/render work ÷ delay · paint p95=update→rAF";
+    return "main%=sync parser/render work ÷ delay，不是系统 CPU · rAF p95=update→next frame";
   }
   if (current.value.kind === "highlight") {
-    return "parse=full document + highlight · rerender=full replace · CPU%=sync parser/render work ÷ delay";
+    return "parse=full document + highlight · rerender=full replace · main%=sync work ÷ delay";
   }
-  return "parse=full document · rerender=full replace · CPU%=sync parser/render work ÷ delay";
+  return "parse=full document · rerender=full replace · main%=sync work ÷ delay";
 });
 
 function clearStreamTimer() {
@@ -479,6 +484,25 @@ function stopStreamFollow(delay = 0) {
   streamFollowStopTimer = window.setTimeout(clearStreamFollowTimers, delay);
 }
 
+function finishStreamFollow() {
+  if (!streamAutoFollow.value) {
+    stopStreamFollow();
+    return;
+  }
+  scrollStreamPanes();
+  window.requestAnimationFrame(scrollStreamPanes);
+  startStreamFollow();
+  if (streamFollowStopTimer) window.clearTimeout(streamFollowStopTimer);
+  streamFollowStopTimer = window.setTimeout(() => {
+    scrollStreamPanes();
+    window.requestAnimationFrame(() => {
+      scrollStreamPanes();
+      clearStreamFollowTimers();
+      streamAutoFollow.value = false;
+    });
+  }, 2500);
+}
+
 function setStreamDelay(value) {
   streamDelay.value = value;
 }
@@ -494,7 +518,13 @@ function isStreamPaneAtBottom(element) {
 
 function handleStreamScroll(event) {
   if (!streamRunning.value) return;
-  streamAutoFollow.value = isStreamPaneAtBottom(event.currentTarget);
+  if (isStreamPaneAtBottom(event.currentTarget)) streamAutoFollow.value = true;
+}
+
+function handleStreamManualScroll() {
+  if (!streamRunning.value && !streamFollowTimer) return;
+  streamAutoFollow.value = false;
+  clearStreamFollowTimers();
 }
 
 async function updateStreamRender(nextContent) {
@@ -531,11 +561,16 @@ async function streamTick() {
   streamUpdates.value += 1;
   await updateStreamRender(demoMarkdown.slice(0, nextIndex));
   if (streamDone.value) {
+    const shouldFollowFinalRender = streamAutoFollow.value;
     streamRunning.value = false;
-    streamAutoFollow.value = false;
     clearStreamTimer();
     clearStreamScrollTimer();
-    stopStreamFollow();
+    if (shouldFollowFinalRender) {
+      finishStreamFollow();
+    } else {
+      streamAutoFollow.value = false;
+      stopStreamFollow();
+    }
     return;
   }
   streamTimer = window.setTimeout(streamTick, streamDelay.value);
@@ -686,7 +721,7 @@ onBeforeUnmount(() => {
             <b>更多 UI block</b>
           </section>
           <p class="attach-equation">Context × Output × tokens/s × UI blocks → 争抢 16.7ms / frame</p>
-          <small class="attach-source">Verified against official model docs: Kimi, Z.AI, Anthropic, OpenAI, Google AI · 2026-06-25</small>
+          <small class="attach-source">Official model docs · provider surfaces vary for some models · checked 2026-06-25</small>
         </div>
 
         <div v-else-if="current.kind === 'problem'" class="attach-problem-layout">
@@ -725,7 +760,7 @@ onBeforeUnmount(() => {
                   <button v-for="size in streamChunkOptions" :key="size" type="button" :class="{ active: streamChunkSize === size }" @click="setStreamChunkSize(size)">{{ size }}字</button>
                 </div>
               </div>
-              <div class="attach-live-demo stream" :class="{ running: streamRunning }">
+              <div class="attach-live-demo stream" :class="{ running: streamRunning }" @wheel.passive="handleStreamManualScroll">
                 <pre ref="streamSourceRef" @scroll="handleStreamScroll"><code>{{ streamContent }}</code><i v-if="streamRunning"></i></pre>
                 <div ref="streamHostRef" class="attach-render-container" @scroll="handleStreamScroll" v-html="streamRenderedHtml"></div>
               </div>
@@ -766,7 +801,7 @@ onBeforeUnmount(() => {
                   <button v-for="size in streamChunkOptions" :key="size" type="button" :class="{ active: streamChunkSize === size }" @click="setStreamChunkSize(size)">{{ size }}字</button>
                 </div>
               </div>
-              <div class="attach-live-demo stream" :class="{ running: streamRunning }">
+              <div class="attach-live-demo stream" :class="{ running: streamRunning }" @wheel.passive="handleStreamManualScroll">
                 <pre ref="streamSourceRef" @scroll="handleStreamScroll"><code>{{ streamContent }}</code><i v-if="streamRunning"></i></pre>
                 <div ref="streamHostRef" class="attach-render-container highlighted" @scroll="handleStreamScroll" v-html="streamRenderedHtml"></div>
               </div>
@@ -797,14 +832,14 @@ onBeforeUnmount(() => {
         <div v-else-if="current.kind === 'parser'" class="attach-parser-layout">
           <section class="attach-road-grid">
             <article class="attach-card">
-              <span>常见渲染链路</span>
-              <b>Markdown → AST → HTML AST → Framework tree → DOM</b>
-              <small>每来一小段，都可能重新穿过多层中间结构。</small>
+              <span>普通 Markdown renderer</span>
+              <b>chunk → full parse → full render → replace</b>
+              <small>每来一小段，都重新扫完整文档；回答越长，后面的 chunk 越贵。</small>
             </article>
             <article class="attach-card accent">
               <span>markstream-vue</span>
-              <b>Markdown → markdown-it-ts Token → 可增量更新</b>
-              <small>直接生成更适合 Vue 更新的数据，少绕几层。</small>
+              <b>stable prefix + dirty tail → reusable nodes</b>
+              <small>稳定区复用，只处理尾部不稳定窗口；final 时再收敛为完整文档。</small>
             </article>
           </section>
           <section class="attach-bars">
@@ -815,7 +850,7 @@ onBeforeUnmount(() => {
               <small>{{ row[1] }} vs {{ row[2] }}</small>
             </div>
           </section>
-          <small class="attach-source">markdown-it-ts@1.0.2 · f2f4f24 · render API throughput · 2026-06-25 · Apple M1 Pro</small>
+          <small class="attach-source">Real corpus · ordinary full-parse loop vs stable-prefix/tail parser · 7-run median · 2026-07-03 · Apple M1 Pro</small>
         </div>
 
         <div v-else-if="current.kind === 'core'" class="attach-core-layout">
@@ -845,7 +880,7 @@ onBeforeUnmount(() => {
                 <button v-for="size in streamChunkOptions" :key="size" type="button" :class="{ active: streamChunkSize === size }" @click="setStreamChunkSize(size)">{{ size }}字</button>
               </div>
             </div>
-            <div class="attach-live-demo markstream stream" :class="{ running: streamRunning }">
+            <div class="attach-live-demo markstream stream" :class="{ running: streamRunning }" @wheel.passive="handleStreamManualScroll">
               <pre ref="streamSourceRef" @scroll="handleStreamScroll"><code>{{ streamContent }}</code><i v-if="streamRunning"></i></pre>
               <div ref="streamHostRef" class="attach-render-container markstream-host" @scroll="handleStreamScroll">
                 <MarkdownRender
@@ -876,16 +911,16 @@ onBeforeUnmount(() => {
 
         <div v-else-if="current.kind === 'compare'" class="attach-compare-layout">
           <article class="attach-card attach-compare bad">
-            <span>Traditional renderer</span>
+            <span>Ordinary Markdown</span>
             <b>每个 chunk 都像整篇重渲染</b>
-            <small>滚动位置、代码块状态、组件交互都容易被更新扰动。</small>
+            <small>real-corpus ai-chat：stream total 11.8s · mutations 861 · restore height changes 14。</small>
             <em>full parse → full render → replace</em>
           </article>
           <article class="attach-card attach-compare good">
             <span>markstream-vue</span>
             <b>稳定块复用，尾部继续流动</b>
-            <small>长回复仍然增长，但页面不需要持续重建。</small>
-            <em>delta parse → reuse → scheduled patch</em>
+            <small>同语料：stream total 6.0s · mutations 614 · non image/katex height drift 0。</small>
+            <em>stable prefix → dirty tail → scheduled patch</em>
           </article>
         </div>
 
@@ -914,9 +949,9 @@ onBeforeUnmount(() => {
           <pre class="attach-code" v-html="current.codeHtml"></pre>
           <section class="attach-step-list">
             <article class="attach-card"><span>content</span><b>接收 stream 结果</b></article>
-            <article class="attach-card"><span>mode</span><b>docs / chat 两种更新策略</b></article>
-            <article class="attach-card"><span>components</span><b>把标签映射为 Vue 组件</b></article>
-            <article class="attach-card"><span>budget</span><b>用参数控制主线程占用</b></article>
+            <article class="attach-card"><span>final</span><b>结束后收敛稳定文档</b></article>
+            <article class="attach-card"><span>custom tags</span><b>把标签映射为 Vue 组件</b></article>
+            <article class="attach-card"><span>batch</span><b>用参数控制主线程预算</b></article>
           </section>
         </div>
 
@@ -924,7 +959,7 @@ onBeforeUnmount(() => {
           <section class="attach-card attach-perf-panel">
             <div class="attach-panel-head">
               <b>Parser layer</b>
-              <span>markdown-it-ts best one-shot vs markdown-it</span>
+              <span>ordinary full parse loop vs tail parser</span>
             </div>
             <div class="attach-bars compact">
               <div v-for="row in parserEvidence" :key="row[0]" class="attach-bar-row">
@@ -948,11 +983,11 @@ onBeforeUnmount(() => {
               </article>
             </div>
             <div class="attach-stability-row">
-              <span>CLS 0.0000 · scroll drift 0px</span>
-              <span>tail 11 / full parse 0 / cache 0</span>
+              <span>mechanism: full replace → stable prefix + dirty tail + node reuse</span>
+              <span>layout -35% · height jumps -14% · non image/katex final drift 0</span>
             </div>
           </section>
-          <small class="attach-source wide">markdown-it-ts docs/perf-latest.md · markstream-vue benchmark:1.0 main-playground-chat / replay · 2026-06-25</small>
+          <small class="attach-source wide">Real corpus benchmark · baseline full-parse/full-replace loop vs markstream-vue@1.0.5 · parser 7-run median, browser 3-run median · 2026-07-03</small>
         </div>
 
         <div v-else-if="current.kind === 'playbook'" class="attach-playbook-layout">
