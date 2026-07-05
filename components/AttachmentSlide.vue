@@ -170,7 +170,7 @@ const projects = [
   ["UnoCSS", "/project-logos/unocss.png"],
   ["DeepChat", "/project-logos/deepchat.png"],
   ["Vue Vine", "/project-logos/vue-vine.png"],
-  ["markstream-vue", "/markstream-logo.svg"],
+  ["markstream-vue", ""],
   ["vscode-use", "/project-logos/vscode-use.png"],
   ["awesome-compressor", "/project-logos/awesome-compressor.png"],
 ];
@@ -330,6 +330,32 @@ setCustomComponents(<span class="tok str">"chat"</span>, {
 
 const current = computed(() => slides[props.no] ?? slides[1]);
 const page = computed(() => String(props.no).padStart(2, "0"));
+const mRoles = {
+  cover: "MARKDOWN",
+  about: "MAKER",
+  why: "MODEL",
+  problem: "MAIN",
+  old: "MONOLITH",
+  highlight: "MARKUP",
+  loop: "MULTIPLY",
+  parser: "MORPH",
+  core: "MINIMIZE",
+  perf: "MEASURE",
+  compare: "MUTATE",
+  scheduler: "MILLISECONDS",
+  content: "MESSAGE",
+  api: "METHOD",
+  playbook: "MANUAL",
+  ecosystem: "MAP",
+  thanks: "MAINTAINERS",
+  qa: "MARKSTREAM",
+};
+const mRole = computed(() => mRoles[current.value.kind] ?? "MARKSTREAM");
+const mTargetMode = computed(() => {
+  if (current.value.kind === "cover") return "logo";
+  if (current.value.kind === "qa") return "markdown";
+  return props.no % 2 === 0 ? "letter" : "background";
+});
 const streamDelayOptions = [4, 8, 16];
 const streamChunkOptions = [1, 4, 8];
 const streamDelay = ref(8);
@@ -630,10 +656,21 @@ onBeforeUnmount(() => {
 <template>
   <section class="attachment-deck" :class="`attachment-${current.kind}`">
     <div class="attach-grid-bg"></div>
+    <div
+      class="attach-m-field"
+      :class="{ 'logo-flight-target': mTargetMode === 'background' }"
+      data-logo-mode="background"
+      :data-logo-page="props.no"
+      :data-logo-active="mTargetMode === 'background' ? 'true' : undefined"
+      aria-hidden="true"
+    ></div>
+    <div class="attach-bg-mark" aria-hidden="true"></div>
     <div class="attach-top-rule"></div>
 
     <header class="attach-header">
-      <span>{{ current.kicker }}</span>
+      <span class="attach-header-brand">
+        <span>{{ current.kicker }}</span>
+      </span>
       <span>{{ page }}</span>
     </header>
 
@@ -656,14 +693,31 @@ onBeforeUnmount(() => {
             </article>
           </div>
         </div>
-        <div class="attach-device">
-          <i></i><i></i><i></i>
-          <div class="attach-device-card">
-            <img src="/markstream-logo.svg" alt="markstream-vue logo">
-            <strong>AI OUTPUT RENDERER</strong>
+        <div class="attach-logo-stage" aria-label="markstream-vue renderer core">
+          <span class="attach-stage-label">AI OUTPUT RENDERER</span>
+          <div class="attach-logo-blueprint">
+            <i class="attach-axis attach-axis-x"></i>
+            <i class="attach-axis attach-axis-y"></i>
+            <i class="attach-ring attach-ring-a"></i>
+            <i class="attach-ring attach-ring-b"></i>
+            <i class="attach-node attach-node-1"></i>
+            <i class="attach-node attach-node-2"></i>
+            <i class="attach-node attach-node-3"></i>
+            <i class="attach-node attach-node-4"></i>
+            <img
+              class="cover-logo attach-stage-logo logo-flight-target"
+              src="/markstream-logo.svg"
+              alt="markstream-vue logo"
+              data-logo-mode="logo"
+              :data-logo-page="props.no"
+              :data-logo-active="mTargetMode === 'logo' ? 'true' : undefined"
+            >
+          </div>
+          <div class="attach-logo-streams" aria-hidden="true">
             <span>content</span>
             <span>thinking</span>
             <span>tool-result</span>
+            <span>component</span>
           </div>
         </div>
       </template>
@@ -671,7 +725,28 @@ onBeforeUnmount(() => {
       <template v-else>
         <div class="attach-title-row">
           <span class="attach-section">{{ current.section }}</span>
-          <h1>{{ current.title }}</h1>
+          <div class="attach-title-lockup" :class="{ 'without-title-m': mTargetMode !== 'letter' }">
+            <span
+              v-if="mTargetMode === 'letter'"
+              class="attach-title-m logo-flight-target"
+              data-logo-mode="letter"
+              :data-logo-page="props.no"
+              data-logo-active="true"
+            >
+              <b>M</b>
+              <small>{{ mRole }}</small>
+            </span>
+            <h1 v-if="mTargetMode === 'markdown'" class="attach-markdown-title">
+              你的
+              <span
+                class="attach-inline-m logo-flight-target"
+                data-logo-mode="inline-letter"
+                :data-logo-page="props.no"
+                data-logo-active="true"
+              >M</span>arkdown 渲染器，扛得住 AI 输出吗？
+            </h1>
+            <h1 v-else>{{ current.title }}</h1>
+          </div>
         </div>
 
         <div v-if="current.kind === 'about'" class="attach-about-layout">
@@ -686,7 +761,8 @@ onBeforeUnmount(() => {
             <span>OSS PROJECTS</span>
             <div class="attach-project-grid">
               <b v-for="project in projects" :key="project[0]">
-                <img :src="project[1]" :alt="`${project[0]} logo`">
+                <img v-if="project[1]" :src="project[1]" :alt="`${project[0]} logo`">
+                <i v-else aria-hidden="true">ms</i>
                 <span>{{ project[0] }}</span>
               </b>
             </div>
