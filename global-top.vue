@@ -8,19 +8,12 @@ const nav = useNav()
 const route = useRoute()
 const visible = ref(false)
 const bubblePieces = [
-  '--bubble-x: 16%; --bubble-y: 18%; --bubble-size: 11px; --bubble-sx: -52px; --bubble-sy: -46px; --bubble-mx: -18px; --bubble-my: -14px; --bubble-delay: 0ms;',
-  '--bubble-x: 16%; --bubble-y: 34%; --bubble-size: 8px; --bubble-sx: -70px; --bubble-sy: -16px; --bubble-mx: -22px; --bubble-my: -6px; --bubble-delay: 24ms;',
-  '--bubble-x: 16%; --bubble-y: 52%; --bubble-size: 10px; --bubble-sx: -62px; --bubble-sy: 26px; --bubble-mx: -20px; --bubble-my: 9px; --bubble-delay: 42ms;',
-  '--bubble-x: 16%; --bubble-y: 70%; --bubble-size: 8px; --bubble-sx: -48px; --bubble-sy: 58px; --bubble-mx: -16px; --bubble-my: 18px; --bubble-delay: 66ms;',
-  '--bubble-x: 28%; --bubble-y: 28%; --bubble-size: 9px; --bubble-sx: -30px; --bubble-sy: -58px; --bubble-mx: -10px; --bubble-my: -18px; --bubble-delay: 18ms;',
-  '--bubble-x: 38%; --bubble-y: 42%; --bubble-size: 12px; --bubble-sx: -20px; --bubble-sy: -24px; --bubble-mx: -7px; --bubble-my: -8px; --bubble-delay: 52ms;',
-  '--bubble-x: 48%; --bubble-y: 56%; --bubble-size: 8px; --bubble-sx: -4px; --bubble-sy: 44px; --bubble-mx: -2px; --bubble-my: 12px; --bubble-delay: 80ms;',
-  '--bubble-x: 58%; --bubble-y: 42%; --bubble-size: 11px; --bubble-sx: 24px; --bubble-sy: -28px; --bubble-mx: 8px; --bubble-my: -8px; --bubble-delay: 36ms;',
-  '--bubble-x: 70%; --bubble-y: 28%; --bubble-size: 9px; --bubble-sx: 40px; --bubble-sy: -62px; --bubble-mx: 14px; --bubble-my: -20px; --bubble-delay: 60ms;',
-  '--bubble-x: 84%; --bubble-y: 18%; --bubble-size: 11px; --bubble-sx: 64px; --bubble-sy: -42px; --bubble-mx: 22px; --bubble-my: -14px; --bubble-delay: 12ms;',
-  '--bubble-x: 84%; --bubble-y: 36%; --bubble-size: 8px; --bubble-sx: 74px; --bubble-sy: -4px; --bubble-mx: 24px; --bubble-my: -2px; --bubble-delay: 48ms;',
-  '--bubble-x: 84%; --bubble-y: 54%; --bubble-size: 10px; --bubble-sx: 62px; --bubble-sy: 34px; --bubble-mx: 20px; --bubble-my: 10px; --bubble-delay: 72ms;',
-  '--bubble-x: 84%; --bubble-y: 72%; --bubble-size: 8px; --bubble-sx: 48px; --bubble-sy: 64px; --bubble-mx: 16px; --bubble-my: 20px; --bubble-delay: 96ms;',
+  '--bubble-x: 16%; --bubble-y: 28%; --bubble-size: 10px; --bubble-sx: -52px; --bubble-sy: -46px; --bubble-mx: -18px; --bubble-my: -14px; --bubble-delay: 0ms;',
+  '--bubble-x: 24%; --bubble-y: 52%; --bubble-size: 8px; --bubble-sx: -30px; --bubble-sy: 26px; --bubble-mx: -10px; --bubble-my: 9px; --bubble-delay: 42ms;',
+  '--bubble-x: 48%; --bubble-y: 18%; --bubble-size: 9px; --bubble-sx: -4px; --bubble-sy: -58px; --bubble-mx: -2px; --bubble-my: -18px; --bubble-delay: 18ms;',
+  '--bubble-x: 52%; --bubble-y: 72%; --bubble-size: 8px; --bubble-sx: 4px; --bubble-sy: 58px; --bubble-mx: 2px; --bubble-my: 18px; --bubble-delay: 66ms;',
+  '--bubble-x: 72%; --bubble-y: 32%; --bubble-size: 10px; --bubble-sx: 40px; --bubble-sy: -42px; --bubble-mx: 14px; --bubble-my: -14px; --bubble-delay: 24ms;',
+  '--bubble-x: 84%; --bubble-y: 52%; --bubble-size: 8px; --bubble-sx: 62px; --bubble-sy: 34px; --bubble-mx: 20px; --bubble-my: 10px; --bubble-delay: 72ms;',
   '--bubble-x: 50%; --bubble-y: 24%; --bubble-size: 7px; --bubble-sx: 0px; --bubble-sy: -74px; --bubble-mx: 0px; --bubble-my: -24px; --bubble-delay: 30ms;',
   '--bubble-x: 50%; --bubble-y: 68%; --bubble-size: 7px; --bubble-sx: 0px; --bubble-sy: 72px; --bubble-mx: 0px; --bubble-my: 22px; --bubble-delay: 88ms;',
 ]
@@ -422,8 +415,8 @@ onBeforeUnmount(() => {
 }
 
 .shared-logo-flight.is-logo {
-  background: rgba(13, 34, 27, 0.72);
-  outline: 1px solid rgba(255, 244, 214, 0.18);
+  background: rgba(8, 16, 32, 0.72);
+  outline: 1px solid rgba(97, 242, 205, 0.18);
 }
 
 .shared-logo-flight.is-logo .shared-logo-img {
@@ -554,10 +547,10 @@ onBeforeUnmount(() => {
   height: var(--bubble-size);
   border-radius: 999px;
   background:
-    radial-gradient(circle at 34% 28%, rgba(255, 246, 220, 0.95) 0 12%, rgba(97, 242, 205, 0.95) 34%, rgba(44, 194, 223, 0.7) 72%);
+    radial-gradient(circle at 34% 28%, rgba(97, 242, 205, 0.95) 0 12%, rgba(78, 205, 196, 0.85) 72%);
   box-shadow:
     0 0 14px rgba(97, 242, 205, 0.38),
-    inset 0 0 5px rgba(255, 246, 220, 0.4);
+    inset 0 0 5px rgba(78, 205, 196, 0.4);
   opacity: 0;
 }
 

@@ -11,9 +11,13 @@
     "@slidev/cli": "52.15.2",
     "@slidev/theme-default": "0.25.0",
     "animejs": "^4.5.0",
+    "katex": "^0.16.47",
     "markstream-vue": "^1.0.5",
+    "mermaid": "^11.15.0",
     "motion-v": "^2.3.0",
+    "playwright-chromium": "^1.61.1",
     "stream-markdown-parser": "^1.0.9",
+    "stream-monaco": "^0.0.46",
     "tailwindcss": "^4.3.1",
     "vite": "^8.0.14",
     "vue": "3.5.34"

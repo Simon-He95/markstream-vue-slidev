@@ -1,0 +1,16 @@
+node:internal/process/promises:394
+    triggerUncaughtException(err, true /* fromPromise */);
+    ^
+
+page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:12445/print?print=true&range=10
+Call log:
+  - navigating to "http://localhost:12445/print?print=true&range=10", waiting until "load"
+
+    at /Users/Simon/Github/markstream-vue-slidev/debug.mjs:6:14 {
+  log: [
+    '  - navigating to "http://localhost:12445/print?print=true&range=10", waiting until "load"'
+  ],
+  name: 'Error'
+}
+
+Node.js v24.15.0

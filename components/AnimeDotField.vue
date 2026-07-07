@@ -12,7 +12,7 @@ const props = defineProps({
 
 const nav = useNav();
 const root = ref();
-const dots = Array.from({ length: 72 }, (_, index) => index);
+const dots = Array.from({ length: 48 }, (_, index) => index);
 let animation;
 
 function stopAnimation() {
@@ -36,10 +36,11 @@ function startAnimation() {
     return;
 
   animation = animate(targets, {
-    opacity: [0.14, 0.95, 0.18],
-    scale: [0.72, 1.35, 0.72],
-    delay: stagger(24, { grid: [12, 6], from: "center" }),
-    duration: 1800,
+    opacity: [0.08, 0.92, 0.08],
+    scale: [0.6, 1.15, 0.6],
+    translateX: [0, 4, 0],
+    delay: stagger(40, { grid: [12, 4], from: "first" }),
+    duration: 2400,
     loop: true,
     alternate: true,
     ease: "inOutSine",
@@ -72,3 +73,28 @@ onBeforeUnmount(stopAnimation);
     <i v-for="dot in dots" :key="dot" class="anime-dot" />
   </div>
 </template>
+
+<style scoped>
+.anime-dot-field {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 12px;
+  padding: 48px 72px;
+  pointer-events: none;
+  opacity: 0.35;
+}
+
+.anime-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 30%, rgba(97, 242, 205, 0.95), rgba(78, 205, 196, 0.6));
+  box-shadow: 0 0 10px rgba(97, 242, 205, 0.25);
+  place-self: center;
+  will-change: transform, opacity;
+}
+</style>
