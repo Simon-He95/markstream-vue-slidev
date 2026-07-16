@@ -7599,7 +7599,7 @@ html.shared-logo-ready .attachment-deck .attach-inline-m {
 
 .attach-perf-layout {
   gap: 8px;
-  grid-template-rows: auto 78px 76px 58px auto;
+  grid-template-rows: auto minmax(72px, auto) minmax(76px, 1fr) minmax(52px, auto) auto;
 }
 
 .attach-perf-layout .attach-stress-card {
@@ -7880,8 +7880,8 @@ html.shared-logo-ready .attachment-deck .attach-inline-m {
 
 .attachment-content .attach-preview-line {
   grid-template-columns: 92px minmax(0, 1fr);
-  min-height: 52px;
-  padding: 9px 10px;
+  min-height: 44px;
+  padding: 6px 10px;
   overflow: hidden;
   background: #fff9df;
   color: var(--attach-heading);
@@ -7931,8 +7931,9 @@ html.shared-logo-ready .attachment-deck .attach-inline-m {
 }
 
 .attach-title-row h1:not(.attach-markdown-title) {
-  overflow-wrap: normal;
-  word-break: keep-all;
+  overflow-wrap: anywhere;
+  word-break: normal;
+  text-wrap: balance;
 }
 
 .attach-code,
@@ -8103,6 +8104,87 @@ html.shared-logo-ready .attachment-deck .attach-inline-m {
 .attachment-api .attach-step-list .attach-card b {
   font-size: 15px;
   line-height: 1.22;
+}
+
+/* Keep dense slide content accessible instead of silently clipping it. */
+.attachment-deck:is(
+  .attachment-old,
+  .attachment-highlight,
+  .attachment-quickstart,
+  .attachment-content
+) .attach-code,
+.attachment-deck.attachment-content .attach-preview {
+  overflow: auto;
+  scrollbar-width: thin;
+}
+
+.attachment-deck.attachment-content .attach-preview-value {
+  overflow-wrap: anywhere;
+}
+
+.attachment-deck:is(
+  .attachment-old-demo,
+  .attachment-highlight-demo,
+  .attachment-core-demo
+) :is(.attach-stream-head em, .attach-stream-hint) {
+  min-width: 0;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.attachment-deck:is(
+  .attachment-old-demo,
+  .attachment-highlight-demo,
+  .attachment-core-demo
+) .attach-demo-page :is(.attach-stream-signal b, .attach-stream-metrics em) {
+  min-width: 0;
+  overflow: visible;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.08;
+  overflow-wrap: anywhere;
+  text-overflow: unset;
+  white-space: normal;
+}
+
+.attachment-deck:is(
+  .attachment-old-demo,
+  .attachment-highlight-demo,
+  .attachment-core-demo
+) .attach-demo-page .attach-stream-metrics span {
+  overflow: visible;
+  overflow-wrap: anywhere;
+  text-overflow: unset;
+  white-space: normal;
+}
+
+.attachment-deck:is(
+  .attachment-old-demo,
+  .attachment-highlight-demo,
+  .attachment-core-demo
+) .attach-demo-page .attach-stream-signal b {
+  font-size: 14px;
+}
+
+.attachment-deck:is(
+  .attachment-old-demo,
+  .attachment-highlight-demo,
+  .attachment-core-demo
+) .attach-demo-page :is(.attach-stream-signal b, .attach-stream-metrics em).compact {
+  font-size: 11px;
+}
+
+.attachment-deck:is(
+  .attachment-highlight-demo,
+  .attachment-core-demo
+) .attach-render-container.markstream-host :where(.code-block-content) {
+  overflow: auto;
+  scrollbar-width: thin;
+}
+
+.attachment-deck.attachment-perf .attach-source.wide {
+  font-size: 8px;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
 }
 
 @media (max-aspect-ratio: 4 / 3) {
