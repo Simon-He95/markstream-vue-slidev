@@ -7,7 +7,7 @@ lineNumbers: false
 drawings:
   persist: false
 transition: fade-out
-colorSchema: dark
+colorSchema: light
 ---
 
 <AttachmentSlide :no="1" />

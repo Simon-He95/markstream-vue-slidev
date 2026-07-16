@@ -27,7 +27,7 @@ function readMermaidRuntime() {
 function initializeMermaidRuntime(runtime) {
   runtime.initialize({
     startOnLoad: false,
-    theme: "dark",
+    theme: "neutral",
     securityLevel: "loose",
     deterministicIds: true,
   });
@@ -436,7 +436,7 @@ const slides = {
     section: "MARKSTREAM-VUE",
     title: "你的 Markdown 渲染器，扛得住 AI 输出吗？",
     subtitle: "当模型返回更快、内容更长、形态更复杂，Markdown 渲染器会从“展示组件”变成“产品基础设施”。",
-    footer: "Simon He / Simon-He95",
+    footer: "Simon He",
   },
   2: {
     kind: "about",
@@ -1230,7 +1230,7 @@ onBeforeUnmount(() => {
                 <MarkdownRender
                   :content="streamContent"
                   :final="streamDone"
-                  :is-dark="true"
+                  :is-dark="false"
                   :custom-html-tags="streamCustomTags"
                   :custom-id="streamCustomId"
                   :mermaid-props="streamMermaidProps"
@@ -1309,7 +1309,7 @@ onBeforeUnmount(() => {
                 <MarkdownRender
                   :content="quickStartPreview"
                   :final="true"
-                  :is-dark="true"
+                  :is-dark="false"
                   :custom-html-tags="streamCustomTags"
                   :custom-id="streamCustomId"
                 />
@@ -1376,7 +1376,7 @@ onBeforeUnmount(() => {
                 <MarkdownRender
                   :content="streamContent"
                   :final="streamDone"
-                  :is-dark="true"
+                  :is-dark="false"
                   :custom-html-tags="streamCustomTags"
                   :custom-id="streamCustomId"
                   :mermaid-props="streamMermaidProps"
