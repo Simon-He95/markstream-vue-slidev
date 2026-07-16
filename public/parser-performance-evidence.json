@@ -1,0 +1,62 @@
+{
+  "generatedAt": "2026-07-16T04:20:37.560Z",
+  "source": "markdown-it-ts/scripts/perf-generate-report.mjs",
+  "benchmarkSourceCommit": "bc174e23106bba78024095f6adb4bcadc3f8aced",
+  "method": "Official markdown-it-ts perf:generate harness; best one-shot scenario per size compared with markdown-it baseline",
+  "versions": {
+    "streamMarkdownParser": "1.1.1",
+    "markdownItTs": "1.0.4",
+    "markdownIt": "14.2.0"
+  },
+  "environment": {
+    "generatedAt": "2026-07-16T04:20:37.560Z",
+    "node": "v24.18.0",
+    "platform": "darwin arm64",
+    "cpu": "Apple M1 Pro",
+    "cpuCount": 10,
+    "commit": "bc174e23106bba78024095f6adb4bcadc3f8aced"
+  },
+  "benchmarkVersion": 5,
+  "results": [
+    {
+      "size": 5000,
+      "scenario": "S5",
+      "scenarioLabel": "stream OFF, chunk OFF",
+      "markdownItTsMs": 0.04009097500000015,
+      "markdownItMs": 0.18701006666666634,
+      "speedup": 4.664642520334455
+    },
+    {
+      "size": 50000,
+      "scenario": "S5",
+      "scenarioLabel": "stream OFF, chunk OFF",
+      "markdownItTsMs": 0.3136402666665769,
+      "markdownItMs": 1.8675541666668627,
+      "speedup": 5.954446431625479
+    },
+    {
+      "size": 100000,
+      "scenario": "S5",
+      "scenarioLabel": "stream OFF, chunk OFF",
+      "markdownItTsMs": 0.9775156249997963,
+      "markdownItMs": 3.978320312499818,
+      "speedup": 4.069827848020994
+    },
+    {
+      "size": 200000,
+      "scenario": "S5",
+      "scenarioLabel": "stream OFF, chunk OFF",
+      "markdownItTsMs": 2.014766700001201,
+      "markdownItMs": 9.273554200000945,
+      "speedup": 4.6027930678005635
+    },
+    {
+      "size": 1000000,
+      "scenario": "S5",
+      "scenarioLabel": "stream OFF, chunk OFF",
+      "markdownItTsMs": 21.3800625000149,
+      "markdownItMs": 65.80022950001876,
+      "speedup": 3.0776443941626876
+    }
+  ]
+}

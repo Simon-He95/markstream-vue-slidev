@@ -36,7 +36,7 @@ const lanes = [
       </div>
       <p v-click class="big-number-sub">默认模式服务长文档；聊天场景切到增量批次，保留流式输出的节奏。</p>
       <div v-click class="big-number-meta pxl-corner-sm">
-        npm latest · markstream-vue@1.0.5 · README performance modes
+        npm latest · markstream-vue@1.0.7-beta.0 · README performance modes
       </div>
     </div>
   </div>

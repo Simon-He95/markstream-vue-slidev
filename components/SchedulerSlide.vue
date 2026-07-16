@@ -18,7 +18,7 @@ const budgets = [
   <div class="deck dark">
     <div class="slide-head">
       <span class="pixel-kicker gold pxl-corner-sm">SCHEDULER</span>
-      <h1>markstream-vue@1.0.5：长文档和聊天面板走不同更新策略。</h1>
+      <h1>markstream-vue@1.0.7-beta.0：长文档和聊天面板走不同更新策略。</h1>
     </div>
 
     <div class="scheduler-console">

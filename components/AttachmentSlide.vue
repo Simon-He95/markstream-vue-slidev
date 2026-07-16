@@ -90,9 +90,9 @@ const modelCards = [
 ];
 
 const stressEvidence = [
-  ["diff code fence", "24.1×", "less scripting", "280→12ms", "DOM 325→41", "update 4.2×"],
-  ["TypeScript fence", "16.6×", "less scripting", "237→14ms", "DOM 219→25", "update 2.7×"],
-  ["Mermaid fence", "15.9×", "less scripting", "268→17ms", "DOM 419→53", "update 4.0×"],
+  ["diff code fence", "10.0×", "less scripting", "252→25ms", "DOM 325→49", "avg update 4.1×"],
+  ["TypeScript fence", "9.1×", "less scripting", "225→25ms", "DOM 219→29", "avg update 3.6×"],
+  ["Mermaid fence", "10.0×", "less scripting", "272→27ms", "DOM 419→65", "avg update 5.2×"],
 ];
 
 const stressBlocks = [
@@ -102,10 +102,10 @@ const stressBlocks = [
 ];
 
 const parserBenchmarkRows = [
-  ["5K", "0.0370ms", "0.1864ms", "5.0×"],
-  ["50K", "0.3166ms", "1.8776ms", "5.9×"],
-  ["100K", "0.7012ms", "3.8789ms", "5.5×"],
-  ["200K", "1.8757ms", "8.9453ms", "4.8×"],
+  ["5K", "0.0401ms", "0.1870ms", "4.7×"],
+  ["50K", "0.3136ms", "1.8676ms", "6.0×"],
+  ["100K", "0.9775ms", "3.9783ms", "4.1×"],
+  ["200K", "2.0148ms", "9.2736ms", "4.6×"],
 ];
 
 const quickStartPreview = `- **流式渲染** 实时更新 Markdown
@@ -536,15 +536,15 @@ container.<span class="tok prop">innerHTML</span> <span class="tok op">=</span> 
     kind: "perf",
     kicker: "PERF STORY",
     section: "PERFORMANCE EVIDENCE",
-    title: "1.0.5 的性能收益来自机制变化：少 parse、少 patch、少 layout drift。",
-    benchmarkEnv: "Chrome 126 · Vue 3.4 · production build · 30-run median, 5× warm-up · Apple M3 / AMD 7940HS",
+    title: "1.0.7-beta.0 的 timing 收益来自机制变化：少 parse、少 patch、少 layout drift。",
+    benchmarkEnv: "Chrome 150 · Vue 3.5.34 · 3-run timing median · Apple M1 Pro · timing-only; table repeat mismatch observed",
   },
   14: {
     kind: "parser-benchmark",
     kicker: "PARSER ENGINE",
     section: "MARKDOWN-IT-TS BENCHMARK",
     title: "快不只来自更新模型，底层 parser 本身也在同规模解析里更快。",
-    benchmarkEnv: "markdown-it-ts@1.0.4 · README latest perf snapshot · one-shot parse",
+    benchmarkEnv: "stream-markdown-parser@1.1.1 · markdown-it-ts@1.0.4 · Node 24.18 · Apple M1 Pro",
   },
   15: {
     kind: "scheduler",
@@ -1322,8 +1322,8 @@ onBeforeUnmount(() => {
           <small class="attach-benchmark-env">{{ current.benchmarkEnv }}</small>
           <section class="attach-parser-hero attach-card accent">
             <span>1M one-shot parse</span>
-            <b>13.82ms</b>
-            <small>vs markdown-it 65.34ms · 约 4.7× faster</small>
+            <b>21.38ms</b>
+            <small>vs markdown-it 65.80ms · 约 3.1× faster</small>
           </section>
           <section class="attach-parser-table attach-card">
             <div class="attach-parser-row head">
@@ -1341,9 +1341,9 @@ onBeforeUnmount(() => {
           </section>
           <section class="attach-parser-insights">
             <article class="attach-card"><span>compat layer</span><b>兼容 markdown-it public API</b><small>插件迁移保留熟悉的 parser / renderer 模型。</small></article>
-            <article class="attach-card"><span>large input</span><b>大文本 parser 吞吐更高</b><small>5K 到 200K parse ranking 都排在第一。</small></article>
+            <article class="attach-card"><span>large input</span><b>同规模下快于 markdown-it</b><small>本机 5K 到 200K one-shot parse 为 4.1×–6.0×。</small></article>
           </section>
-          <small class="attach-source wide">Source: markdown-it-ts@1.0.4 README · latest synthetic one-shot parse snapshot.</small>
+          <small class="attach-source wide">Source: public/parser-performance-evidence.json · official markdown-it-ts perf:generate harness · measured 2026-07-16.</small>
         </div>
 
         <div v-else-if="current.kind === 'compare'" class="attach-compare-layout">
@@ -1442,8 +1442,8 @@ onBeforeUnmount(() => {
           <small class="attach-benchmark-env">{{ current.benchmarkEnv }}</small>
           <section class="attach-stress-hero attach-card">
             <span>HEAVY BLOCK STRESS</span>
-            <b>24.1×</b>
-            <small>diff code fence scripting: 280ms → 12ms</small>
+            <b>10.0×</b>
+            <small>diff code fence scripting: 252ms → 25ms</small>
           </section>
           <section class="attach-stress-grid">
             <article v-for="row in stressEvidence" :key="row[0]" class="attach-stress-card">
@@ -1460,7 +1460,7 @@ onBeforeUnmount(() => {
               <b>{{ block[1] }}</b>
             </article>
           </section>
-          <small class="attach-source wide">Measured cases from public/streaming-performance-evidence.json · streamdown full render loop vs markstream-vue incremental renderer · 119 chunks/case · KaTeX is included in the renderer demo case, not assigned a standalone measured number here.</small>
+          <small class="attach-source wide">Timing measured 2026-07-16 from public/streaming-performance-evidence.json · markstream-vue@1.0.7-beta.0 (declared parser@1.1.0) · project parser@1.1.1 · 119 chunks/case · strict final-state validation is not claimed: the repeated table correctness gate failed.</small>
         </div>
 
         <div v-else-if="current.kind === 'playbook'" class="attach-playbook-layout">
