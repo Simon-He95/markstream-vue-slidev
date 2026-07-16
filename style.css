@@ -4822,7 +4822,7 @@ html.shared-logo-ready .attachment-deck .attach-inline-m {
   overflow-wrap: anywhere;
 }
 
-.attach-render-container think,
+.attach-render-container thinking,
 .attach-render-container tool-result,
 .attach-render-container component-card,
 .attach-stream-custom {
@@ -4835,8 +4835,8 @@ html.shared-logo-ready .attachment-deck .attach-inline-m {
   font-size: 8px;
 }
 
-.attach-render-container think,
-.attach-stream-custom-think {
+.attach-render-container thinking,
+.attach-stream-custom-thinking {
   color: var(--attach-purple);
   background: rgba(167, 139, 250, 0.08);
 }
@@ -4853,7 +4853,7 @@ html.shared-logo-ready .attachment-deck .attach-inline-m {
   background: rgba(33, 212, 253, 0.08);
 }
 
-.attach-render-container.markstream-host .attach-stream-custom-think {
+.attach-render-container.markstream-host .attach-stream-custom-thinking {
   color: var(--attach-purple);
 }
 
@@ -5703,7 +5703,7 @@ html.shared-logo-ready .attachment-deck .attach-inline-m {
   text-transform: uppercase;
 }
 
-.attach-preview-badge.think {
+.attach-preview-badge.thinking {
   color: var(--attach-purple);
 }
 
@@ -6409,4 +6409,1500 @@ html.shared-logo-ready .attachment-deck .attach-inline-m {
   .attachment-deck .attach-bar-row i {
     animation: none;
   }
+}
+
+/* V2 deck visual system */
+.attachment-deck {
+  --font-display: "Aptos Display", "Helvetica Neue", "SF Pro Display", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei UI", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Aptos", "Helvetica Neue", "SF Pro Text", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei UI", ui-sans-serif, system-ui, sans-serif;
+  --attach-bg: #f3f6ef;
+  --attach-bg-rgb: 243 246 239;
+  --attach-surface: rgba(255, 255, 255, 0.78);
+  --attach-surface-2: rgba(233, 241, 232, 0.92);
+  --attach-ink-panel: #101714;
+  --attach-line: rgba(16, 23, 20, 0.18);
+  --attach-line-soft: rgba(16, 23, 20, 0.09);
+  --attach-text: #101714;
+  --attach-heading: #101714;
+  --attach-muted: #5e6b63;
+  --attach-dim: #859189;
+  --attach-cyan: #06d69b;
+  --attach-teal: #048a69;
+  --attach-green: #04b878;
+  --attach-purple: #5367cc;
+  --attach-yellow: #b06a00;
+  --attach-red: #d6425e;
+  background: var(--attach-bg);
+}
+
+.attachment-cover,
+.attachment-old-demo,
+.attachment-highlight-demo,
+.attachment-core-demo,
+.attachment-compare,
+.attachment-qa {
+  --attach-bg: #07110e;
+  --attach-bg-rgb: 7 17 14;
+  --attach-surface: rgba(255, 255, 255, 0.055);
+  --attach-surface-2: rgba(255, 255, 255, 0.085);
+  --attach-ink-panel: #f3f6ef;
+  --attach-line: rgba(6, 214, 155, 0.28);
+  --attach-line-soft: rgba(6, 214, 155, 0.13);
+  --attach-text: #f3f6ef;
+  --attach-heading: #f3f6ef;
+  --attach-muted: #a8b8af;
+  --attach-dim: #6c7b73;
+  background: var(--attach-bg);
+}
+
+.attachment-deck::before {
+  content: "M";
+  position: absolute;
+  right: 20px;
+  bottom: -128px;
+  z-index: -1;
+  color: var(--attach-text);
+  font-family: var(--font-display);
+  font-size: 440px;
+  font-weight: 200;
+  line-height: 0.85;
+  opacity: 0.055;
+  pointer-events: none;
+}
+
+.attachment-cover::before,
+.attachment-old-demo::before,
+.attachment-highlight-demo::before,
+.attachment-core-demo::before,
+.attachment-compare::before,
+.attachment-qa::before {
+  color: var(--attach-cyan);
+  opacity: 0.09;
+}
+
+.attach-grid-bg {
+  background:
+    linear-gradient(90deg, transparent 0 calc(50% - 1px), var(--attach-line-soft) calc(50% - 1px) 50%, transparent 50%),
+    linear-gradient(0deg, transparent 0 calc(50% - 1px), var(--attach-line-soft) calc(50% - 1px) 50%, transparent 50%),
+    repeating-linear-gradient(90deg, rgba(16, 23, 20, 0.045) 0 1px, transparent 1px 64px),
+    repeating-linear-gradient(0deg, rgba(16, 23, 20, 0.045) 0 1px, transparent 1px 64px),
+    var(--attach-bg);
+}
+
+.attachment-cover .attach-grid-bg,
+.attachment-old-demo .attach-grid-bg,
+.attachment-highlight-demo .attach-grid-bg,
+.attachment-core-demo .attach-grid-bg,
+.attachment-compare .attach-grid-bg,
+.attachment-qa .attach-grid-bg {
+  background:
+    linear-gradient(90deg, transparent 0 calc(50% - 1px), rgba(6, 214, 155, 0.12) calc(50% - 1px) 50%, transparent 50%),
+    linear-gradient(0deg, transparent 0 calc(50% - 1px), rgba(6, 214, 155, 0.12) calc(50% - 1px) 50%, transparent 50%),
+    repeating-linear-gradient(90deg, rgba(6, 214, 155, 0.055) 0 1px, transparent 1px 64px),
+    repeating-linear-gradient(0deg, rgba(6, 214, 155, 0.055) 0 1px, transparent 1px 64px),
+    var(--attach-bg);
+}
+
+.attach-grid-bg::before {
+  background:
+    linear-gradient(90deg, transparent 0 8%, var(--attach-line-soft) 8% calc(8% + 1px), transparent calc(8% + 1px) 92%, var(--attach-line-soft) 92% calc(92% + 1px), transparent calc(92% + 1px)),
+    linear-gradient(0deg, transparent 0 13%, var(--attach-line-soft) 13% calc(13% + 1px), transparent calc(13% + 1px) 87%, var(--attach-line-soft) 87% calc(87% + 1px), transparent calc(87% + 1px));
+  mask-image: none;
+  -webkit-mask-image: none;
+  opacity: 1;
+}
+
+.attach-grid-bg::after {
+  background:
+    repeating-linear-gradient(0deg, transparent 0 5px, rgba(16, 23, 20, 0.035) 5px 6px),
+    repeating-linear-gradient(90deg, transparent 0 23px, rgba(6, 214, 155, 0.09) 23px 24px);
+  opacity: 0.28;
+}
+
+.attachment-cover .attach-grid-bg::after,
+.attachment-old-demo .attach-grid-bg::after,
+.attachment-highlight-demo .attach-grid-bg::after,
+.attachment-core-demo .attach-grid-bg::after,
+.attachment-compare .attach-grid-bg::after,
+.attachment-qa .attach-grid-bg::after {
+  background:
+    repeating-linear-gradient(0deg, transparent 0 5px, rgba(6, 214, 155, 0.035) 5px 6px),
+    repeating-linear-gradient(90deg, transparent 0 23px, rgba(6, 214, 155, 0.08) 23px 24px);
+  opacity: 0.34;
+}
+
+.attach-top-rule {
+  left: 56px;
+  right: 56px;
+  background: var(--attach-text);
+  opacity: 0.32;
+}
+
+.attach-header,
+.attach-footer {
+  left: 56px;
+  right: 56px;
+  color: var(--attach-muted);
+  font-size: 12px;
+  letter-spacing: 0.02em;
+}
+
+.attach-footer {
+  border-top-color: var(--attach-line);
+}
+
+.attach-main {
+  padding: 58px 64px 72px;
+}
+
+.attach-section {
+  margin-bottom: 14px;
+  border: 0;
+  border-left: 14px solid var(--attach-cyan);
+  border-radius: 0;
+  padding: 0 0 0 10px;
+  color: var(--attach-text);
+  background: transparent;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.attachment-cover .attach-section,
+.attachment-old-demo .attach-section,
+.attachment-highlight-demo .attach-section,
+.attachment-core-demo .attach-section,
+.attachment-compare .attach-section,
+.attachment-qa .attach-section {
+  color: var(--attach-cyan);
+}
+
+.attach-title-row {
+  max-width: 1080px;
+  margin-bottom: 18px;
+}
+
+.attach-title-lockup {
+  grid-template-columns: 68px minmax(0, 1fr);
+  gap: 18px;
+}
+
+.attach-title-row h1,
+.attach-cover-copy h1 {
+  color: var(--attach-heading);
+  font-weight: 430;
+  letter-spacing: 0;
+}
+
+.attach-title-row h1 {
+  font-size: 38px;
+  line-height: 1.03;
+}
+
+.attachment-old-demo .attach-title-row h1,
+.attachment-highlight-demo .attach-title-row h1,
+.attachment-core-demo .attach-title-row h1 {
+  font-size: 34px;
+}
+
+.attach-title-m {
+  width: 68px;
+  min-height: 68px;
+  border: 1px solid var(--attach-line);
+  background: var(--attach-surface);
+}
+
+.attach-title-m b {
+  color: var(--attach-cyan);
+  font-size: 58px;
+  font-weight: 220;
+}
+
+.attach-card,
+.attach-timeline,
+.attach-pipeline,
+.attach-loop,
+.attach-code,
+.attach-mini-render,
+.attach-highlight-preview,
+.attach-live-demo,
+.attach-chat-demo,
+.attach-quickstart-demo,
+.attachment-content .attach-code,
+.attachment-content .attach-preview,
+.attach-render-evidence,
+.attach-compare-pane,
+.attach-stress-card,
+.attach-stress-blocks article,
+.attach-contributors-wall article,
+.attach-flow-card,
+.attach-metric-grid article,
+.attach-preview-line {
+  border-color: var(--attach-line);
+  border-radius: 0;
+  background: var(--attach-surface);
+  box-shadow: none;
+}
+
+.attach-card {
+  background: var(--attach-surface);
+}
+
+.attach-card.accent {
+  border-color: var(--attach-line);
+  background: var(--attach-surface-2);
+  box-shadow: inset 0 5px 0 var(--attach-cyan);
+}
+
+.attach-card span,
+.attach-panel-head span,
+.attach-bar-row span,
+.attach-metric-grid span,
+.attach-stream-head span,
+.attach-compare-header span,
+.attach-stress-hero span,
+.attach-stress-card span,
+.attach-stress-blocks span,
+.attach-quickstart-demo-label {
+  color: var(--attach-muted);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+}
+
+.attach-card b,
+.attach-panel-head b,
+.attach-profile h2,
+.attach-flow-card b,
+.attach-compare-header span,
+.attach-stress-blocks b {
+  color: var(--attach-text);
+  font-weight: 650;
+}
+
+.attach-card small,
+.attach-flow-card p,
+.attach-profile p,
+.attach-profile small,
+.attach-source,
+.attach-benchmark-env,
+.attach-stream-head em,
+.attach-stream-hint,
+.attach-render-evidence small {
+  color: var(--attach-muted);
+}
+
+.attach-project-grid b,
+.attach-stack-list b,
+.attach-plugin-list b,
+.attach-chip-row span,
+.attach-chip-cloud b,
+.attach-pressure-row b,
+.attach-stream-controls button,
+.attach-compare-controls .attach-play-button,
+.attach-compare-badge,
+.attach-compare-divider span,
+.attach-preview-line,
+.attach-logo-streams span {
+  border-color: var(--attach-line);
+  border-radius: 0;
+  background: var(--attach-surface);
+  box-shadow: none;
+}
+
+.attach-project-grid b span,
+.attach-stack-list b span,
+.attach-plugin-list b span {
+  color: var(--attach-text);
+  font-weight: 650;
+}
+
+.attach-avatar,
+.attach-project-grid img,
+.attach-project-grid i,
+.attach-stack-list img,
+.attach-plugin-list img,
+.attach-contributors-wall img,
+.attach-qa-layout img {
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.attachment-cover .attach-main {
+  grid-template-columns: minmax(0, 0.92fr) minmax(410px, 1.08fr);
+  gap: 56px;
+}
+
+.attach-cover-copy h1 {
+  max-width: 620px;
+  margin-bottom: 18px;
+  font-size: 58px;
+  line-height: 0.98;
+  font-weight: 360;
+}
+
+.attach-cover-copy p {
+  max-width: 610px;
+  color: var(--attach-muted);
+  font-size: 17px;
+}
+
+.attach-cover-cards {
+  gap: 12px;
+}
+
+.attach-logo-stage {
+  min-height: 360px;
+  border-color: var(--attach-line);
+  border-radius: 0;
+  background:
+    repeating-linear-gradient(90deg, rgba(6, 214, 155, 0.09) 0 1px, transparent 1px 72px),
+    repeating-linear-gradient(0deg, rgba(6, 214, 155, 0.07) 0 1px, transparent 1px 72px),
+    rgba(255, 255, 255, 0.035);
+  box-shadow: inset 0 0 0 10px rgba(6, 214, 155, 0.02);
+}
+
+.attach-logo-stage::before {
+  inset: 28px;
+  border-color: rgba(6, 214, 155, 0.3);
+  border-radius: 0;
+}
+
+.attach-logo-stage::after {
+  background: var(--attach-cyan);
+  opacity: 0.42;
+}
+
+.attach-stage-logo {
+  border-radius: 0;
+  filter: none;
+}
+
+.attach-ring {
+  border-radius: 0;
+}
+
+.attach-node {
+  border-color: var(--attach-cyan);
+  background: var(--attach-cyan);
+  box-shadow: none;
+}
+
+.attach-about-layout {
+  gap: 14px;
+}
+
+.attachment-about .attach-about-layout {
+  height: 332px;
+}
+
+.attach-timeline,
+.attach-pipeline,
+.attach-loop {
+  padding: 18px;
+}
+
+.attach-timeline b,
+.attach-pipeline b,
+.attach-loop b {
+  color: var(--attach-text);
+  font-size: 18px;
+  font-weight: 650;
+}
+
+.attach-timeline i,
+.attach-pipeline i,
+.attach-loop i,
+.attach-flow-card i {
+  background: var(--attach-cyan);
+}
+
+.attach-timeline strong,
+.attach-loop strong,
+.attach-model-grid .attach-card em,
+.attach-render-evidence.markstream .attach-stream-head span,
+.attach-render-evidence.markstream > span,
+.attach-render-evidence.markstream .attach-stream-metrics em,
+.attach-stream-signal.good b,
+.attach-compare-metrics b.good,
+.attach-stress-hero span,
+.attach-stress-hero b,
+.attach-stress-card b {
+  color: var(--attach-green);
+}
+
+.attach-equation,
+.attach-takeaway {
+  border-left-color: var(--attach-cyan);
+  background: var(--attach-surface-2);
+  color: var(--attach-text);
+}
+
+.attach-code,
+.attach-live-demo > pre,
+.attach-render-container,
+.attach-compare-body,
+.attachment-content .attach-code,
+.attachment-content .attach-preview {
+  color: #f3f6ef;
+  background: var(--attach-ink-panel);
+}
+
+.attachment-cover .attach-code,
+.attachment-old-demo .attach-code,
+.attachment-highlight-demo .attach-code,
+.attachment-core-demo .attach-code,
+.attachment-compare .attach-code,
+.attachment-qa .attach-code,
+.attachment-old-demo .attach-live-demo > pre,
+.attachment-highlight-demo .attach-live-demo > pre,
+.attachment-core-demo .attach-live-demo > pre,
+.attachment-old-demo .attach-render-container,
+.attachment-highlight-demo .attach-render-container,
+.attachment-core-demo .attach-render-container,
+.attachment-compare .attach-compare-body {
+  background: #030807;
+}
+
+.attach-code {
+  border-color: rgba(6, 214, 155, 0.28);
+}
+
+.attach-code .tok.kw,
+.attach-code .tok.attr,
+.attach-code .tok.prop,
+.attach-render-container a,
+.attach-render-container h2,
+.attach-render-container code,
+.attach-compare-body code {
+  color: var(--attach-cyan);
+}
+
+.attach-code .tok.str,
+.attach-code .tok.comment,
+.attach-render-container strong {
+  color: var(--attach-green);
+}
+
+.attach-code .tok.tag {
+  color: #f3f6ef;
+}
+
+.attach-render-evidence {
+  padding: 18px;
+}
+
+.attach-stream-controls button:hover,
+.attach-stream-controls button.active,
+.attach-compare-controls .attach-play-button:hover {
+  color: var(--attach-text);
+  background: var(--attach-surface-2);
+}
+
+.attach-stream-controls .attach-play-button,
+.attach-compare-controls .attach-play-button {
+  color: var(--attach-cyan);
+}
+
+.attach-render-evidence.danger .attach-stream-head span,
+.attach-render-evidence.danger > span,
+.attach-render-evidence.danger .attach-stream-metrics em,
+.attach-stream-signal b,
+.attach-compare-metrics b.bad {
+  color: var(--attach-red);
+}
+
+.attach-compare-layout {
+  gap: 12px;
+}
+
+.attach-compare-arena {
+  gap: 10px;
+}
+
+.attach-compare-pane {
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.attach-compare-pane.bad {
+  border-color: rgba(214, 66, 94, 0.42);
+}
+
+.attach-compare-pane.good {
+  border-color: rgba(6, 214, 155, 0.42);
+}
+
+.attach-compare-header {
+  border-bottom-color: var(--attach-line);
+}
+
+.attach-compare-divider span {
+  color: var(--attach-cyan);
+}
+
+.attachment-content .attach-content-layout {
+  gap: 16px 18px;
+}
+
+.attach-preview-badge.thinking {
+  color: var(--attach-purple);
+}
+
+.attach-preview-badge.tool-call,
+.attach-preview-badge.component {
+  color: var(--attach-cyan);
+}
+
+.attach-preview-badge.tool-result {
+  color: var(--attach-green);
+}
+
+.attach-budget b,
+.attach-metric-grid b,
+.attach-model-grid .attach-card b,
+.attach-stress-hero b {
+  font-weight: 260;
+}
+
+.attach-budget {
+  padding: 26px;
+  background: var(--attach-surface-2);
+}
+
+.attach-budget b {
+  color: var(--attach-cyan);
+  font-size: 72px;
+}
+
+.attach-perf-layout .attach-stress-hero {
+  border-color: var(--attach-line);
+  background: var(--attach-surface-2);
+  box-shadow: inset 0 5px 0 var(--attach-green);
+}
+
+.attach-stress-card {
+  background: rgba(255, 255, 255, 0.58);
+}
+
+.attach-stress-blocks article {
+  background: var(--attach-surface);
+}
+
+.attach-playbook-layout .attach-card,
+.attach-ecosystem-layout .attach-card {
+  background: var(--attach-surface);
+}
+
+.attach-contributors-wall article {
+  background: var(--attach-surface);
+}
+
+.attach-qa-layout {
+  height: 360px;
+}
+
+.attach-qa-layout h2 {
+  color: var(--attach-heading);
+  font-family: var(--font-display);
+  font-size: 128px;
+  font-weight: 240;
+}
+
+.attach-qa-layout p {
+  color: var(--attach-muted);
+}
+
+.attach-qa-layout img {
+  border-color: var(--attach-line);
+  background: #f3f6ef;
+}
+
+.attachment-deck .attach-header,
+.attachment-deck .attach-section,
+.attachment-deck .attach-title-m,
+.attachment-deck .attach-title-row h1,
+.attachment-deck .attach-cover-copy h1,
+.attachment-deck .attach-cover-copy p,
+.attachment-deck .attach-timeline,
+.attachment-deck .attach-pipeline,
+.attachment-deck .attach-loop,
+.attachment-deck .attach-equation,
+.attachment-deck .attach-takeaway,
+.attachment-deck .attach-qa-layout {
+  animation-duration: 420ms;
+}
+
+/* V2 fit and contrast fixes */
+.attachment-cover .attach-cover-copy h1 {
+  margin-bottom: 14px;
+  font-size: 34px;
+  line-height: 1.05;
+  word-break: keep-all;
+  overflow-wrap: normal;
+}
+
+.attach-cover-title span {
+  display: block;
+}
+
+.attach-cover-copy p {
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.34;
+}
+
+.attach-cover-cards .attach-card {
+  padding: 8px 10px;
+}
+
+.attach-cover-cards .attach-card span {
+  margin-bottom: 7px;
+}
+
+.attach-cover-cards .attach-card b {
+  margin-bottom: 4px;
+  font-size: 14px;
+}
+
+.attach-cover-cards .attach-card small {
+  font-size: 9px;
+  line-height: 1.22;
+}
+
+.attachment-cover .attach-footer {
+  display: flex;
+}
+
+.attachment-why .attach-title-row {
+  margin-bottom: 12px;
+}
+
+.attachment-why .attach-title-row h1 {
+  font-size: 34px;
+  line-height: 1.03;
+}
+
+.attachment-why .attach-source {
+  display: none;
+}
+
+.attachment-why .attach-equation {
+  padding: 9px 14px;
+  font-size: 14px;
+}
+
+.attachment-why .attach-model-grid .attach-card {
+  padding: 10px;
+}
+
+.attachment-why .attach-model-grid .attach-card b {
+  margin-top: 6px;
+  font-size: 16px;
+}
+
+.attachment-why .attach-model-grid .attach-card em {
+  margin: 3px 0;
+  font-size: 11px;
+}
+
+.attachment-why .attach-model-grid .attach-card small {
+  font-size: 11px;
+  line-height: 1.28;
+}
+
+.attachment-why .attach-pressure-row b {
+  padding: 8px 10px;
+  font-size: 12px;
+}
+
+.attach-flow-card b,
+.attach-chip-row span,
+.attach-chip-row.dense span,
+.attach-chip-cloud b,
+.attach-pressure-row b,
+.attach-contributors-wall span {
+  color: var(--attach-text);
+}
+
+.attach-flow-card b,
+.attach-stream-controls button,
+.attach-compare-controls .attach-play-button,
+.attach-compare-badge,
+.attach-compare-divider span,
+.attach-stream-signal article,
+.attach-stream-metrics b,
+.attach-micro-metrics b,
+.attach-compare-metrics div {
+  border-radius: 0;
+}
+
+.attach-stream-signal article,
+.attach-stream-metrics b,
+.attach-micro-metrics b,
+.attach-compare-metrics div {
+  border-color: var(--attach-line);
+  background: var(--attach-surface);
+}
+
+/* V3 hand-drawn notebook visual system */
+.attachment-deck,
+.attachment-cover,
+.attachment-old-demo,
+.attachment-highlight-demo,
+.attachment-core-demo,
+.attachment-compare,
+.attachment-qa {
+  --font-display: "Kaiti SC", "STKaiti", "KaiTi", "Comic Sans MS", "Aptos Display", "PingFang SC", "Microsoft YaHei UI", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Aptos", "Helvetica Neue", "SF Pro Text", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei UI", ui-sans-serif, system-ui, sans-serif;
+  --attach-bg: #fbf1d8;
+  --attach-bg-rgb: 251 241 216;
+  --attach-surface: rgba(255, 252, 241, 0.88);
+  --attach-surface-2: rgba(255, 238, 174, 0.72);
+  --attach-ink-panel: #25332f;
+  --attach-line: rgba(46, 55, 47, 0.48);
+  --attach-line-soft: rgba(46, 55, 47, 0.16);
+  --attach-text: #26302a;
+  --attach-heading: #1e2822;
+  --attach-muted: #677064;
+  --attach-dim: #8f927d;
+  --attach-cyan: #189b77;
+  --attach-teal: #217d67;
+  --attach-green: #2faa7c;
+  --attach-purple: #6e67b8;
+  --attach-yellow: #d89924;
+  --attach-red: #d95b4f;
+  background: var(--attach-bg);
+}
+
+.attachment-deck::before,
+.attachment-cover::before,
+.attachment-old-demo::before,
+.attachment-highlight-demo::before,
+.attachment-core-demo::before,
+.attachment-compare::before,
+.attachment-qa::before {
+  right: 8px;
+  bottom: -96px;
+  color: #2d372f;
+  font-family: var(--font-display);
+  font-size: 410px;
+  font-weight: 700;
+  opacity: 0.035;
+  transform: rotate(-7deg);
+}
+
+.attach-grid-bg,
+.attachment-cover .attach-grid-bg,
+.attachment-old-demo .attach-grid-bg,
+.attachment-highlight-demo .attach-grid-bg,
+.attachment-core-demo .attach-grid-bg,
+.attachment-compare .attach-grid-bg,
+.attachment-qa .attach-grid-bg {
+  background:
+    linear-gradient(90deg, transparent 0 72px, rgba(217, 91, 79, 0.22) 72px 74px, transparent 74px),
+    repeating-linear-gradient(0deg, transparent 0 31px, rgba(81, 107, 88, 0.14) 31px 33px),
+    radial-gradient(circle at 22% 18%, rgba(255, 255, 255, 0.62), transparent 24%),
+    radial-gradient(circle at 85% 88%, rgba(255, 224, 133, 0.28), transparent 30%),
+    #fbf1d8;
+}
+
+.attach-grid-bg::before {
+  background:
+    repeating-linear-gradient(90deg, rgba(44, 54, 48, 0.025) 0 1px, transparent 1px 9px),
+    repeating-linear-gradient(0deg, rgba(44, 54, 48, 0.018) 0 1px, transparent 1px 11px);
+  mask-image: none;
+  -webkit-mask-image: none;
+  opacity: 0.55;
+}
+
+.attach-grid-bg::after,
+.attachment-cover .attach-grid-bg::after,
+.attachment-old-demo .attach-grid-bg::after,
+.attachment-highlight-demo .attach-grid-bg::after,
+.attachment-core-demo .attach-grid-bg::after,
+.attachment-compare .attach-grid-bg::after,
+.attachment-qa .attach-grid-bg::after {
+  background:
+    radial-gradient(circle at 18% 24%, rgba(46, 55, 47, 0.055) 0 1px, transparent 1.4px),
+    radial-gradient(circle at 78% 32%, rgba(46, 55, 47, 0.04) 0 1px, transparent 1.4px),
+    radial-gradient(circle at 52% 78%, rgba(46, 55, 47, 0.035) 0 1px, transparent 1.4px);
+  background-size: 29px 31px, 41px 43px, 53px 47px;
+  opacity: 0.75;
+}
+
+.attach-top-rule {
+  top: 28px;
+  left: 58px;
+  right: 58px;
+  height: 0;
+  border-top: 2px solid rgba(38, 48, 42, 0.58);
+  background: transparent;
+  opacity: 1;
+  transform: rotate(-0.18deg);
+}
+
+.attach-header,
+.attach-footer {
+  color: var(--attach-muted);
+  font-family: "Comic Sans MS", "Kaiti SC", var(--font-code);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.attach-footer {
+  border-top: 2px solid rgba(38, 48, 42, 0.28);
+}
+
+.attach-section {
+  border: 2px solid rgba(38, 48, 42, 0.6);
+  border-radius: 7px 5px 8px 4px;
+  padding: 4px 10px 5px;
+  color: var(--attach-heading);
+  background:
+    linear-gradient(180deg, rgba(255, 234, 104, 0.78), rgba(255, 234, 104, 0.42));
+  box-shadow: 3px 4px 0 rgba(38, 48, 42, 0.16);
+  font-family: "Comic Sans MS", "Kaiti SC", var(--font-code);
+  transform: rotate(-0.7deg);
+}
+
+.attachment-cover .attach-section,
+.attachment-old-demo .attach-section,
+.attachment-highlight-demo .attach-section,
+.attachment-core-demo .attach-section,
+.attachment-compare .attach-section,
+.attachment-qa .attach-section {
+  color: var(--attach-heading);
+}
+
+.attach-title-row h1,
+.attach-cover-copy h1,
+.attach-qa-layout h2 {
+  color: var(--attach-heading);
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.attach-title-row h1 {
+  text-decoration: none;
+  text-shadow: none;
+}
+
+.attach-title-m {
+  border: 2px solid rgba(38, 48, 42, 0.62);
+  border-radius: 8px 6px 7px 5px;
+  background: #fff9df;
+  box-shadow: 4px 5px 0 rgba(38, 48, 42, 0.18);
+  transform: rotate(-2deg);
+}
+
+.attach-title-m b {
+  color: var(--attach-cyan);
+  font-family: var(--font-display);
+  font-weight: 700;
+}
+
+.attach-card,
+.attach-timeline,
+.attach-pipeline,
+.attach-loop,
+.attach-mini-render,
+.attach-highlight-preview,
+.attach-live-demo,
+.attach-chat-demo,
+.attach-quickstart-demo,
+.attachment-content .attach-preview,
+.attach-render-evidence,
+.attach-compare-pane,
+.attach-stress-card,
+.attach-stress-blocks article,
+.attach-contributors-wall article,
+.attach-flow-card,
+.attach-metric-grid article,
+.attach-preview-line,
+.attach-project-grid b,
+.attach-stack-list b,
+.attach-plugin-list b,
+.attach-chip-row span,
+.attach-chip-cloud b,
+.attach-pressure-row b,
+.attach-stream-controls button,
+.attach-compare-controls .attach-play-button,
+.attach-compare-badge,
+.attach-compare-divider span,
+.attach-logo-streams span,
+.attach-stream-signal article,
+.attach-stream-metrics b,
+.attach-micro-metrics b,
+.attach-compare-metrics div {
+  border: 2px solid rgba(38, 48, 42, 0.5);
+  border-radius: 8px 5px 7px 6px;
+  background: var(--attach-surface);
+  box-shadow: 4px 5px 0 rgba(38, 48, 42, 0.12);
+}
+
+.attach-card:nth-child(even),
+.attach-model-grid .attach-card:nth-child(even),
+.attach-project-grid b:nth-child(even),
+.attach-contributors-wall article:nth-child(even) {
+  transform: rotate(0.35deg);
+}
+
+.attach-card:nth-child(odd),
+.attach-model-grid .attach-card:nth-child(odd),
+.attach-project-grid b:nth-child(odd),
+.attach-contributors-wall article:nth-child(odd) {
+  transform: rotate(-0.25deg);
+}
+
+.attach-card.accent,
+.attach-perf-layout .attach-stress-hero {
+  background:
+    linear-gradient(180deg, rgba(255, 236, 137, 0.78), rgba(255, 245, 199, 0.86));
+  box-shadow:
+    inset 0 0 0 4px rgba(255, 255, 255, 0.38),
+    4px 5px 0 rgba(38, 48, 42, 0.14);
+}
+
+.attach-card span,
+.attach-panel-head span,
+.attach-bar-row span,
+.attach-metric-grid span,
+.attach-stream-head span,
+.attach-compare-header span,
+.attach-stress-hero span,
+.attach-stress-card span,
+.attach-stress-blocks span,
+.attach-quickstart-demo-label {
+  color: #596457;
+  font-family: "Comic Sans MS", "Kaiti SC", var(--font-code);
+  font-weight: 700;
+}
+
+.attach-card b,
+.attach-panel-head b,
+.attach-profile h2,
+.attach-flow-card b,
+.attach-compare-header span,
+.attach-stress-blocks b,
+.attach-project-grid b span,
+.attach-stack-list b span,
+.attach-plugin-list b span,
+.attach-flow-card b,
+.attach-chip-row span,
+.attach-chip-row.dense span,
+.attach-chip-cloud b,
+.attach-pressure-row b,
+.attach-contributors-wall span {
+  color: var(--attach-heading);
+}
+
+.attach-card small,
+.attach-flow-card p,
+.attach-profile p,
+.attach-profile small,
+.attach-source,
+.attach-benchmark-env,
+.attach-stream-head em,
+.attach-stream-hint,
+.attach-render-evidence small {
+  color: var(--attach-muted);
+}
+
+.attach-cover-copy h1 {
+  text-decoration: none;
+}
+
+.attachment-cover .attach-cover-copy h1 {
+  font-size: 37px;
+  line-height: 1.08;
+}
+
+.attach-cover-copy p {
+  color: #596457;
+  font-size: 15px;
+}
+
+.attach-logo-stage {
+  border: 2px solid rgba(38, 48, 42, 0.56);
+  border-radius: 8px 6px 7px 5px;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(24, 155, 119, 0.16), transparent 34%),
+    repeating-linear-gradient(-8deg, rgba(38, 48, 42, 0.08) 0 2px, transparent 2px 34px),
+    rgba(255, 252, 241, 0.72);
+  box-shadow: 7px 8px 0 rgba(38, 48, 42, 0.12);
+  transform: rotate(0.25deg);
+}
+
+.attach-logo-stage::before {
+  border: 2px dashed rgba(38, 48, 42, 0.32);
+  border-radius: 7px 6px 8px 5px;
+}
+
+.attach-logo-stage::after {
+  background: rgba(24, 155, 119, 0.5);
+}
+
+.attach-ring {
+  border-color: rgba(38, 48, 42, 0.44);
+  border-radius: 48% 52% 45% 55%;
+}
+
+.attach-node {
+  border-color: rgba(38, 48, 42, 0.7);
+  background: var(--attach-yellow);
+  box-shadow: none;
+}
+
+.attach-avatar,
+.attach-project-grid img,
+.attach-project-grid i,
+.attach-stack-list img,
+.attach-plugin-list img,
+.attach-contributors-wall img,
+.attach-qa-layout img {
+  border: 2px solid rgba(38, 48, 42, 0.54);
+  border-radius: 8px 5px 7px 6px;
+  background: #fff9df;
+  box-shadow: 3px 4px 0 rgba(38, 48, 42, 0.12);
+}
+
+.attach-code,
+.attachment-content .attach-code,
+.attach-live-demo > pre,
+.attach-render-container,
+.attach-compare-body {
+  border: 2px solid rgba(38, 48, 42, 0.62);
+  border-radius: 8px 5px 7px 6px;
+  color: #f6ecd0;
+  background:
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 28px),
+    #26332f;
+  box-shadow: 5px 6px 0 rgba(38, 48, 42, 0.17);
+}
+
+.attachment-cover .attach-code,
+.attachment-old-demo .attach-code,
+.attachment-highlight-demo .attach-code,
+.attachment-core-demo .attach-code,
+.attachment-compare .attach-code,
+.attachment-qa .attach-code,
+.attachment-old-demo .attach-live-demo > pre,
+.attachment-highlight-demo .attach-live-demo > pre,
+.attachment-core-demo .attach-live-demo > pre,
+.attachment-old-demo .attach-render-container,
+.attachment-highlight-demo .attach-render-container,
+.attachment-core-demo .attach-render-container,
+.attachment-compare .attach-compare-body {
+  background:
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 28px),
+    #26332f;
+}
+
+.attach-code .tok.kw,
+.attach-code .tok.attr,
+.attach-code .tok.prop,
+.attach-render-container a,
+.attach-render-container h2,
+.attach-render-container code,
+.attach-compare-body code {
+  color: #79e6bf;
+}
+
+.attach-code .tok.str,
+.attach-code .tok.comment,
+.attach-render-container strong {
+  color: #ffd56b;
+}
+
+.attach-code .tok.tag {
+  color: #f6ecd0;
+}
+
+.attach-timeline i,
+.attach-pipeline i,
+.attach-loop i,
+.attach-flow-card i {
+  height: 3px;
+  background:
+    linear-gradient(90deg, transparent 0 4px, var(--attach-cyan) 4px 100%);
+  transform: rotate(-0.4deg);
+}
+
+.attach-timeline strong,
+.attach-loop strong,
+.attach-model-grid .attach-card em,
+.attach-render-evidence.markstream .attach-stream-head span,
+.attach-render-evidence.markstream > span,
+.attach-render-evidence.markstream .attach-stream-metrics em,
+.attach-stream-signal.good b,
+.attach-compare-metrics b.good,
+.attach-stress-hero span,
+.attach-stress-hero b,
+.attach-stress-card b,
+.attach-budget b,
+.attach-metric-grid b,
+.attach-model-grid .attach-card b {
+  color: var(--attach-green);
+}
+
+.attach-render-evidence.danger .attach-stream-head span,
+.attach-render-evidence.danger > span,
+.attach-render-evidence.danger .attach-stream-metrics em,
+.attach-stream-signal b,
+.attach-compare-metrics b.bad {
+  color: var(--attach-red);
+}
+
+.attach-equation,
+.attach-takeaway {
+  border: 0;
+  border-left: 8px solid rgba(24, 155, 119, 0.72);
+  border-radius: 8px 5px 7px 6px;
+  background: rgba(255, 238, 174, 0.6);
+  box-shadow: 4px 5px 0 rgba(38, 48, 42, 0.1);
+}
+
+.attach-stream-controls button:hover,
+.attach-stream-controls button.active,
+.attach-compare-controls .attach-play-button:hover,
+.attach-stream-controls .attach-play-button,
+.attach-compare-controls .attach-play-button {
+  color: var(--attach-heading);
+  background:
+    linear-gradient(180deg, rgba(120, 222, 188, 0.72), rgba(120, 222, 188, 0.36));
+}
+
+.attach-compare-pane.bad {
+  border-color: rgba(217, 91, 79, 0.68);
+}
+
+.attach-compare-pane.good {
+  border-color: rgba(24, 155, 119, 0.74);
+}
+
+.attach-quickstart-demo-body :where(code),
+.attach-mini-render code,
+.attach-chat-demo pre {
+  color: var(--attach-heading);
+  background: rgba(255, 217, 92, 0.38);
+}
+
+.attach-qa-layout h2 {
+  font-size: 120px;
+}
+
+.attach-qa-layout img {
+  background: #fffdf4;
+  padding: 12px;
+}
+
+.attach-perf-layout {
+  gap: 8px;
+  grid-template-rows: auto 78px 76px 58px auto;
+}
+
+.attach-perf-layout .attach-stress-card {
+  gap: 0;
+  overflow: visible;
+  padding: 5px 10px;
+}
+
+.attach-perf-layout .attach-stress-card b {
+  font-size: 23px;
+  line-height: 1;
+}
+
+.attach-perf-layout .attach-stress-card small,
+.attach-perf-layout .attach-stress-card em {
+  font-size: 9px;
+  line-height: 1.1;
+}
+
+.attach-perf-layout .attach-stress-card i {
+  font-size: 7px;
+  line-height: 1.1;
+}
+
+.attachment-old-demo .attach-title-row,
+.attachment-highlight-demo .attach-title-row,
+.attachment-core-demo .attach-title-row {
+  margin-bottom: 4px;
+}
+
+.attachment-old-demo .attach-title-row h1,
+.attachment-highlight-demo .attach-title-row h1,
+.attachment-core-demo .attach-title-row h1 {
+  font-size: 26px;
+  line-height: 1.03;
+}
+
+.attach-demo-page .attach-render-evidence {
+  row-gap: 6px;
+  padding: 10px;
+}
+
+.attach-demo-page .attach-live-demo.stream {
+  gap: 8px;
+  padding: 8px;
+}
+
+.attach-demo-page .attach-stream-signal article {
+  padding: 8px;
+}
+
+.attach-demo-page .attach-stream-signal span {
+  overflow: visible;
+  font-size: 8px;
+  line-height: 1.15;
+  text-overflow: clip;
+  white-space: normal;
+}
+
+.attach-demo-page .attach-stream-metrics.telemetry {
+  gap: 6px;
+}
+
+.attach-demo-page .attach-stream-metrics b {
+  padding: 6px;
+}
+
+.attach-demo-page .attach-render-evidence > small {
+  font-size: 9px;
+  line-height: 1.15;
+}
+
+.attachment-core .attach-title-row {
+  margin-bottom: 12px;
+}
+
+.attachment-core .attach-title-row h1 {
+  font-size: 31px;
+  line-height: 1.04;
+}
+
+.attachment-core .attach-core-layout {
+  gap: 10px;
+  height: 300px;
+}
+
+.attachment-core .attach-core-left,
+.attachment-core .attach-core-points {
+  gap: 8px;
+}
+
+.attachment-core .attach-code {
+  min-height: 0;
+  padding: 12px 16px;
+  font-size: 13px;
+  line-height: 1.38;
+}
+
+.attachment-core .attach-core-points .attach-card {
+  padding: 12px;
+}
+
+.attachment-core .attach-core-points .attach-card b {
+  margin: 6px 0 4px;
+  font-size: 17px;
+}
+
+.attachment-core .attach-core-points .attach-card small {
+  font-size: 12px;
+  line-height: 1.25;
+}
+
+.attachment-about .attach-avatar {
+  width: 82px;
+  height: 82px;
+  margin-bottom: 12px;
+}
+
+.attachment-parser-benchmark .attach-title-row {
+  margin-bottom: 10px;
+}
+
+.attachment-parser-benchmark .attach-main {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  overflow: hidden;
+}
+
+.attachment-parser-benchmark .attach-title-row h1 {
+  max-width: 760px;
+  font-size: 30px;
+  line-height: 1.08;
+}
+
+.attach-parser-benchmark-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
+  grid-template-rows: auto 112px minmax(0, 1fr) auto;
+  gap: 10px 14px;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.attach-parser-benchmark-layout .attach-benchmark-env {
+  grid-column: 1 / -1;
+  font-size: 10px;
+  line-height: 1.15;
+  color: var(--attach-muted);
+}
+
+.attach-parser-hero {
+  display: grid;
+  align-content: center;
+  gap: 3px;
+  min-height: 0;
+  padding: 14px 16px;
+}
+
+.attach-parser-hero span,
+.attach-parser-insights span {
+  color: var(--attach-green);
+  font-family: var(--font-code);
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+.attach-parser-hero b {
+  color: var(--attach-green);
+  font-family: var(--font-display);
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 0.9;
+}
+
+.attach-parser-hero small,
+.attach-parser-insights small {
+  color: var(--attach-muted);
+  font-size: 11px;
+  line-height: 1.2;
+}
+
+.attach-parser-table {
+  grid-row: 2 / 4;
+  grid-column: 2;
+  display: grid;
+  grid-template-rows: 30px repeat(4, minmax(0, 1fr));
+  gap: 7px;
+  min-height: 0;
+  padding: 12px;
+}
+
+.attach-parser-row {
+  display: grid;
+  grid-template-columns: 0.58fr 1fr 1fr 0.78fr;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  border: 2px solid rgba(38, 48, 42, 0.34);
+  border-radius: 7px 5px 8px 6px;
+  padding: 7px 9px;
+  background: rgba(255, 249, 223, 0.68);
+  color: var(--attach-heading);
+}
+
+.attach-parser-row.head {
+  background: #26302a;
+  color: #fff9df;
+  font-family: var(--font-code);
+  font-size: 9px;
+  text-transform: uppercase;
+}
+
+.attach-parser-row :where(span, b, em, strong) {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  line-height: 1.08;
+}
+
+.attach-parser-row b,
+.attach-parser-row em,
+.attach-parser-row strong {
+  font-family: var(--font-code);
+  font-style: normal;
+}
+
+.attach-parser-row em {
+  color: var(--attach-green);
+  font-weight: 800;
+}
+
+.attach-parser-row strong {
+  color: var(--attach-red);
+  font-size: 18px;
+}
+
+.attach-parser-insights {
+  display: grid;
+  grid-template-rows: repeat(2, 48px);
+  align-content: start;
+  gap: 8px;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.attach-parser-insights .attach-card {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr);
+  align-items: center;
+  gap: 4px;
+  min-height: 0;
+  padding: 7px 10px;
+  overflow: hidden;
+}
+
+.attach-parser-insights b {
+  color: var(--attach-heading);
+  font-size: 14px;
+  line-height: 1.05;
+}
+
+.attach-parser-insights small {
+  display: none;
+}
+
+.attach-parser-benchmark-layout .attach-source {
+  grid-column: 1 / -1;
+  font-size: 9px;
+  line-height: 1.2;
+}
+
+.attachment-content .attach-preview {
+  gap: 8px;
+  padding: 12px;
+  background: #151a19;
+  color: var(--attach-heading);
+}
+
+.attachment-content .attach-preview-line {
+  grid-template-columns: 92px minmax(0, 1fr);
+  min-height: 52px;
+  padding: 9px 10px;
+  overflow: hidden;
+  background: #fff9df;
+  color: var(--attach-heading);
+}
+
+.attachment-content .attach-preview-badge {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 1.08;
+  white-space: normal;
+}
+
+.attachment-content .attach-preview-value {
+  min-width: 0;
+  color: var(--attach-heading);
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.12;
+  overflow-wrap: normal;
+  word-break: normal;
+  white-space: normal;
 }

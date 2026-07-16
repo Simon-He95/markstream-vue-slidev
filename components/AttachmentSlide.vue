@@ -101,6 +101,13 @@ const stressBlocks = [
   ["KaTeX", "math 重块"],
 ];
 
+const parserBenchmarkRows = [
+  ["5K", "0.0370ms", "0.1864ms", "5.0×"],
+  ["50K", "0.3166ms", "1.8776ms", "5.9×"],
+  ["100K", "0.7012ms", "3.8789ms", "5.5×"],
+  ["200K", "1.8757ms", "8.9453ms", "4.8×"],
+];
+
 const quickStartPreview = `- **流式渲染** 实时更新 Markdown
 - 支持 \`代码块\` 和 [链接](https://github.com)
 - 表格、列表、任务、引用全部稳定
@@ -171,7 +178,7 @@ function triggerCompareFlash() {
   }, 180);
 }
 
-const streamCustomTags = ["think", "tool-result", "component-card"];
+const streamCustomTags = ["thinking", "tool-result", "component-card"];
 
 function streamCustomBlock(type) {
   return {
@@ -191,7 +198,7 @@ function streamCustomBlock(type) {
 }
 
 setCustomComponents(streamCustomId, {
-  think: streamCustomBlock("think"),
+  thinking: streamCustomBlock("thinking"),
   "tool-result": streamCustomBlock("tool-result"),
   "component-card": streamCustomBlock("component-card"),
 });
@@ -248,9 +255,9 @@ $$
 {"chunk": 18, "mode": "tail-patch", "budget": "4ms"}
 \`\`\`
 
-<think>
+<thinking>
 checking frame budget and scroll lock...
-</think>
+</thinking>
 
 <tool-result status="ok">
 docs matched: 12 · reused blocks: 7
@@ -533,10 +540,11 @@ container.<span class="tok prop">innerHTML</span> <span class="tok op">=</span> 
     benchmarkEnv: "Chrome 126 · Vue 3.4 · production build · 30-run median, 5× warm-up · Apple M3 / AMD 7940HS",
   },
   14: {
-    kind: "compare",
-    kicker: "REAL RENDERING",
-    section: "SIDE BY SIDE",
-    title: "普通 Markdown 与 markstream 的差距，核心是更新模型。",
+    kind: "parser-benchmark",
+    kicker: "PARSER ENGINE",
+    section: "MARKDOWN-IT-TS BENCHMARK",
+    title: "快不只来自更新模型，底层 parser 本身也在同规模解析里更快。",
+    benchmarkEnv: "markdown-it-ts@1.0.4 · README latest perf snapshot · one-shot parse",
   },
   15: {
     kind: "scheduler",
@@ -549,7 +557,7 @@ container.<span class="tok prop">innerHTML</span> <span class="tok op">=</span> 
     kicker: "CONTENT TYPES",
     section: "MARKDOWN AS UI PROTOCOL",
     title: "AI 输出不只会写 Markdown，也会输出可组件化结构。",
-    codeHtml: `<span class="tok tag">&lt;think&gt;</span>checking constraints...<span class="tok tag">&lt;/think&gt;</span>
+    codeHtml: `<span class="tok tag">&lt;thinking&gt;</span>checking constraints...<span class="tok tag">&lt;/thinking&gt;</span>
 
 <span class="tok tag">&lt;tool-call</span> <span class="tok attr">name</span><span class="tok op">=</span><span class="tok str">"search_docs"</span> <span class="tok tag">/&gt;</span>
 
@@ -558,10 +566,10 @@ container.<span class="tok prop">innerHTML</span> <span class="tok op">=</span> 
 <span class="tok tag">&lt;/tool-result&gt;</span>
 
 <span class="tok tag">&lt;component</span> <span class="tok attr">name</span><span class="tok op">=</span><span class="tok str">"Chart"</span> <span class="tok tag">/&gt;</span>`,
-    previewHtml: `<div class="attach-preview-line"><span class="attach-preview-badge think">thinking</span> checking constraints...</div>
-<div class="attach-preview-line"><span class="attach-preview-badge tool-call">tool-call</span> search_docs</div>
-<div class="attach-preview-line"><span class="attach-preview-badge tool-result">tool-result</span> ok</div>
-<div class="attach-preview-line"><span class="attach-preview-badge component">component</span> Chart</div>`,
+    previewHtml: `<div class="attach-preview-line"><span class="attach-preview-badge thinking">thinking</span><span class="attach-preview-value">checking constraints...</span></div>
+<div class="attach-preview-line"><span class="attach-preview-badge tool-call">tool-call</span><span class="attach-preview-value">search_docs</span></div>
+<div class="attach-preview-line"><span class="attach-preview-badge tool-result">tool-result</span><span class="attach-preview-value">ok</span></div>
+<div class="attach-preview-line"><span class="attach-preview-badge component">component</span><span class="attach-preview-value">Chart</span></div>`,
   },
   17: {
     kind: "api",
@@ -571,14 +579,17 @@ container.<span class="tok prop">innerHTML</span> <span class="tok op">=</span> 
     codeHtml: `<span class="tok kw">import</span> MarkdownRender, { setCustomComponents } <span class="tok kw">from</span> <span class="tok str">"markstream-vue"</span>
 
 setCustomComponents(<span class="tok str">"chat"</span>, {
+  <span class="tok str">"thinking"</span>: ThinkingBlock,
   <span class="tok str">"tool-result"</span>: ToolResult
 })
+
+<span class="tok kw">const</span> customTags <span class="tok op">=</span> [<span class="tok str">"thinking"</span>, <span class="tok str">"tool-result"</span>]
 
 <span class="tok tag">&lt;MarkdownRender</span>
   <span class="tok attr">:content</span><span class="tok op">=</span><span class="tok str">"answer"</span>
   <span class="tok attr">:final</span><span class="tok op">=</span><span class="tok str">"done"</span>
   <span class="tok attr">custom-id</span><span class="tok op">=</span><span class="tok str">"chat"</span>
-  <span class="tok attr">:custom-html-tags</span><span class="tok op">=</span><span class="tok str">"tags"</span>
+  <span class="tok attr">:custom-html-tags</span><span class="tok op">=</span><span class="tok str">"customTags"</span>
   <span class="tok attr">:max-live-nodes</span><span class="tok op">=</span><span class="tok str">"0"</span>
   <span class="tok attr">:batch-rendering</span><span class="tok op">=</span><span class="tok str">"true"</span>
 <span class="tok tag">/&gt;</span>`,
@@ -624,6 +635,7 @@ const mRoles = {
   core: "MINIMIZE",
   "core-demo": "MINIMAL",
   perf: "MEASURE",
+  "parser-benchmark": "MILLISECONDS",
   compare: "MUTATE",
   scheduler: "MILLISECONDS",
   content: "MESSAGE",
@@ -1016,7 +1028,11 @@ onBeforeUnmount(() => {
       <template v-if="current.kind === 'cover'">
         <div class="attach-cover-copy">
           <span class="attach-section">{{ current.section }}</span>
-          <h1>{{ current.title }}</h1>
+          <h1 class="attach-cover-title">
+            <span>你的 Markdown</span>
+            <span>渲染器，扛得住</span>
+            <span>AI 输出吗？</span>
+          </h1>
           <p>{{ current.subtitle }}</p>
           <div class="attach-cover-cards">
             <article class="attach-card">
@@ -1089,7 +1105,7 @@ onBeforeUnmount(() => {
 
         <div v-if="current.kind === 'about'" class="attach-about-layout">
           <section class="attach-profile attach-card">
-            <img class="attach-avatar" src="/simon-avatar.png" alt="Simon-He95 GitHub avatar">
+            <img class="attach-avatar" src="/simon-avatar-handdrawn.png" alt="Simon-He95 hand-drawn avatar">
             <h2>Simon He</h2>
             <p>Simon-He95 · Shanghai</p>
             <b>Vue / DX / AI UI / Streaming Rendering</b>
@@ -1300,6 +1316,34 @@ onBeforeUnmount(() => {
               </div>
             </div>
           </section>
+        </div>
+
+        <div v-else-if="current.kind === 'parser-benchmark'" class="attach-parser-benchmark-layout">
+          <small class="attach-benchmark-env">{{ current.benchmarkEnv }}</small>
+          <section class="attach-parser-hero attach-card accent">
+            <span>1M one-shot parse</span>
+            <b>13.82ms</b>
+            <small>vs markdown-it 65.34ms · 约 4.7× faster</small>
+          </section>
+          <section class="attach-parser-table attach-card">
+            <div class="attach-parser-row head">
+              <span>Size</span>
+              <span>markdown-it-ts</span>
+              <span>markdown-it</span>
+              <span>Speed</span>
+            </div>
+            <div v-for="row in parserBenchmarkRows" :key="row[0]" class="attach-parser-row">
+              <b>{{ row[0] }}</b>
+              <em>{{ row[1] }}</em>
+              <span>{{ row[2] }}</span>
+              <strong>{{ row[3] }}</strong>
+            </div>
+          </section>
+          <section class="attach-parser-insights">
+            <article class="attach-card"><span>compat layer</span><b>兼容 markdown-it public API</b><small>插件迁移保留熟悉的 parser / renderer 模型。</small></article>
+            <article class="attach-card"><span>large input</span><b>大文本 parser 吞吐更高</b><small>5K 到 200K parse ranking 都排在第一。</small></article>
+          </section>
+          <small class="attach-source wide">Source: markdown-it-ts@1.0.4 README · latest synthetic one-shot parse snapshot.</small>
         </div>
 
         <div v-else-if="current.kind === 'compare'" class="attach-compare-layout">
