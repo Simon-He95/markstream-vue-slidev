@@ -36,7 +36,7 @@ const modes = [
       <PxlStatColumn
         v-click
         :items="items"
-        note="markstream-vue@1.0.7-beta.0 README · performance modes"
+        note="markstream-vue@1.0.7-beta.3 README · performance modes"
       />
     </div>
   </div>

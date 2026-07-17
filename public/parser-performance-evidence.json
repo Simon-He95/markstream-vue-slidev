@@ -1,62 +1,90 @@
 {
-  "generatedAt": "2026-07-16T04:20:37.560Z",
+  "generatedAt": "2026-07-17T07:22:34.702Z",
   "source": "markdown-it-ts/scripts/perf-generate-report.mjs",
   "benchmarkSourceCommit": "bc174e23106bba78024095f6adb4bcadc3f8aced",
   "method": "Official markdown-it-ts perf:generate harness; best one-shot scenario per size compared with markdown-it baseline",
   "versions": {
-    "streamMarkdownParser": "1.1.1",
+    "streamMarkdownParser": "1.1.3",
     "markdownItTs": "1.0.4",
     "markdownIt": "14.2.0"
   },
   "environment": {
-    "generatedAt": "2026-07-16T04:20:37.560Z",
-    "node": "v24.18.0",
+    "generatedAt": "2026-07-17T07:22:34.702Z",
+    "node": "v24.16.0",
     "platform": "darwin arm64",
     "cpu": "Apple M1 Pro",
     "cpuCount": 10,
     "commit": "bc174e23106bba78024095f6adb4bcadc3f8aced"
   },
   "benchmarkVersion": 5,
+  "ecosystemRenderSnapshot": {
+    "generatedAt": "2026-07-17T07:22:34.702Z",
+    "source": "markdown-it-ts/scripts/perf-generate-report.mjs",
+    "benchmarkSourceCommit": "bc174e23106bba78024095f6adb4bcadc3f8aced",
+    "method": "Official markdown-it-ts perf:generate render API benchmark; markdown to HTML (parse + render), lower is better",
+    "environment": {
+      "node": "v24.16.0",
+      "platform": "darwin arm64",
+      "cpu": "Apple M1 Pro",
+      "cpuCount": 10
+    },
+    "size": 200000,
+    "results": [
+      { "scenario": "TS_RENDER", "label": "markdown-it-ts.render", "renderMs": 0.7035250000015367, "relativeTime": 1 },
+      { "scenario": "OX_RENDER", "label": "@ox-content/napi", "renderMs": 1.8932000000029803, "relativeTime": 2.6910202196067585 },
+      { "scenario": "MD_RENDER", "label": "markdown-it.render", "renderMs": 11.351654199999757, "relativeTime": 16.135395614903466 },
+      { "scenario": "EX_RENDER", "label": "markdown-exit", "renderMs": 14.03487089999835, "relativeTime": 19.94935631280721 },
+      { "scenario": "MM_RENDER", "label": "micromark (CommonMark)", "renderMs": 227.3642416000017, "relativeTime": 323.17862421307706 },
+      { "scenario": "RM_RENDER", "label": "remark+rehype", "renderMs": 412.3464042000007, "relativeTime": 586.1147851165204 }
+    ],
+    "renderAsyncMs": 0.6997749999980443,
+    "speedupRanges": [
+      { "baseline": "@ox-content/napi", "sizes": "5K-1M", "min": 1.6557595216703196, "max": 2.6910202196067585 },
+      { "baseline": "markdown-it", "sizes": "5K-1M", "min": 10.916234838652928, "max": 16.135395614903466 },
+      { "baseline": "markdown-exit", "sizes": "5K-1M", "min": 13.8990209574569, "max": 19.94935631280721 },
+      { "baseline": "remark+rehype", "sizes": "5K-200K", "min": 222.1468629801929, "max": 586.1147851165204 }
+    ]
+  },
   "results": [
     {
       "size": 5000,
       "scenario": "S5",
       "scenarioLabel": "stream OFF, chunk OFF",
-      "markdownItTsMs": 0.04009097500000015,
-      "markdownItMs": 0.18701006666666634,
-      "speedup": 4.664642520334455
+      "markdownItTsMs": 0.04499549166666649,
+      "markdownItMs": 0.18932465833333179,
+      "speedup": 4.20763617243874
     },
     {
       "size": 50000,
       "scenario": "S5",
       "scenarioLabel": "stream OFF, chunk OFF",
-      "markdownItTsMs": 0.3136402666665769,
-      "markdownItMs": 1.8675541666668627,
-      "speedup": 5.954446431625479
+      "markdownItTsMs": 0.3039027666667001,
+      "markdownItMs": 1.958548633333218,
+      "speedup": 6.4446554890407475
     },
     {
       "size": 100000,
       "scenario": "S5",
       "scenarioLabel": "stream OFF, chunk OFF",
-      "markdownItTsMs": 0.9775156249997963,
-      "markdownItMs": 3.978320312499818,
-      "speedup": 4.069827848020994
+      "markdownItTsMs": 0.7899088750000374,
+      "markdownItMs": 4.00702606249979,
+      "speedup": 5.072770023630384
     },
     {
       "size": 200000,
       "scenario": "S5",
       "scenarioLabel": "stream OFF, chunk OFF",
-      "markdownItTsMs": 2.014766700001201,
-      "markdownItMs": 9.273554200000945,
-      "speedup": 4.6027930678005635
+      "markdownItTsMs": 1.7657207999989624,
+      "markdownItMs": 9.8325708999997,
+      "speedup": 5.568587570586176
     },
     {
       "size": 1000000,
       "scenario": "S5",
       "scenarioLabel": "stream OFF, chunk OFF",
-      "markdownItTsMs": 21.3800625000149,
-      "markdownItMs": 65.80022950001876,
-      "speedup": 3.0776443941626876
+      "markdownItTsMs": 14.131770999985747,
+      "markdownItMs": 50.55481250002049,
+      "speedup": 3.577386903599802
     }
   ]
 }

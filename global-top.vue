@@ -23,7 +23,6 @@ const frame = reactive({
   width: 58,
   height: 58,
   opacity: 1,
-  shadow: true,
   transition: false,
   mode: 'logo',
   motion: 'still',
@@ -70,12 +69,16 @@ function waitForFlightPaint() {
 }
 
 const logoStyle = computed(() => {
+  const letterSize = frame.mode === 'footer-letter'
+    ? Math.max(10, Math.min(frame.height * 0.9, 22))
+    : Math.max(24, Math.min(frame.height * 0.86, 58))
+
   return {
     left: `${frame.left}px`,
     top: `${frame.top}px`,
     width: `${frame.width}px`,
     height: `${frame.height}px`,
-    '--flight-letter-size': `${Math.max(24, Math.min(frame.height * 0.86, 58))}px`,
+    '--flight-letter-size': `${letterSize}px`,
     '--flight-from-x': `${frame.fromX}px`,
     '--flight-from-y': `${frame.fromY}px`,
     '--flight-from-scale-x': frame.fromScaleX,
@@ -85,9 +88,8 @@ const logoStyle = computed(() => {
     '--flight-roll-start': `${frame.rollStart}deg`,
     '--flight-roll-mid': `${frame.rollMid}deg`,
     opacity: frame.opacity,
-    boxShadow: frame.shadow ? '0 18px 34px rgba(0, 0, 0, 0.24)' : 'none',
     transition: frame.transition
-      ? 'opacity 220ms ease, box-shadow 420ms ease'
+      ? 'opacity 220ms ease'
       : 'none',
   }
 })
@@ -103,7 +105,7 @@ function chooseMotion(mode, rect) {
   if (mode === 'logo')
     return 'wheel-logo'
 
-  if (mode === 'inline-letter')
+  if (mode === 'inline-letter' || mode === 'footer-letter')
     return 'bubble-word'
 
   if (mode === 'letter' && page % 4 === 2)
@@ -188,7 +190,9 @@ function readTarget() {
   if (!element)
     return null
 
-  const rect = readStableRect(element)
+  const rect = element.dataset.logoRect === 'visual'
+    ? element.getBoundingClientRect()
+    : readStableRect(element)
   if (!rect.width || !rect.height)
     return null
 
@@ -252,7 +256,6 @@ function setFrame(rect, transition) {
   frame.height = rect.height
   frame.mode = mode
   frame.opacity = 1
-  frame.shadow = mode === 'logo'
 }
 
 function setAnchorHidden(hidden) {
@@ -414,11 +417,6 @@ onBeforeUnmount(() => {
   line-height: 1;
 }
 
-.shared-logo-flight.is-logo {
-  background: rgba(8, 16, 32, 0.72);
-  outline: 1px solid rgba(97, 242, 205, 0.18);
-}
-
 .shared-logo-flight.is-logo .shared-logo-img {
   opacity: 1;
 }
@@ -433,7 +431,8 @@ onBeforeUnmount(() => {
   text-shadow: 0 0 24px rgba(93, 234, 204, 0.24);
 }
 
-.shared-logo-flight.is-inline-letter {
+.shared-logo-flight.is-inline-letter,
+.shared-logo-flight.is-footer-letter {
   text-shadow: 0 0 18px rgba(93, 234, 204, 0.2);
 }
 
@@ -442,15 +441,33 @@ onBeforeUnmount(() => {
   transform: translateY(-2px);
 }
 
-.shared-logo-flight.is-inline-letter .shared-logo-letter {
+.shared-logo-flight.is-inline-letter .shared-logo-letter,
+.shared-logo-flight.is-footer-letter .shared-logo-letter {
   opacity: 1;
-  transform: translateY(-1px);
+}
+
+.shared-logo-flight.is-inline-letter .shared-logo-letter {
+  transform: translateY(2px);
+}
+
+.shared-logo-flight.is-footer-letter {
+  text-shadow: none;
+}
+
+.shared-logo-flight.is-footer-letter .shared-logo-letter {
+  font-family: "Comic Sans MS", "Kaiti SC", var(--font-code);
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  transform: none;
 }
 
 .shared-logo-flight.is-letter .shared-logo-img,
 .shared-logo-flight.is-letter .shared-logo-mark,
 .shared-logo-flight.is-inline-letter .shared-logo-img,
-.shared-logo-flight.is-inline-letter .shared-logo-mark {
+.shared-logo-flight.is-inline-letter .shared-logo-mark,
+.shared-logo-flight.is-footer-letter .shared-logo-img,
+.shared-logo-flight.is-footer-letter .shared-logo-mark {
   opacity: 0;
 }
 

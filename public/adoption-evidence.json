@@ -1,0 +1,76 @@
+{
+  "generatedAt": "2026-07-17T03:20:05Z",
+  "source": "GitHub Code Search and GraphQL APIs",
+  "query": "\"markstream-vue\" filename:package.json -user:Simon-He95",
+  "totals": {
+    "packageJsonHits": 139,
+    "uniquePublicRepositories": 126
+  },
+  "note": "Public dependency hits are adoption signals, not production traffic claims.",
+  "selectedRepositories": [
+    {
+      "repository": "AstrBotDevs/AstrBot",
+      "packagePath": "dashboard/package.json",
+      "logoSource": "dashboard/public/favicon.svg",
+      "dependencyVersion": "1.0.5-beta.0",
+      "stars": 36448,
+      "category": "Agent framework"
+    },
+    {
+      "repository": "hangwin/mcp-chrome",
+      "packagePath": "app/chrome-extension/package.json",
+      "logoSource": "app/chrome-extension/public/icon/128.png",
+      "dependencyVersion": "0.0.3-beta.5",
+      "stars": 12124,
+      "category": "Browser MCP"
+    },
+    {
+      "repository": "HuLaSpark/HuLa",
+      "packagePath": "package.json",
+      "logoSource": "public/logo.png",
+      "dependencyVersion": "1.0.1-beta.1",
+      "stars": 7446,
+      "category": "IM desktop"
+    },
+    {
+      "repository": "ThinkInAIXYZ/deepchat",
+      "packagePath": "package.json",
+      "logoSource": "build/icon.png",
+      "dependencyVersion": "^1.0.6",
+      "stars": 6108,
+      "category": "AI assistant"
+    },
+    {
+      "repository": "groupultra/telegram-search",
+      "packagePath": "apps/web/package.json",
+      "logoSource": "apps/web/public/favicon.svg",
+      "dependencyVersion": "1.0.1-beta.1",
+      "stars": 4029,
+      "category": "Chat archive"
+    },
+    {
+      "repository": "MoonshotAI/kimi-code",
+      "packagePath": "apps/kimi-web/package.json",
+      "logoSource": "apps/vscode/resources/kimi-icon-storefront.png",
+      "dependencyVersion": "^1.0.4",
+      "stars": 3213,
+      "category": "Coding agent"
+    },
+    {
+      "repository": "memohai/Memoh",
+      "packagePath": "apps/desktop/package.json",
+      "logoSource": "apps/web/public/logo.svg",
+      "dependencyVersion": "1.0.1-beta.5",
+      "stars": 2011,
+      "category": "Agent platform"
+    },
+    {
+      "repository": "chaos-zhu/easynode",
+      "packagePath": "web/package.json",
+      "logoSource": "native/assets/logo_v2_01.png",
+      "dependencyVersion": "^0.0.3-beta.7",
+      "stars": 1983,
+      "category": "Server panel"
+    }
+  ]
+}

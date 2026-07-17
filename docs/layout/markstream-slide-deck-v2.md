@@ -18,7 +18,7 @@ This version keeps the existing 21-page story and changes only the visual system
 | 10 | Light mechanism | Dirty-tail parsing, stable-node reuse, and scheduling are the core mechanism. |
 | 11 | Blackboard demo | Markstream-vue only processes the unstable tail. |
 | 12 | Light quick start | A component and two props are enough to try it. |
-| 13 | Light evidence | Version 1.0.7-beta.0 timing gains come from less parse, patch, and layout drift. |
+| 13 | Light evidence | Version 1.0.7-beta.3 timing gains come from less parse, patch, and layout drift. |
 | 14 | Blackboard comparison | Side-by-side rendering makes the update model difference visible. |
 | 15 | Light scheduler | Optimization should preserve main-thread budget for interaction. |
 | 16 | Light protocol | AI output is becoming a UI protocol, not just text. |

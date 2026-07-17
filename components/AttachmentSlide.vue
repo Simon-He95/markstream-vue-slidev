@@ -71,14 +71,32 @@ const contributors = [
   ["Simon-He95", "/contributors/Simon-He95.png"],
   ["eric8810", "/contributors/eric8810.jpg"],
   ["DaZuiZui", "/contributors/DaZuiZui.jpg"],
-];
-
-const moreContributors = [
-  "zerob13", "yyhhyyyyyy", "gezhiheng", "l-xiaoshen", "bb-boy680", "Licoy",
-  "ysansan98", "zhangmo8", "ashless", "neoragex2002", "bluryar", "Srhui20",
-  "KamilBeda", "yuguaa", "donglize521521", "tomorrowthief", "s3d-i", "rzzf",
-  "little077", "emmm1245", "cyyjs", "ZKunZhang", "WuMingDao", "tt-a1i",
-  "Asaki-M", "AndersonBY",
+  ["zerob13", "/contributors/zerob13.jpg"],
+  ["yyhhyyyyyy", "/contributors/yyhhyyyyyy.png"],
+  ["gezhiheng", "/contributors/gezhiheng.png"],
+  ["l-xiaoshen", "/contributors/l-xiaoshen.png"],
+  ["bb-boy680", "/contributors/bb-boy680.jpg"],
+  ["Licoy", "/contributors/Licoy.png"],
+  ["ysansan98", "/contributors/ysansan98.png"],
+  ["zhangmo8", "/contributors/zhangmo8.jpg"],
+  ["ashless", "/contributors/ashless.png"],
+  ["neoragex2002", "/contributors/neoragex2002.jpg"],
+  ["bluryar", "/contributors/bluryar.jpg"],
+  ["Srhui20", "/contributors/Srhui20.jpg"],
+  ["KamilBeda", "/contributors/KamilBeda.jpg"],
+  ["yuguaa", "/contributors/yuguaa.png"],
+  ["donglize521521", "/contributors/donglize521521.png"],
+  ["tomorrowthief", "/contributors/tomorrowthief.png"],
+  ["s3d-i", "/contributors/s3d-i.png"],
+  ["rzzf", "/contributors/rzzf.png"],
+  ["little077", "/contributors/little077.png"],
+  ["emmm1245", "/contributors/emmm1245.png"],
+  ["cyyjs", "/contributors/cyyjs.png"],
+  ["ZKunZhang", "/contributors/ZKunZhang.jpg"],
+  ["WuMingDao", "/contributors/WuMingDao.png"],
+  ["tt-a1i", "/contributors/tt-a1i.jpg"],
+  ["Asaki-M", "/contributors/Asaki-M.jpg"],
+  ["AndersonBY", "/contributors/AndersonBY.jpg"],
 ];
 
 const modelCards = [
@@ -90,9 +108,9 @@ const modelCards = [
 ];
 
 const stressEvidence = [
-  ["diff code fence", "10.0×", "less scripting", "252→25ms", "DOM 325→49", "avg update 4.1×"],
-  ["TypeScript fence", "9.1×", "less scripting", "225→25ms", "DOM 219→29", "avg update 3.6×"],
-  ["Mermaid fence", "10.0×", "less scripting", "272→27ms", "DOM 419→65", "avg update 5.2×"],
+  ["diff code fence", "5.5×", "less scripting", "270→50ms", "DOM 328→61", "avg update 3.6×"],
+  ["TypeScript fence", "4.8×", "less scripting", "247→51ms", "DOM 222→33", "avg update 3.0×"],
+  ["Mermaid fence", "5.7×", "less scripting", "288→51ms", "DOM 423→77", "avg update 4.7×"],
 ];
 
 const stressBlocks = [
@@ -101,11 +119,31 @@ const stressBlocks = [
   ["KaTeX", "math 重块"],
 ];
 
-const parserBenchmarkRows = [
-  ["5K", "0.0401ms", "0.1870ms", "4.7×"],
-  ["50K", "0.3136ms", "1.8676ms", "6.0×"],
-  ["100K", "0.9775ms", "3.9783ms", "4.1×"],
-  ["200K", "2.0148ms", "9.2736ms", "4.6×"],
+const parserEcosystemRows = [
+  { rank: "01", name: "markdown-it-ts", detail: "render", time: "0.70ms", ratio: "1.00×", width: "8%", tone: "winner" },
+  { rank: "02", name: "@ox-content/napi", detail: "native render", time: "1.89ms", ratio: "2.69×", width: "22%", tone: "native" },
+  { rank: "03", name: "markdown-it", detail: "render", time: "11.35ms", ratio: "16.14×", width: "48%" },
+  { rank: "04", name: "markdown-exit", detail: "render", time: "14.03ms", ratio: "19.95×", width: "51%" },
+  { rank: "05", name: "micromark", detail: "CommonMark render", time: "227.36ms", ratio: "323.18×", width: "91%" },
+  { rank: "06", name: "remark + rehype", detail: "parse + stringify", time: "412.35ms", ratio: "586.11×", width: "100%" },
+];
+
+const parserScaleComparisons = [
+  { range: "1.66–2.69×", label: "vs @ox-content/napi", scope: "5K–1M" },
+  { range: "10.92–16.14×", label: "vs markdown-it", scope: "5K–1M" },
+  { range: "13.90–19.95×", label: "vs markdown-exit", scope: "5K–1M" },
+  { range: "222–586×", label: "vs remark + rehype", scope: "5K–200K" },
+];
+
+const adoptionProjects = [
+  { name: "AstrBot", category: "AGENT FRAMEWORK", stars: "36.4K", logo: "/adoption-logos/astrbot.svg", cell: "cell-astrbot", size: "cell-lg" },
+  { name: "HuLa", category: "IM DESKTOP", stars: "7.4K", logo: "/adoption-logos/hula.png", cell: "cell-hula", size: "cell-md" },
+  { name: "DeepChat", category: "AI ASSISTANT", stars: "6.1K", logo: "/adoption-logos/deepchat.png", cell: "cell-deepchat", size: "cell-md" },
+  { name: "mcp-chrome", category: "BROWSER MCP", stars: "12.1K", logo: "/adoption-logos/mcp-chrome.png", cell: "cell-mcp", size: "cell-lg" },
+  { name: "Telegram Search", category: "CHAT ARCHIVE", stars: "4.0K", logo: "/adoption-logos/telegram-search.svg", cell: "cell-telegram", size: "cell-md" },
+  { name: "Memoh", category: "AGENT PLATFORM", stars: "2.0K", logo: "/adoption-logos/memoh.svg", cell: "cell-memoh", size: "cell-sm" },
+  { name: "EasyNode", category: "SERVER PANEL", stars: "2.0K", logo: "/adoption-logos/easynode.png", cell: "cell-easynode", size: "cell-sm" },
+  { name: "Kimi Code", category: "CODING AGENT", stars: "3.2K", logo: "/adoption-logos/kimi-code.png", cell: "cell-kimi", size: "cell-md" },
 ];
 
 const quickStartPreview = `- **流式渲染** 实时更新 Markdown
@@ -122,8 +160,6 @@ const streamMermaidProps = {
   showCopyButton: false,
   showExportButton: false,
   showFullscreenButton: false,
-  estimatedPreviewHeightPx: 150,
-  maxHeight: "170px",
 };
 const streamCodeBlockProps = {
   showHeader: false,
@@ -133,35 +169,10 @@ const streamCodeBlockProps = {
   showCollapseButton: false,
   showFontSizeButtons: false,
   enableFontSizeControl: false,
-  theme: { light: "vitesse-light", dark: "vitesse-dark" },
-  minWidth: "100%",
-  maxWidth: "100%",
+  showLineNumbers: false,
   monacoOptions: {
-    MAX_HEIGHT: 150,
-    fontSize: 10,
-    lineHeight: 15,
     readOnly: true,
-    wordWrap: "on",
-    diffWordWrap: "on",
-    renderSideBySide: false,
-    useInlineViewWhenSpaceIsLimited: true,
-    lineDecorationsWidth: 2,
-    lineNumbersMinChars: 1,
-    renderMarginRevertIcon: false,
-    scrollBeyondLastLine: false,
-    automaticLayout: true,
-    minimap: { enabled: false },
-    lineNumbers: "on",
-    glyphMargin: false,
-    folding: false,
-    renderLineHighlight: "none",
-    scrollbar: {
-      vertical: "hidden",
-      horizontal: "hidden",
-      handleMouseWheel: false,
-    },
-    updateThrottleMs: 0,
-    diffUpdateThrottleMs: 0,
+    lineNumbers: "off",
   },
 };
 const compareTraditionalHtml = ref("");
@@ -433,7 +444,6 @@ const slides = {
   1: {
     kind: "cover",
     kicker: "VUE CONF · KEYNOTE",
-    section: "MARKSTREAM-VUE",
     title: "你的 Markdown 渲染器，扛得住 AI 输出吗？",
     subtitle: "当模型返回更快、内容更长、形态更复杂，Markdown 渲染器会从“展示组件”变成“产品基础设施”。",
     footer: "Simon He",
@@ -441,25 +451,21 @@ const slides = {
   2: {
     kind: "about",
     kicker: "ABOUT SIMON",
-    section: "ABOUT ME",
     title: "前端开发者 / 开源维护者，长期在 Vue、DX 和 AI UI 交叉处做工具。",
   },
   3: {
     kind: "why",
     kicker: "WHY NOW",
-    section: "BACKGROUND",
     title: "上下文窗口从 128K 推向 1M+，浏览器的压力跟着放大。",
   },
   4: {
     kind: "problem",
     kicker: "PROBLEM",
-    section: "BOTTLENECK SHIFT",
     title: "模型越快，浏览器越容易先成为瓶颈。",
   },
   5: {
     kind: "old",
     kicker: "OLD WORLD",
-    section: "TRADITIONAL RENDERING",
     title: "早期方案很简单：完整字符串进来，HTML 出去。",
     codeHtml: `<span class="tok kw">const</span> html <span class="tok op">=</span> markdownIt.<span class="tok prop">render</span>(markdown)
 container.<span class="tok prop">innerHTML</span> <span class="tok op">=</span> html
@@ -470,13 +476,11 @@ container.<span class="tok prop">innerHTML</span> <span class="tok op">=</span> 
   6: {
     kind: "old-demo",
     kicker: "DEMO · MARKDOWN-IT",
-    section: "FULL REPLACE DEMO",
     title: "单独看传统 markdown-it：每个 chunk 都是 full document。",
   },
   7: {
     kind: "highlight",
     kicker: "HIGHLIGHT ERA",
-    section: "BETTER LOOK, WORSE COST",
     title: "后来我们加上 highlight.js / Shiki，代码好看了，成本也更高了。",
     codeHtml: `md.<span class="tok prop">set</span>({
   <span class="tok prop">highlight</span>(code, lang) {
@@ -487,19 +491,16 @@ container.<span class="tok prop">innerHTML</span> <span class="tok op">=</span> 
   8: {
     kind: "highlight-demo",
     kicker: "DEMO · HIGHLIGHT",
-    section: "HEAVY BLOCK DEMO",
     title: "把 code / Mermaid / KaTeX 放进 stream，full render 的差距才会炸开。",
   },
   9: {
     kind: "loop",
     kicker: "COST MODEL",
-    section: "FULL PARSE LOOP",
     title: "传统 parser 的核心问题：每个增量都像第一次渲染。",
   },
   10: {
     kind: "core",
     kicker: "CORE MECHANISM",
-    section: "PARSER + VUE LAYER",
     title: "markstream-vue：dirty tail 解析 + 稳定节点复用 + 帧预算调度。",
     parserCode: `<span class="tok comment">// stream-markdown-parser: 只处理尾部不稳定区域</span>
 <span class="tok kw">function</span> <span class="tok prop">parseDelta</span>(delta) {
@@ -517,13 +518,11 @@ container.<span class="tok prop">innerHTML</span> <span class="tok op">=</span> 
   11: {
     kind: "core-demo",
     kicker: "DEMO · MARKSTREAM-VUE",
-    section: "INCREMENTAL RENDER DEMO",
     title: "同样的重块语料，markstream-vue 只处理 dirty tail。",
   },
   12: {
     kind: "quickstart",
     kicker: "QUICK START",
-    section: "GET STARTED IN 3 LINES",
     title: "今晚就能试：一个组件 + 两个 props。",
     codeHtml: `<span class="tok kw">import</span> MarkdownRender <span class="tok kw">from</span> <span class="tok str">"markstream-vue"</span>
 
@@ -535,27 +534,23 @@ container.<span class="tok prop">innerHTML</span> <span class="tok op">=</span> 
   13: {
     kind: "perf",
     kicker: "PERF STORY",
-    section: "PERFORMANCE EVIDENCE",
-    title: "1.0.7-beta.0 的 timing 收益来自机制变化：少 parse、少 patch、少 layout drift。",
+    title: "1.0.7-beta.3 的 timing 收益来自机制变化：少 parse、少 patch、少 layout drift。",
     benchmarkEnv: "Chrome 150 · Vue 3.5.34 · 3-run timing median · Apple M1 Pro · timing-only; table repeat mismatch observed",
   },
   14: {
     kind: "parser-benchmark",
-    kicker: "PARSER ENGINE",
-    section: "MARKDOWN-IT-TS BENCHMARK",
-    title: "快不只来自更新模型，底层 parser 本身也在同规模解析里更快。",
-    benchmarkEnv: "stream-markdown-parser@1.1.1 · markdown-it-ts@1.0.4 · Node 24.18 · Apple M1 Pro",
+    kicker: "RENDER ECOSYSTEM",
+    title: "六种实现同场：markdown‑it‑ts 仍是最快一档。",
+    benchmarkEnv: "markdown → HTML · 200K chars · Node 24.16 · Apple M1 Pro · lower is better",
   },
   15: {
     kind: "scheduler",
     kicker: "SCHEDULER",
-    section: "MAIN THREAD BUDGET",
-    title: "真正的优化不是“更快地抢主线程”，而是给交互留预算。",
+    title: "帧预算优先保住滚动、选择和输入；Markdown 更新使用剩余时间。",
   },
   16: {
     kind: "content",
     kicker: "CONTENT TYPES",
-    section: "MARKDOWN AS UI PROTOCOL",
     title: "AI 输出不只会写 Markdown，也会输出可组件化结构。",
     codeHtml: `<span class="tok tag">&lt;thinking&gt;</span>checking constraints...<span class="tok tag">&lt;/thinking&gt;</span>
 
@@ -574,7 +569,6 @@ container.<span class="tok prop">innerHTML</span> <span class="tok op">=</span> 
   17: {
     kind: "api",
     kicker: "ADVANCED API",
-    section: "CUSTOMIZATION",
     title: "需要自定义组件或流式协议时，打开这几个配置项。",
     codeHtml: `<span class="tok kw">import</span> MarkdownRender, { setCustomComponents } <span class="tok kw">from</span> <span class="tok str">"markstream-vue"</span>
 
@@ -595,33 +589,30 @@ setCustomComponents(<span class="tok str">"chat"</span>, {
 <span class="tok tag">/&gt;</span>`,
   },
   18: {
-    kind: "playbook",
-    kicker: "OPERATING PLAYBOOK",
-    section: "HOW TO USE IT",
-    title: "把流式 Markdown 当基础设施，需要几个明确的工程边界。",
-  },
-  19: {
     kind: "ecosystem",
     kicker: "ECOSYSTEM",
-    section: "WHERE IT FITS",
-    title: "markstream-vue 不是替代所有 Markdown 工具，而是补上 AI stream 的这一层。",
+    title: "markstream-vue 负责 AI stream 到 Vue UI 之间的增量渲染层。",
+  },
+  19: {
+    kind: "adoption-network",
+    kicker: "PUBLIC ADOPTION",
+    title: "公开依赖已横跨 Agent、IM、浏览器与开发工具。",
   },
   20: {
     kind: "thanks",
     kicker: "THANKS",
-    section: "CORE CONTRIBUTORS",
-    title: "感谢核心维护者，以及背后 26 位社区贡献者。",
+    title: "感谢每一位贡献者。",
   },
   21: {
     kind: "qa",
     kicker: "Q&A",
-    section: "CONTACT",
     title: "谢谢 · 问答与讨论",
   },
 };
 
 const current = computed(() => slides[props.no] ?? slides[1]);
 const page = computed(() => String(props.no).padStart(2, "0"));
+const footerText = computed(() => current.value.footer ?? "markstream-vue · AI Streaming Markdown Renderer for Vue");
 const mRoles = {
   cover: "MARKDOWN",
   about: "MAKER",
@@ -642,12 +633,15 @@ const mRoles = {
   api: "METHOD",
   playbook: "MANUAL",
   ecosystem: "MAP",
+  "adoption-network": "MOMENTUM",
   thanks: "MAINTAINERS",
   qa: "MARKSTREAM",
 };
 const mRole = computed(() => mRoles[current.value.kind] ?? "MARKSTREAM");
 const mTargetMode = computed(() => {
   if (current.value.kind === "cover") return "logo";
+  if (current.value.kind === "adoption-network") return "logo";
+  if (current.value.kind === "thanks") return "footer-letter";
   if (current.value.kind === "qa") return "markdown";
   return props.no % 2 === 0 ? "letter" : "background";
 });
@@ -725,14 +719,16 @@ const streamPrimaryMetrics = computed(() => {
     : "cost grows with output";
   return [
     [
-      isCore ? "parse only dirty tail" : "parse full document",
+      isCore ? "dirty-tail parse" : "full-doc parse",
       streamParseScope.value,
       isCore ? parseDelta : current.value.kind === "highlight-demo" ? "code / Mermaid / KaTeX blocks repeat" : "every chunk re-reads the answer",
+      isCore ? "parse only dirty tail" : "parse full document",
     ],
     [
-      isCore ? "patch stable UI" : "replace whole DOM",
+      isCore ? "stable-UI patch" : "full-DOM replace",
       streamRerenderScope.value,
       isCore ? "stable prefix and nodes stay alive" : "scroll and component state can be disturbed",
+      isCore ? "patch stable UI" : "replace whole DOM",
     ],
   ];
 });
@@ -1027,7 +1023,6 @@ onBeforeUnmount(() => {
     <main class="attach-main">
       <template v-if="current.kind === 'cover'">
         <div class="attach-cover-copy">
-          <span class="attach-section">{{ current.section }}</span>
           <h1 class="attach-cover-title">
             <span>你的 Markdown</span>
             <span>渲染器，扛得住</span>
@@ -1078,7 +1073,6 @@ onBeforeUnmount(() => {
 
       <template v-else>
         <div class="attach-title-row">
-          <span class="attach-section">{{ current.section }}</span>
           <div class="attach-title-lockup" :class="{ 'without-title-m': mTargetMode !== 'letter' }">
             <span
               v-if="mTargetMode === 'letter'"
@@ -1174,7 +1168,7 @@ onBeforeUnmount(() => {
             <article class="attach-card"><span>DOM 爆炸</span><b>DOM count</b><small>长文和组件输出不断挤占布局预算。</small></article>
             <article class="attach-card"><span>交互被打断</span><b>UX jitter</b><small>滚动、选择、输入容易被更新打断。</small></article>
           </div>
-          <p class="attach-takeaway">markstream-vue 的出发点：不是做一个更炫的 Markdown 皮肤，而是让“仍在生成的内容”不破坏页面。</p>
+          <p class="attach-takeaway">markstream-vue 持续更新仍在生成的内容，同时保住滚动、选择和组件状态。</p>
         </div>
 
         <div v-else-if="current.kind === 'old'" class="attach-code-flow">
@@ -1182,7 +1176,7 @@ onBeforeUnmount(() => {
           <section class="attach-evidence-stack">
             <section class="attach-flow-card attach-card">
               <b>Markdown 完整文本</b><i></i><b>parse 一次性</b><i></i><b>HTML 字符串</b><i></i><b>DOM 替换</b>
-              <p>这个模型在“文档已完成”的时代很自然；但 AI stream 给你的不是完成稿，而是一边增长、一边变化的中间态。</p>
+              <p>传统渲染模型面向完成稿；AI stream 持续产生一边增长、一边变化的中间态。</p>
             </section>
             <section class="attach-demo-callout attach-card">
               <span>NEXT DEMO</span>
@@ -1218,7 +1212,7 @@ onBeforeUnmount(() => {
               <span>
                 {{ current.kind === "old-demo" ? "STREAMING RENDER · markdown-it" : current.kind === "highlight-demo" ? "STREAMING RENDER · highlighted" : "MARKSTREAM-VUE LIVE · dirty tail" }}
               </span>
-              <em>{{ streamStatus }} · {{ streamProgress }}% · +{{ streamLastChunk }} chars</em>
+              <em :title="`${streamStatus} · ${streamProgress}% · +${streamLastChunk} characters`">{{ streamStatus }} · {{ streamProgress }}% · +{{ streamLastChunk }} ch</em>
             </div>
             <div class="attach-stream-controls simple" @click.stop @keydown.stop>
               <button class="attach-play-button" type="button" @click="toggleStream">{{ streamRunning ? "暂停" : streamDone ? "重播全量" : "播放全量" }}</button>
@@ -1235,7 +1229,8 @@ onBeforeUnmount(() => {
                   :custom-id="streamCustomId"
                   :mermaid-props="streamMermaidProps"
                   code-renderer="monaco"
-                  :code-block-stream="true"
+                  :code-block-stream="false"
+                  :code-block-monaco-options="streamCodeBlockProps.monacoOptions"
                   :code-block-props="streamCodeBlockProps"
                   :max-live-nodes="0"
                   :batch-rendering="true"
@@ -1250,15 +1245,15 @@ onBeforeUnmount(() => {
             </div>
             <div class="attach-stream-signal" :class="{ good: current.kind === 'core-demo', bad: current.kind !== 'core-demo' }">
               <article v-for="metric in streamPrimaryMetrics" :key="metric[0]">
-                <span>{{ metric[0] }}</span>
-                <b>{{ metric[1] }}</b>
+                <span :title="metric[3]" :aria-label="metric[3]">{{ metric[0] }}</span>
+                <b :class="{ compact: metric[1].length > 12 }" :title="metric[1]">{{ metric[1] }}</b>
                 <small>{{ metric[2] }}</small>
               </article>
             </div>
             <div class="attach-stream-metrics telemetry">
               <b v-for="metric in streamTelemetryMetrics" :key="metric[0]">
                 <span>{{ metric[0] }}</span>
-                <em>{{ metric[1] }}</em>
+                <em :class="{ compact: metric[1].length > 8 }" :title="metric[1]">{{ metric[1] }}</em>
               </b>
             </div>
             <small>{{ streamCaption }}</small>
@@ -1305,7 +1300,7 @@ onBeforeUnmount(() => {
             </section>
             <div class="attach-quickstart-demo">
               <span class="attach-quickstart-demo-label">效果预览</span>
-              <div class="attach-quickstart-demo-body">
+              <div class="attach-quickstart-demo-body markstream-host">
                 <MarkdownRender
                   :content="quickStartPreview"
                   :final="true"
@@ -1320,30 +1315,46 @@ onBeforeUnmount(() => {
 
         <div v-else-if="current.kind === 'parser-benchmark'" class="attach-parser-benchmark-layout">
           <small class="attach-benchmark-env">{{ current.benchmarkEnv }}</small>
-          <section class="attach-parser-hero attach-card accent">
-            <span>1M one-shot parse</span>
-            <b>21.38ms</b>
-            <small>vs markdown-it 65.80ms · 约 3.1× faster</small>
-          </section>
-          <section class="attach-parser-table attach-card">
-            <div class="attach-parser-row head">
-              <span>Size</span>
-              <span>markdown-it-ts</span>
-              <span>markdown-it</span>
-              <span>Speed</span>
+          <section class="attach-parser-summary">
+            <div class="attach-parser-hero">
+              <span>200K chars · full render API</span>
+              <b>0.70<em>ms</em></b>
+              <small>render 0.7035ms · renderAsync 0.6998ms</small>
             </div>
-            <div v-for="row in parserBenchmarkRows" :key="row[0]" class="attach-parser-row">
-              <b>{{ row[0] }}</b>
-              <em>{{ row[1] }}</em>
-              <span>{{ row[2] }}</span>
-              <strong>{{ row[3] }}</strong>
+            <div class="attach-parser-range-grid">
+              <article v-for="item in parserScaleComparisons" :key="item.label">
+                <span>{{ item.scope }}</span>
+                <b>{{ item.range }}</b>
+                <small>{{ item.label }}</small>
+              </article>
             </div>
           </section>
-          <section class="attach-parser-insights">
-            <article class="attach-card"><span>compat layer</span><b>兼容 markdown-it public API</b><small>插件迁移保留熟悉的 parser / renderer 模型。</small></article>
-            <article class="attach-card"><span>large input</span><b>同规模下快于 markdown-it</b><small>本机 5K 到 200K one-shot parse 为 4.1×–6.0×。</small></article>
+          <section class="attach-parser-race">
+            <div class="attach-parser-race-head">
+              <div>
+                <span>200K RENDER API</span>
+                <b>6 IMPLEMENTATIONS</b>
+              </div>
+              <small>RELATIVE TIME · LOG SCALE</small>
+            </div>
+            <div class="attach-parser-race-rows">
+              <article v-for="row in parserEcosystemRows" :key="row.name" :class="row.tone">
+                <span class="attach-parser-rank">{{ row.rank }}</span>
+                <span class="attach-parser-name">
+                  <b>{{ row.name }}</b>
+                  <small>{{ row.detail }}</small>
+                </span>
+                <span class="attach-parser-track"><i :style="{ width: row.width }"></i></span>
+                <b class="attach-parser-time">{{ row.time }}</b>
+                <em class="attach-parser-ratio">{{ row.ratio }}</em>
+              </article>
+            </div>
+            <div class="attach-parser-race-foot">
+              <span>baseline · markdown-it-ts.render</span>
+              <span>bar length uses log scale</span>
+            </div>
           </section>
-          <small class="attach-source wide">Source: public/parser-performance-evidence.json · official markdown-it-ts perf:generate harness · measured 2026-07-16.</small>
+          <small class="attach-source wide">Source: public/parser-performance-evidence.json · markdown-it-ts perf:generate snapshot bc174e2 · full render API = parse + HTML output · measured 2026-07-17.</small>
         </div>
 
         <div v-else-if="current.kind === 'compare'" class="attach-compare-layout">
@@ -1372,7 +1383,7 @@ onBeforeUnmount(() => {
                 <span>markstream-vue</span>
                 <em>stable prefix → dirty tail → patch</em>
               </div>
-              <div class="attach-compare-body markstream">
+              <div class="attach-compare-body markstream markstream-host">
                 <MarkdownRender
                   :content="streamContent"
                   :final="streamDone"
@@ -1381,7 +1392,8 @@ onBeforeUnmount(() => {
                   :custom-id="streamCustomId"
                   :mermaid-props="streamMermaidProps"
                   code-renderer="monaco"
-                  :code-block-stream="true"
+                  :code-block-stream="false"
+                  :code-block-monaco-options="streamCodeBlockProps.monacoOptions"
                   :code-block-props="streamCodeBlockProps"
                   :max-live-nodes="0"
                   :batch-rendering="true"
@@ -1442,8 +1454,8 @@ onBeforeUnmount(() => {
           <small class="attach-benchmark-env">{{ current.benchmarkEnv }}</small>
           <section class="attach-stress-hero attach-card">
             <span>HEAVY BLOCK STRESS</span>
-            <b>10.0×</b>
-            <small>diff code fence scripting: 252ms → 25ms</small>
+            <b>5.5×</b>
+            <small>diff code fence scripting: 270ms → 50ms</small>
           </section>
           <section class="attach-stress-grid">
             <article v-for="row in stressEvidence" :key="row[0]" class="attach-stress-card">
@@ -1460,7 +1472,7 @@ onBeforeUnmount(() => {
               <b>{{ block[1] }}</b>
             </article>
           </section>
-          <small class="attach-source wide">Timing measured 2026-07-16 from public/streaming-performance-evidence.json · markstream-vue@1.0.7-beta.0 (declared parser@1.1.0) · project parser@1.1.1 · 119 chunks/case · strict final-state validation is not claimed: the repeated table correctness gate failed.</small>
+          <small class="attach-source wide">Timing measured 2026-07-17 from public/streaming-performance-evidence.json · markstream-vue@1.0.7-beta.3 · stream-markdown-parser@1.1.3 · 119 chunks/case · TypeScript, diff, and Mermaid passed; the repeated table correctness gate failed.</small>
         </div>
 
         <div v-else-if="current.kind === 'playbook'" class="attach-playbook-layout">
@@ -1477,6 +1489,53 @@ onBeforeUnmount(() => {
           <section class="attach-card"><span>业务组件</span><b>Tool / Chart / Citation</b><small>让 AI 输出进入产品界面。</small></section>
         </div>
 
+        <div v-else-if="current.kind === 'adoption-network'" class="attach-adoption-network">
+          <div class="attach-adoption-canvas">
+            <svg class="attach-adoption-links" viewBox="0 0 1000 300" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M500 150 C390 118 230 80 90 55" />
+              <path d="M500 150 C430 95 345 60 270 40" />
+              <path d="M500 150 C570 95 655 60 730 40" />
+              <path d="M500 150 C610 118 770 80 910 55" />
+              <path d="M500 150 C380 180 230 220 95 245" />
+              <path d="M500 150 C430 205 350 245 280 260" />
+              <path d="M500 150 C570 205 650 245 720 260" />
+              <path d="M500 150 C620 180 770 220 910 245" />
+            </svg>
+
+            <article class="attach-adoption-core">
+              <img
+                class="attach-adoption-logo logo-flight-target"
+                src="/markstream-logo.svg"
+                alt="markstream-vue logo"
+                data-logo-mode="logo"
+                data-logo-rect="visual"
+                :data-logo-page="props.no"
+                :data-logo-active="mTargetMode === 'logo' ? 'true' : undefined"
+              >
+              <div>
+                <span>STREAMING RENDERER</span>
+                <b>markstream-vue</b>
+                <small><strong>126</strong> PUBLIC REPOS</small>
+              </div>
+            </article>
+
+            <article
+              v-for="project in adoptionProjects"
+              :key="project.name"
+              class="attach-adoption-cell"
+              :class="[project.cell, project.size]"
+            >
+              <img :src="project.logo" :alt="`${project.name} logo`">
+              <div class="attach-adoption-cell-copy">
+                <span>{{ project.category }}</span>
+                <b>{{ project.name }}</b>
+                <small>{{ project.stars }} STARS</small>
+              </div>
+            </article>
+          </div>
+          <small class="attach-adoption-source">GitHub Code Search snapshot · 2026-07-17 · 126 public repos / 139 package.json hits · dependency evidence ≠ production traffic</small>
+        </div>
+
         <div v-else-if="current.kind === 'thanks'" class="attach-thanks-layout">
           <section class="attach-contributors-wall">
             <article v-for="contributor in contributors" :key="contributor[0]">
@@ -1484,14 +1543,10 @@ onBeforeUnmount(() => {
               <span>{{ contributor[0] }}</span>
             </article>
           </section>
-          <div class="attach-chip-row dense">
-            <span v-for="name in moreContributors" :key="name" class="attach-contributor-tag">{{ name }}</span>
-          </div>
         </div>
 
         <div v-else-if="current.kind === 'qa'" class="attach-qa-layout">
           <section>
-            <span class="attach-section">CONTACT</span>
             <h2>Q&A</h2>
             <p>GitHub · Simon-He95 / markstream-vue</p>
             <p>npm · markstream-vue</p>
@@ -1502,7 +1557,16 @@ onBeforeUnmount(() => {
     </main>
 
     <footer class="attach-footer">
-      <span>{{ current.footer ?? "markstream-vue · AI Streaming Markdown Renderer for Vue" }}</span>
+      <span v-if="mTargetMode === 'footer-letter'" class="attach-footer-lockup">
+        <span
+          class="attach-footer-m logo-flight-target"
+          data-logo-mode="footer-letter"
+          :data-logo-page="props.no"
+          data-logo-active="true"
+        >M</span>
+        <span>{{ footerText.slice(1) }}</span>
+      </span>
+      <span v-else>{{ footerText }}</span>
     </footer>
   </section>
 </template>
