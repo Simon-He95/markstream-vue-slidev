@@ -144,6 +144,7 @@ const adoptionProjects = [
   { name: "Memoh", category: "AGENT PLATFORM", stars: "2.0K", logo: "/adoption-logos/memoh.svg", cell: "cell-memoh", size: "cell-sm" },
   { name: "EasyNode", category: "SERVER PANEL", stars: "2.0K", logo: "/adoption-logos/easynode.png", cell: "cell-easynode", size: "cell-sm" },
   { name: "Kimi Code", category: "CODING AGENT", stars: "3.2K", logo: "/adoption-logos/kimi-code.png", cell: "cell-kimi", size: "cell-md" },
+  { name: "DimAgent", category: "AGENT RUNTIME", website: "dimagent.com", href: "https://dimagent.com", logo: "/adoption-logos/dimagent.svg", cell: "cell-dimagent", size: "cell-md" },
 ];
 
 const quickStartPreview = `- **流式渲染** 实时更新 Markdown
@@ -595,8 +596,8 @@ setCustomComponents(<span class="tok str">"chat"</span>, {
   },
   19: {
     kind: "adoption-network",
-    kicker: "PUBLIC ADOPTION",
-    title: "公开依赖已横跨 Agent、IM、浏览器与开发工具。",
+    kicker: "ADOPTION NETWORK",
+    title: "使用案例已横跨 Agent、IM、浏览器与开发工具。",
   },
   20: {
     kind: "thanks",
@@ -1498,6 +1499,7 @@ onBeforeUnmount(() => {
               <path d="M500 150 C610 118 770 80 910 55" />
               <path d="M500 150 C380 180 230 220 95 245" />
               <path d="M500 150 C430 205 350 245 280 260" />
+              <path d="M500 150 C500 195 500 230 500 270" />
               <path d="M500 150 C570 205 650 245 720 260" />
               <path d="M500 150 C620 180 770 220 910 245" />
             </svg>
@@ -1529,11 +1531,12 @@ onBeforeUnmount(() => {
               <div class="attach-adoption-cell-copy">
                 <span>{{ project.category }}</span>
                 <b>{{ project.name }}</b>
-                <small>{{ project.stars }} STARS</small>
+                <a v-if="project.href" :href="project.href" target="_blank" rel="noopener noreferrer">{{ project.website }}</a>
+                <small v-else>{{ project.stars }} STARS</small>
               </div>
             </article>
           </div>
-          <small class="attach-adoption-source">GitHub Code Search snapshot · 2026-07-17 · 126 public repos / 139 package.json hits · dependency evidence ≠ production traffic</small>
+          <small class="attach-adoption-source">GitHub Code Search snapshot · 2026-07-17 · 126 public repos / 139 package.json hits · DimAgent via official site · dependency evidence ≠ production traffic</small>
         </div>
 
         <div v-else-if="current.kind === 'thanks'" class="attach-thanks-layout">

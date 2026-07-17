@@ -4877,6 +4877,40 @@ html.shared-logo-ready .attachment-deck .attach-footer-m[data-logo-active="true"
   box-shadow: none !important;
 }
 
+.attachment-deck .markstream-host .code-block-container.is-diff .code-editor-container {
+  height: auto !important;
+  min-height: 0 !important;
+}
+
+.attachment-deck .attach-render-container.markstream-host .mermaid-preview-area,
+.attachment-deck .attach-compare-body.markstream-host .mermaid-preview-area,
+.attachment-deck .attach-render-container.markstream-host .mermaid-preview-area div._mermaid,
+.attachment-deck .attach-compare-body.markstream-host .mermaid-preview-area div._mermaid {
+  height: auto !important;
+  min-height: 0 !important;
+}
+
+.attachment-deck .markstream-host .mermaid-preview-area > .absolute.inset-0 {
+  position: relative !important;
+  inset: auto !important;
+}
+
+.attachment-deck .markstream-host .mermaid-preview-area div._mermaid {
+  display: block !important;
+}
+
+.attachment-deck .markstream-host .mermaid-preview-area div._mermaid > div {
+  position: relative !important;
+  height: auto !important;
+  min-height: 0 !important;
+}
+
+.attachment-deck .markstream-host .mermaid-preview-area svg {
+  display: block;
+  max-width: 100%;
+  height: auto !important;
+}
+
 .attach-mini-render b,
 .attach-chat-demo p {
   display: block;
@@ -7554,11 +7588,13 @@ html.shared-logo-ready .attachment-deck .attach-footer-m[data-logo-active="true"
 
 .attach-perf-layout .attach-stress-card small,
 .attach-perf-layout .attach-stress-card em {
+  color: #176b57;
   font-size: 9px;
   line-height: 1.1;
 }
 
 .attach-perf-layout .attach-stress-card i {
+  color: #596457;
   font-size: 7px;
   line-height: 1.1;
 }
@@ -7596,6 +7632,10 @@ html.shared-logo-ready .attachment-deck .attach-footer-m[data-logo-active="true"
   line-height: 1.15;
   text-overflow: clip;
   white-space: normal;
+}
+
+.attach-demo-page .attach-stream-signal small {
+  color: #596457;
 }
 
 .attach-demo-page .attach-stream-metrics.telemetry {
@@ -8314,7 +8354,8 @@ html.shared-logo-ready .attachment-deck .attach-footer-m[data-logo-active="true"
 .attach-adoption-core span,
 .attach-adoption-core small,
 .attach-adoption-cell span,
-.attach-adoption-cell small {
+.attach-adoption-cell small,
+.attach-adoption-cell a {
   font-family: var(--font-code);
   line-height: 1;
   text-transform: uppercase;
@@ -8407,12 +8448,20 @@ html.shared-logo-ready .attachment-deck .attach-footer-m[data-logo-active="true"
   white-space: nowrap;
 }
 
-.attach-adoption-cell small {
+.attach-adoption-cell small,
+.attach-adoption-cell a {
   color: var(--attach-muted);
   font-size: 7px;
   font-weight: 800;
   letter-spacing: 0.04em;
   white-space: nowrap;
+}
+
+.attach-adoption-cell a {
+  width: max-content;
+  color: var(--attach-teal);
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 .attach-adoption-cell.cell-lg {
@@ -8503,6 +8552,13 @@ html.shared-logo-ready .attachment-deck .attach-footer-m[data-logo-active="true"
   bottom: 7%;
   border-radius: 48% 52% 43% 57% / 57% 45% 55% 43%;
   transform: rotate(-1deg);
+}
+
+.cell-dimagent {
+  bottom: 0;
+  left: 50%;
+  border-radius: 52% 48% 46% 54% / 48% 56% 44% 52%;
+  transform: translateX(-50%) rotate(0.7deg);
 }
 
 .attach-adoption-source {
