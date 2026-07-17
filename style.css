@@ -5797,6 +5797,43 @@ html.shared-logo-ready .attachment-deck .attach-footer-m[data-logo-active="true"
   gap: 16px;
 }
 
+.attach-framework-strip {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 24px;
+  align-items: center;
+}
+
+.attach-framework-strip > div:first-child {
+  display: grid;
+  gap: 5px;
+}
+
+.attach-framework-strip > div:first-child > span,
+.attach-framework-strip > div:first-child > b,
+.attach-framework-strip > div:first-child > small {
+  display: block;
+  margin: 0;
+}
+
+.attach-framework-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.attach-framework-list strong {
+  border-left: 3px solid var(--attach-green);
+  padding: 10px 12px;
+  color: var(--attach-heading);
+  background: rgba(255, 255, 255, 0.42);
+  font-family: var(--font-code);
+  font-size: 13px;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
 /* Fix perf layout: add display: grid and gap */
 .attach-perf-layout {
   display: grid;

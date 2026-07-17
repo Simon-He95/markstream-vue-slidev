@@ -108,15 +108,15 @@ const modelCards = [
 ];
 
 const stressEvidence = [
-  ["diff code fence", "5.5×", "less scripting", "270→50ms", "DOM 328→61", "avg update 3.6×"],
-  ["TypeScript fence", "4.8×", "less scripting", "247→51ms", "DOM 222→33", "avg update 3.0×"],
-  ["Mermaid fence", "5.7×", "less scripting", "288→51ms", "DOM 423→77", "avg update 4.7×"],
+  ["diff code fence", "减少 81%", "脚本执行耗时", "270 → 50ms", "DOM 328 → 61", "平均更新快 3.6×"],
+  ["TypeScript fence", "减少 79%", "脚本执行耗时", "247 → 51ms", "DOM 222 → 33", "平均更新快 3.0×"],
+  ["Mermaid fence", "减少 82%", "脚本执行耗时", "288 → 51ms", "DOM 423 → 77", "平均更新快 4.7×"],
 ];
 
 const stressBlocks = [
-  ["code / diff", "highlight 重块"],
-  ["Mermaid", "图表重块"],
-  ["KaTeX", "math 重块"],
+  ["减少重复解析", "降低脚本执行耗时"],
+  ["减少节点重建", "降低 DOM 更新数量"],
+  ["减少布局变化", "让每次更新更稳定"],
 ];
 
 const parserEcosystemRows = [
@@ -452,12 +452,12 @@ const slides = {
   2: {
     kind: "about",
     kicker: "ABOUT SIMON",
-    title: "前端开发者 / 开源维护者，长期在 Vue、DX 和 AI UI 交叉处做工具。",
+    title: "活跃于 Vue 和开源社区，现在从事 AI Agent 开发。",
   },
   3: {
     kind: "why",
     kicker: "WHY NOW",
-    title: "上下文窗口从 128K 推向 1M+，浏览器的压力跟着放大。",
+    title: "模型输出更长、更快、更复杂，浏览器需要处理更多持续更新。",
   },
   4: {
     kind: "problem",
@@ -467,7 +467,7 @@ const slides = {
   5: {
     kind: "old",
     kicker: "OLD WORLD",
-    title: "早期方案很简单：完整字符串进来，HTML 出去。",
+    title: "传统渲染方式很简单：输入完整文本，生成 HTML。",
     codeHtml: `<span class="tok kw">const</span> html <span class="tok op">=</span> markdownIt.<span class="tok prop">render</span>(markdown)
 container.<span class="tok prop">innerHTML</span> <span class="tok op">=</span> html
 
@@ -477,39 +477,43 @@ container.<span class="tok prop">innerHTML</span> <span class="tok op">=</span> 
   6: {
     kind: "old-demo",
     kicker: "DEMO · MARKDOWN-IT",
-    title: "单独看传统 markdown-it：每个 chunk 都是 full document。",
+    title: "传统 markdown-it：每收到一段新内容，都重新处理当前全文。",
   },
   7: {
     kind: "highlight",
-    kicker: "HIGHLIGHT ERA",
-    title: "后来我们加上 highlight.js / Shiki，代码好看了，成本也更高了。",
-    codeHtml: `md.<span class="tok prop">set</span>({
-  <span class="tok prop">highlight</span>(code, lang) {
-    <span class="tok kw">return</span> hljs.<span class="tok prop">highlight</span>(code, { <span class="tok prop">language</span>: lang }).<span class="tok prop">value</span>
-  }
-})`,
+    kicker: "RICH CONTENT",
+    title: "代码、图片、公式和图表，让 AI 输出更直观。",
+    codeHtml: `<span class="tok comment">// code</span>
+<span class="tok tag">\`\`\`ts</span>
+<span class="tok kw">const</span> result <span class="tok op">=</span> <span class="tok kw">await</span> agent.<span class="tok prop">run</span>()
+<span class="tok tag">\`\`\`</span>
+
+<span class="tok comment">// image / math / diagram</span>
+<span class="tok tag">![result](chart.png)</span>
+<span class="tok tag">$$ E = mc² $$</span>
+<span class="tok tag">\`\`\`mermaid</span>`,
   },
   8: {
     kind: "highlight-demo",
     kicker: "DEMO · HIGHLIGHT",
-    title: "把 code / Mermaid / KaTeX 放进 stream，full render 的差距才会炸开。",
+    title: "加入 code / Mermaid / KaTeX 后，全量渲染的成本会被明显放大。",
   },
   9: {
     kind: "loop",
-    kicker: "COST MODEL",
-    title: "传统 parser 的核心问题：每个增量都像第一次渲染。",
+    kicker: "REPEATED WORK",
+    title: "传统方案的核心问题：每次收到新内容，都重新处理全文。",
   },
   10: {
     kind: "core",
     kicker: "CORE MECHANISM",
-    title: "markstream-vue：dirty tail 解析 + 稳定节点复用 + 帧预算调度。",
+    title: "markstream-vue：只处理变化中的尾部，复用稳定节点，并将渲染拆分到多帧。",
     parserCode: `<span class="tok comment">// stream-markdown-parser: 只处理尾部不稳定区域</span>
 <span class="tok kw">function</span> <span class="tok prop">parseDelta</span>(delta) {
   <span class="tok kw">const</span> stable <span class="tok op">=</span> findStablePrefix(tokens, delta)
   <span class="tok kw">const</span> tail <span class="tok op">=</span> parseDirtyTail(delta)
   <span class="tok kw">return</span> { stable, tail, reusable: stable.nodes }
 }`,
-    vueCode: `<span class="tok comment">// markstream-vue: 复用稳定节点，只 patch 尾部</span>
+    vueCode: `<span class="tok comment">// markstream-vue: 复用稳定节点，只更新变化中的尾部</span>
 <span class="tok tag">&lt;MarkdownRender</span>
   <span class="tok attr">:content</span><span class="tok op">=</span><span class="tok str">"stream"</span>
   <span class="tok attr">:final</span><span class="tok op">=</span><span class="tok str">"done"</span>
@@ -519,12 +523,12 @@ container.<span class="tok prop">innerHTML</span> <span class="tok op">=</span> 
   11: {
     kind: "core-demo",
     kicker: "DEMO · MARKSTREAM-VUE",
-    title: "同样的重块语料，markstream-vue 只处理 dirty tail。",
+    title: "同样的内容，markstream-vue 只重新处理仍在变化的尾部。",
   },
   12: {
     kind: "quickstart",
     kicker: "QUICK START",
-    title: "今晚就能试：一个组件 + 两个 props。",
+    title: "基础接入：一个组件 + 两个 props。",
     codeHtml: `<span class="tok kw">import</span> MarkdownRender <span class="tok kw">from</span> <span class="tok str">"markstream-vue"</span>
 
 <span class="tok tag">&lt;MarkdownRender</span>
@@ -534,25 +538,25 @@ container.<span class="tok prop">innerHTML</span> <span class="tok op">=</span> 
   },
   13: {
     kind: "perf",
-    kicker: "PERF STORY",
-    title: "1.0.7-beta.3 的 timing 收益来自机制变化：少 parse、少 patch、少 layout drift。",
-    benchmarkEnv: "Chrome 150 · Vue 3.5.34 · 3-run timing median · Apple M1 Pro · timing-only; table repeat mismatch observed",
+    kicker: "PERFORMANCE",
+    title: "复杂内容持续输出时，脚本执行耗时减少约 80%。",
+    benchmarkEnv: "Chrome 150 · Vue 3.5.34 · Apple M1 Pro · 每组运行 3 次取中位数",
   },
   14: {
     kind: "parser-benchmark",
-    kicker: "RENDER ECOSYSTEM",
-    title: "六种实现同场：markdown‑it‑ts 仍是最快一档。",
-    benchmarkEnv: "markdown → HTML · 200K chars · Node 24.16 · Apple M1 Pro · lower is better",
+    kicker: "PARSER DESIGN",
+    title: "markdown-it-ts 面向流式增量解析设计，也因此更快。",
+    benchmarkEnv: "Markdown → HTML · 20 万字符 · Node 24.16 · Apple M1 Pro · 数值越低越好",
   },
   15: {
     kind: "scheduler",
     kicker: "SCHEDULER",
-    title: "帧预算优先保住滚动、选择和输入；Markdown 更新使用剩余时间。",
+    title: "将渲染拆分到多帧，优先保障滚动、选择和输入。",
   },
   16: {
     kind: "content",
     kicker: "CONTENT TYPES",
-    title: "AI 输出不只会写 Markdown，也会输出可组件化结构。",
+    title: "AI 输出除了常规 Markdown，还可能包含工具状态和业务组件。",
     codeHtml: `<span class="tok tag">&lt;thinking&gt;</span>checking constraints...<span class="tok tag">&lt;/thinking&gt;</span>
 
 <span class="tok tag">&lt;tool-call</span> <span class="tok attr">name</span><span class="tok op">=</span><span class="tok str">"search_docs"</span> <span class="tok tag">/&gt;</span>
@@ -570,7 +574,7 @@ container.<span class="tok prop">innerHTML</span> <span class="tok op">=</span> 
   17: {
     kind: "api",
     kicker: "ADVANCED API",
-    title: "需要自定义组件或流式协议时，打开这几个配置项。",
+    title: "通过这些配置，接入自定义组件和流式协议。",
     codeHtml: `<span class="tok kw">import</span> MarkdownRender, { setCustomComponents } <span class="tok kw">from</span> <span class="tok str">"markstream-vue"</span>
 
 setCustomComponents(<span class="tok str">"chat"</span>, {
@@ -592,12 +596,12 @@ setCustomComponents(<span class="tok str">"chat"</span>, {
   18: {
     kind: "ecosystem",
     kicker: "ECOSYSTEM",
-    title: "markstream-vue 负责 AI stream 到 Vue UI 之间的增量渲染层。",
+    title: "同一套流式 parser，可以支撑不同框架，也可以用于 TUI。",
   },
   19: {
     kind: "adoption-network",
     kicker: "ADOPTION NETWORK",
-    title: "使用案例已横跨 Agent、IM、浏览器与开发工具。",
+    title: "不同领域的开源软件都在使用 markstream-vue。",
   },
   20: {
     kind: "thanks",
@@ -693,60 +697,60 @@ const activeStreamMarkdown = computed(() => fullStreamMarkdown);
 const streamDone = computed(() => streamIndex.value >= activeStreamMarkdown.value.length);
 const streamProgress = computed(() => Math.round((streamIndex.value / activeStreamMarkdown.value.length) * 100));
 const streamStatus = computed(() => {
-  if (streamRunning.value) return "streaming";
-  if (streamDone.value) return "done";
-  return "ready";
+  if (streamRunning.value) return "播放中";
+  if (streamDone.value) return "已完成";
+  return "待播放";
 });
 const streamParseScope = computed(() => {
   if (!streamIndex.value) return "0";
   if (current.value.kind === "core-demo") {
-    return `tail ${Math.min(streamIndex.value, streamLastChunk.value + 32)}`;
+    return `尾部 ${Math.min(streamIndex.value, streamLastChunk.value + 32)}`;
   }
   if (current.value.kind === "highlight-demo") {
-    return `full ${streamIndex.value}+hi`;
+    return `全文 ${streamIndex.value}+高亮`;
   }
-  return `full ${streamIndex.value}`;
+  return `全文 ${streamIndex.value}`;
 });
 const streamRerenderScope = computed(() => {
   if (!streamUpdates.value) return "0";
-  if (current.value.kind === "core-demo") return `patch ${streamUpdates.value}x`;
-  return `full ${streamUpdates.value}x`;
+  if (current.value.kind === "core-demo") return `局部 ${streamUpdates.value} 次`;
+  return `全量 ${streamUpdates.value} 次`;
 });
 const streamPrimaryMetrics = computed(() => {
   const isCore = current.value.kind === "core-demo";
   const parseWindow = Math.min(streamIndex.value, streamLastChunk.value + 32);
   const parseDelta = isCore
-    ? parseWindow ? `${Math.max(1, Math.round(streamIndex.value / parseWindow))}× less parse window` : "waiting for dirty tail"
-    : "cost grows with output";
+    ? parseWindow ? `解析范围约缩小 ${Math.max(1, Math.round(streamIndex.value / parseWindow))}×` : "等待更新"
+    : "内容越长，耗时越高";
   return [
     [
-      isCore ? "dirty-tail parse" : "full-doc parse",
+      isCore ? "只解析变化尾部" : "每次解析全文",
       streamParseScope.value,
-      isCore ? parseDelta : current.value.kind === "highlight-demo" ? "code / Mermaid / KaTeX blocks repeat" : "every chunk re-reads the answer",
-      isCore ? "parse only dirty tail" : "parse full document",
+      isCore ? parseDelta : current.value.kind === "highlight-demo" ? "代码、图表和公式会重复处理" : "每次增量都重新读取全文",
+      isCore ? "只解析变化中的尾部" : "重新解析完整文档",
     ],
     [
-      isCore ? "stable-UI patch" : "full-DOM replace",
+      isCore ? "复用稳定节点" : "替换全部 DOM",
       streamRerenderScope.value,
-      isCore ? "stable prefix and nodes stay alive" : "scroll and component state can be disturbed",
-      isCore ? "patch stable UI" : "replace whole DOM",
+      isCore ? "已完成内容保持不变" : "可能影响滚动和组件状态",
+      isCore ? "只更新发生变化的节点" : "替换全部 DOM",
     ],
   ];
 });
 const streamTelemetryMetrics = computed(() => [
-  ["main %", formatPercent(streamCpuPercent.value)],
-  ["rAF p95", `${streamFrameP95.value.toFixed(1)}ms`],
-  ["heap", streamHeapAvailable.value ? `${streamHeapMb.value.toFixed(1)}MB` : "n/a"],
-  ["DOM", String(streamDomNodes.value)],
+  ["主线程 %", formatPercent(streamCpuPercent.value)],
+  ["帧延迟 P95", `${streamFrameP95.value.toFixed(1)}ms`],
+  ["内存", streamHeapAvailable.value ? `${streamHeapMb.value.toFixed(1)}MB` : "n/a"],
+  ["DOM 节点", String(streamDomNodes.value)],
 ]);
 const streamCaption = computed(() => {
   if (current.value.kind === "core-demo") {
-    return "main%=sync parser/render work ÷ delay，不是系统 CPU · rAF p95=update→next frame";
+    return "主线程%=同步解析与渲染耗时÷更新间隔 · 帧延迟 P95=更新到下一帧";
   }
   if (current.value.kind === "highlight-demo") {
-    return "full document + code/Mermaid/KaTeX 重块反复进 highlight/render · rerender=full replace";
+    return "完整文档和 code / Mermaid / KaTeX 被反复处理 · 每次都替换全部内容";
   }
-  return "parse=full document · rerender=full replace · main%=sync work ÷ delay";
+  return "每次解析全文并替换全部 DOM · 主线程%=同步工作耗时÷更新间隔";
 });
 
 function clearStreamTimer() {
@@ -1033,8 +1037,8 @@ onBeforeUnmount(() => {
           <div class="attach-cover-cards">
             <article class="attach-card">
               <span>挑战</span>
-              <b>高频 + 长文 + 组件化</b>
-              <small>浏览器主线程也要扛住 AI 的吐字速度</small>
+              <b>高频更新 · 长内容 · 复杂结构</b>
+              <small>持续输出不断占用浏览器主线程</small>
             </article>
             <article class="attach-card accent">
               <span>方案</span>
@@ -1103,8 +1107,8 @@ onBeforeUnmount(() => {
             <img class="attach-avatar" src="/simon-avatar-handdrawn.jpg" alt="Simon-He95 hand-drawn avatar">
             <h2>Simon He</h2>
             <p>Simon-He95 · Shanghai</p>
-            <b>Vue / DX / AI UI / Streaming Rendering</b>
-            <small>方向：把 AI 输出做成稳定、可组合的 Vue UI</small>
+            <b>Vue / Open Source / AI Agent</b>
+            <small>方向：流式解析与跨框架渲染</small>
           </section>
           <section class="attach-card attach-list-card">
             <span>AUTHOR PROJECTS</span>
@@ -1152,37 +1156,37 @@ onBeforeUnmount(() => {
             </article>
           </section>
           <section class="attach-pressure-row">
-            <b>更密的 chunk</b>
-            <b>更大的输出上限</b>
-            <b>更多 UI block</b>
+            <b>更频繁的更新</b>
+            <b>更长的输出</b>
+            <b>更多复杂内容</b>
           </section>
-          <p class="attach-equation">Context × Output × tokens/s × UI blocks → 争抢 16.7ms / frame</p>
-          <small class="attach-source">Official model docs · provider surfaces vary for some models · checked 2025-01</small>
+          <p class="attach-equation">输出长度 × 更新频率 × 内容复杂度 → 争抢每帧 16.7ms</p>
+          <small class="attach-source">模型官方文档 · 部分上限因服务商而异 · 2025-01 核对</small>
         </div>
 
         <div v-else-if="current.kind === 'problem'" class="attach-problem-layout">
           <section class="attach-pipeline">
-            <b>模型 stream</b><i></i><b>Markdown parser</b><i></i><b>Renderer / VNode</b><i></i><b>DOM / Layout</b><i></i><b>用户交互</b>
+            <b>模型 stream</b><i></i><b>Markdown 解析</b><i></i><b>数据加工 / 组件渲染</b><i></i><b>DOM 更新 / 页面布局</b><i></i><b>用户交互</b>
           </section>
           <div class="attach-three-cards">
-            <article class="attach-card"><span>CPU 追不上</span><b>Parse loop</b><small>每个增量都重新解析长文档。</small></article>
-            <article class="attach-card"><span>DOM 爆炸</span><b>DOM count</b><small>长文和组件输出不断挤占布局预算。</small></article>
-            <article class="attach-card"><span>交互被打断</span><b>UX jitter</b><small>滚动、选择、输入容易被更新打断。</small></article>
+            <article class="attach-card"><span>重复解析</span><b>每次处理全文</b><small>每个增量都重新解析长文档。</small></article>
+            <article class="attach-card"><span>DOM 增长</span><b>节点越来越多</b><small>长文和组件持续占用布局资源。</small></article>
+            <article class="attach-card"><span>交互卡顿</span><b>滚动与输入被打断</b><small>频繁更新会影响选择和组件状态。</small></article>
           </div>
-          <p class="attach-takeaway">markstream-vue 持续更新仍在生成的内容，同时保住滚动、选择和组件状态。</p>
+          <p class="attach-takeaway">markstream-vue 持续更新正在生成的内容，同时保持滚动、选择和组件状态稳定。</p>
         </div>
 
         <div v-else-if="current.kind === 'old'" class="attach-code-flow">
           <pre class="attach-code" v-html="current.codeHtml"></pre>
           <section class="attach-evidence-stack">
             <section class="attach-flow-card attach-card">
-              <b>Markdown 完整文本</b><i></i><b>parse 一次性</b><i></i><b>HTML 字符串</b><i></i><b>DOM 替换</b>
-              <p>传统渲染模型面向完成稿；AI stream 持续产生一边增长、一边变化的中间态。</p>
+              <b>完整 Markdown</b><i></i><b>解析全文</b><i></i><b>生成 HTML</b><i></i><b>更新 DOM</b>
+              <p>传统方式适合已经写完的文档；AI stream 面对的是持续增长、尚未完成的内容。</p>
             </section>
             <section class="attach-demo-callout attach-card">
               <span>NEXT DEMO</span>
-              <b>full parse / full replace</b>
-              <small>单独一页播放，让源码、渲染结果和指标都有足够高度。</small>
+              <b>每次更新都重新处理全文</b>
+              <small>下一页观察源码、页面和指标如何随更新变化。</small>
             </section>
           </section>
         </div>
@@ -1191,15 +1195,15 @@ onBeforeUnmount(() => {
           <pre class="attach-code" v-html="current.codeHtml"></pre>
           <section class="attach-evidence-stack">
             <section class="attach-step-list compact">
-              <article class="attach-card"><span>01</span><b>每来 1 个 chunk</b><small>full parse</small></article>
-              <article class="attach-card"><span>02</span><b>每个 code block</b><small>Shiki highlight</small></article>
-              <article class="attach-card"><span>03</span><b>每次更新页面</b><small>full renderer</small></article>
-              <article class="attach-card"><span>04</span><b>用户交互中</b><small>layout / paint</small></article>
+              <article class="attach-card"><span>01</span><b>收到增量</b><small>重新解析全文</small></article>
+              <article class="attach-card"><span>02</span><b>处理复杂内容</b><small>代码 / 公式 / 图表</small></article>
+              <article class="attach-card"><span>03</span><b>更新页面</b><small>重新生成全部内容</small></article>
+              <article class="attach-card"><span>04</span><b>同时处理交互</b><small>滚动 / 选择 / 输入</small></article>
             </section>
             <section class="attach-demo-callout danger attach-card">
               <span>NEXT DEMO</span>
-              <b>code / Mermaid / KaTeX 重块</b>
-              <small>单独一页看 full render 如何被复杂 block 放大。</small>
+              <b>code / Mermaid / KaTeX 复杂内容</b>
+              <small>下一页观察复杂内容如何放大全量渲染的成本。</small>
             </section>
           </section>
         </div>
@@ -1211,13 +1215,13 @@ onBeforeUnmount(() => {
           >
             <div class="attach-stream-head">
               <span>
-                {{ current.kind === "old-demo" ? "STREAMING RENDER · markdown-it" : current.kind === "highlight-demo" ? "STREAMING RENDER · highlighted" : "MARKSTREAM-VUE LIVE · dirty tail" }}
+                {{ current.kind === "old-demo" ? "传统方式 · markdown-it" : current.kind === "highlight-demo" ? "全量渲染 · 复杂内容" : "markstream-vue · 只更新变化尾部" }}
               </span>
-              <em :title="`${streamStatus} · ${streamProgress}% · +${streamLastChunk} characters`">{{ streamStatus }} · {{ streamProgress }}% · +{{ streamLastChunk }} ch</em>
+              <em :title="`${streamStatus} · ${streamProgress}% · 新增 ${streamLastChunk} 字符`">{{ streamStatus }} · {{ streamProgress }}% · +{{ streamLastChunk }} 字符</em>
             </div>
             <div class="attach-stream-controls simple" @click.stop @keydown.stop>
               <button class="attach-play-button" type="button" @click="toggleStream">{{ streamRunning ? "暂停" : streamDone ? "重播全量" : "播放全量" }}</button>
-              <span class="attach-stream-hint">→ 未完成时播放 · 完成后翻页</span>
+              <span class="attach-stream-hint">播放后观察左右内容和下方指标</span>
             </div>
             <div class="attach-live-demo stream" :class="{ running: streamRunning, markstream: current.kind === 'core-demo' }" @wheel.passive="handleStreamManualScroll">
               <pre ref="streamSourceRef" @scroll="handleStreamScroll"><code>{{ streamContent }}</code><i v-if="streamRunning"></i></pre>
@@ -1263,14 +1267,14 @@ onBeforeUnmount(() => {
 
         <div v-else-if="current.kind === 'loop'" class="attach-loop-layout">
           <section class="attach-loop animate">
-            <b class="attach-loop-step">chunk + 1</b><i></i><b class="attach-loop-step">parse all</b><i></i><b class="attach-loop-step">render all</b><i></i><b class="attach-loop-step">replace all</b>
-            <strong>O(N) × chunks</strong>
+            <b class="attach-loop-step">收到更新</b><i></i><b class="attach-loop-step">解析全文</b><i></i><b class="attach-loop-step">渲染全文</b><i></i><b class="attach-loop-step">替换 DOM</b>
+            <strong>回答长度 × 更新次数</strong>
           </section>
           <p class="attach-takeaway">回答越长，每次小更新越像重新做一遍整篇文档。</p>
           <div class="attach-three-cards">
             <article class="attach-card"><span>直接后果</span><b>抖动 / 闪烁</b></article>
-            <article class="attach-card"><span>隐性成本</span><b>交互丢状态</b></article>
-            <article class="attach-card"><span>结论</span><b>不能只优化一次 render，要改变更新模型</b></article>
+            <article class="attach-card"><span>隐性成本</span><b>滚动位置或组件状态被重置</b></article>
+            <article class="attach-card"><span>结论</span><b>不能只让单次渲染更快，还要减少重复工作</b></article>
           </div>
         </div>
 
@@ -1280,13 +1284,13 @@ onBeforeUnmount(() => {
             <pre class="attach-code" v-html="current.vueCode"></pre>
           </section>
           <section class="attach-core-points">
-            <article class="attach-card accent"><span>parser</span><b>只吃 dirty tail</b><small>稳定前缀不再随着每个 chunk 重算。</small></article>
-            <article class="attach-card accent"><span>Vue layer</span><b>复用稳定节点</b><small>已完成 block 不需要卸载重建。</small></article>
-            <article class="attach-card accent"><span>scheduler</span><b>按帧预算提交</b><small>把 Markdown 更新从“抢主线程”变成“让出交互”。</small></article>
+            <article class="attach-card accent"><span>parser</span><b>只处理 dirty tail</b><small>前面已经完成的内容不再重复解析。</small></article>
+            <article class="attach-card accent"><span>Vue layer</span><b>复用稳定节点</b><small>已完成的内容不再反复卸载和重建。</small></article>
+            <article class="attach-card accent"><span>scheduler</span><b>将更新拆分到多帧</b><small>每帧只执行一部分，避免滚动和输入卡顿。</small></article>
             <section class="attach-demo-callout markstream attach-card">
               <span>NEXT DEMO</span>
-              <b>same content, dirty tail patch</b>
-              <small>下一页单独播放 markstream-vue，不再挤压代码讲解区。</small>
+              <b>同样内容，只更新变化中的尾部</b>
+              <small>下一页使用相同内容，观察局部更新后的页面表现。</small>
             </section>
           </section>
         </div>
@@ -1295,9 +1299,9 @@ onBeforeUnmount(() => {
           <pre class="attach-code" v-html="current.codeHtml"></pre>
           <section class="attach-quickstart-right">
             <section class="attach-step-list compact">
-              <article class="attach-card"><span>01</span><b>Import</b><small>从 markstream-vue 引入 MarkdownRender。</small></article>
-              <article class="attach-card"><span>02</span><b>Bind content</b><small>把 stream 结果绑定到 :content。</small></article>
-              <article class="attach-card"><span>03</span><b>Signal final</b><small>用 :final 告诉组件何时收敛为稳定文档。</small></article>
+              <article class="attach-card"><span>01</span><b>引入组件</b><small>从 markstream-vue 引入 MarkdownRender。</small></article>
+              <article class="attach-card"><span>02</span><b>绑定输出内容</b><small>把模型输出绑定到 :content。</small></article>
+              <article class="attach-card"><span>03</span><b>标记输出完成</b><small>用 :final 告诉组件内容已经输出完成。</small></article>
             </section>
             <div class="attach-quickstart-demo">
               <span class="attach-quickstart-demo-label">效果预览</span>
@@ -1318,7 +1322,7 @@ onBeforeUnmount(() => {
           <small class="attach-benchmark-env">{{ current.benchmarkEnv }}</small>
           <section class="attach-parser-summary">
             <div class="attach-parser-hero">
-              <span>200K chars · full render API</span>
+              <span>即使完整渲染 20 万字符</span>
               <b>0.70<em>ms</em></b>
               <small>render 0.7035ms · renderAsync 0.6998ms</small>
             </div>
@@ -1333,10 +1337,10 @@ onBeforeUnmount(() => {
           <section class="attach-parser-race">
             <div class="attach-parser-race-head">
               <div>
-                <span>200K RENDER API</span>
-                <b>6 IMPLEMENTATIONS</b>
+                <span>20 万字符 · 完整渲染</span>
+                <b>6 种实现</b>
               </div>
-              <small>RELATIVE TIME · LOG SCALE</small>
+              <small>相对耗时 · 对数刻度</small>
             </div>
             <div class="attach-parser-race-rows">
               <article v-for="row in parserEcosystemRows" :key="row.name" :class="row.tone">
@@ -1351,11 +1355,11 @@ onBeforeUnmount(() => {
               </article>
             </div>
             <div class="attach-parser-race-foot">
-              <span>baseline · markdown-it-ts.render</span>
-              <span>bar length uses log scale</span>
+              <span>基准 · markdown-it-ts.render</span>
+              <span>条形长度使用对数刻度</span>
             </div>
           </section>
-          <small class="attach-source wide">Source: public/parser-performance-evidence.json · markdown-it-ts perf:generate snapshot bc174e2 · full render API = parse + HTML output · measured 2026-07-17.</small>
+          <small class="attach-source wide">数据来源：public/parser-performance-evidence.json · markdown-it-ts perf:generate · 完整渲染包含解析和 HTML 输出 · 2026-07-17</small>
         </div>
 
         <div v-else-if="current.kind === 'compare'" class="attach-compare-layout">
@@ -1421,12 +1425,12 @@ onBeforeUnmount(() => {
           <section class="attach-budget attach-card">
             <span>FRAME BUDGET</span>
             <b>16.7ms</b>
-            <small>60fps 下每帧可用预算不是给 Markdown 独占的。</small>
+            <small>每帧的时间还要留给滚动、输入和页面绘制。</small>
           </section>
           <section class="attach-three-cards">
-            <article class="attach-card"><span>Worker / SSR</span><b>nodes JSON</b><small>把解析结果变成可传输结构。</small></article>
-            <article class="attach-card"><span>Viewport</span><b>220 live nodes</b><small>默认模式限制长文 DOM 活跃规模。</small></article>
-            <article class="attach-card"><span>Batch</span><b>16 / 8ms / 4ms</b><small>按交互需求调整批量和延迟。</small></article>
+            <article class="attach-card"><span>Worker / SSR</span><b>解析结果可传输</b><small>可以在 Worker 或 SSR 中处理后传回页面。</small></article>
+            <article class="attach-card"><span>Viewport</span><b>220 个活跃节点</b><small>控制长文页面中的 DOM 数量。</small></article>
+            <article class="attach-card"><span>Batch</span><b>16 个节点 · 8ms · 4ms</b><small>每批节点数 · 批次间隔 · 每批耗时上限</small></article>
           </section>
         </div>
 
@@ -1436,27 +1440,27 @@ onBeforeUnmount(() => {
             <pre class="attach-preview" v-html="current.previewHtml"></pre>
           </div>
           <section class="attach-chip-cloud">
-            <b>content</b><b>thinking</b><b>tool-call</b><b>tool-result</b><b>component</b><b>citation</b>
+            <b>paragraph / list</b><b>code / table</b><b>thinking</b><b>tool-call</b><b>tool-result</b><b>component</b>
           </section>
-          <p class="attach-takeaway">Markdown 在 AI UI 里更像一个协议层：文本、状态、工具结果和业务组件可以一起流动。</p>
+          <p class="attach-takeaway">同一条输出流可以同时包含常规 Markdown、工具状态和业务组件。</p>
         </div>
 
         <div v-else-if="current.kind === 'api'" class="attach-api-layout">
           <pre class="attach-code" v-html="current.codeHtml"></pre>
           <section class="attach-step-list">
-            <article class="attach-card"><span>content</span><b>接收 stream 结果</b></article>
-            <article class="attach-card"><span>final</span><b>结束后收敛稳定文档</b></article>
+            <article class="attach-card"><span>content</span><b>接收持续输出内容</b></article>
+            <article class="attach-card"><span>final</span><b>标记内容已经输出完成</b></article>
             <article class="attach-card"><span>custom tags</span><b>把标签映射为 Vue 组件</b></article>
-            <article class="attach-card"><span>batch</span><b>用参数控制主线程预算</b></article>
+            <article class="attach-card"><span>batch</span><b>将较大的渲染分批执行</b></article>
           </section>
         </div>
 
         <div v-else-if="current.kind === 'perf'" class="attach-perf-layout">
           <small class="attach-benchmark-env">{{ current.benchmarkEnv }}</small>
           <section class="attach-stress-hero attach-card">
-            <span>HEAVY BLOCK STRESS</span>
-            <b>5.5×</b>
-            <small>diff code fence scripting: 270ms → 50ms</small>
+            <span>DIFF CODE FENCE</span>
+            <b>81%</b>
+            <small>脚本执行耗时：270ms → 50ms</small>
           </section>
           <section class="attach-stress-grid">
             <article v-for="row in stressEvidence" :key="row[0]" class="attach-stress-card">
@@ -1473,7 +1477,7 @@ onBeforeUnmount(() => {
               <b>{{ block[1] }}</b>
             </article>
           </section>
-          <small class="attach-source wide">Timing measured 2026-07-17 from public/streaming-performance-evidence.json · markstream-vue@1.0.7-beta.3 · stream-markdown-parser@1.1.3 · 119 chunks/case · TypeScript, diff, and Mermaid passed; the repeated table correctness gate failed.</small>
+          <small class="attach-source wide">数据来源：public/streaming-performance-evidence.json · 2026-07-17 · 每项 119 次增量更新 · TypeScript、diff 和 Mermaid 通过；重复表格的正确性检查未通过，因此不计入结果。</small>
         </div>
 
         <div v-else-if="current.kind === 'playbook'" class="attach-playbook-layout">
@@ -1485,9 +1489,21 @@ onBeforeUnmount(() => {
 
         <div v-else-if="current.kind === 'ecosystem'" class="attach-ecosystem-layout">
           <section class="attach-card"><span>markdown-it / Shiki</span><b>完成态文档渲染</b><small>适合静态 Markdown 和代码高亮。</small></section>
-          <section class="attach-card accent"><span>markdown-it-ts</span><b>高吞吐 parser layer</b><small>给大文本和增量场景打基础。</small></section>
-          <section class="attach-card accent"><span>markstream-vue</span><b>Vue streaming renderer</b><small>把 parser token 变成稳定 UI 更新。</small></section>
-          <section class="attach-card"><span>业务组件</span><b>Tool / Chart / Citation</b><small>让 AI 输出进入产品界面。</small></section>
+          <section class="attach-card accent"><span>stream parser</span><b>可独立使用的解析层</b><small>基于 markdown-it-ts，为 Web、TUI 等界面提供结构化结果。</small></section>
+          <section class="attach-card accent"><span>markstream-vue</span><b>Vue 流式渲染</b><small>把解析结果持续更新成稳定界面。</small></section>
+          <section class="attach-card"><span>业务组件</span><b>工具 / 图表 / 自定义界面</b><small>呈现工具结果、图表和交互组件。</small></section>
+          <section class="attach-card accent attach-framework-strip">
+            <div>
+              <span>FRAMEWORK RENDERERS</span>
+              <b>共享同一套流式 parser</b>
+              <small>不同框架接入各自的渲染层。</small>
+            </div>
+            <div class="attach-framework-list">
+              <strong>markstream-react</strong>
+              <strong>markstream-angular</strong>
+              <strong>markstream-svelte</strong>
+            </div>
+          </section>
         </div>
 
         <div v-else-if="current.kind === 'adoption-network'" class="attach-adoption-network">
@@ -1517,7 +1533,7 @@ onBeforeUnmount(() => {
               <div>
                 <span>STREAMING RENDERER</span>
                 <b>markstream-vue</b>
-                <small><strong>126</strong> PUBLIC REPOS</small>
+                <small><strong>126</strong> 个公开仓库</small>
               </div>
             </article>
 
@@ -1536,7 +1552,7 @@ onBeforeUnmount(() => {
               </div>
             </article>
           </div>
-          <small class="attach-adoption-source">GitHub Code Search snapshot · 2026-07-17 · 126 public repos / 139 package.json hits · DimAgent via official site · dependency evidence ≠ production traffic</small>
+          <small class="attach-adoption-source">GitHub Code Search · 2026-07-17 · 126 个公开仓库 / 139 处 package.json 记录 · DimAgent 来自官网 · 依赖记录不等于生产流量</small>
         </div>
 
         <div v-else-if="current.kind === 'thanks'" class="attach-thanks-layout">
