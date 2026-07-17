@@ -1100,7 +1100,7 @@ onBeforeUnmount(() => {
 
         <div v-if="current.kind === 'about'" class="attach-about-layout">
           <section class="attach-profile attach-card">
-            <img class="attach-avatar" src="/simon-avatar-handdrawn.png" alt="Simon-He95 hand-drawn avatar">
+            <img class="attach-avatar" src="/simon-avatar-handdrawn.jpg" alt="Simon-He95 hand-drawn avatar">
             <h2>Simon He</h2>
             <p>Simon-He95 · Shanghai</p>
             <b>Vue / DX / AI UI / Streaming Rendering</b>
